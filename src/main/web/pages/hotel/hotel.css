@@ -1,0 +1,46 @@
+.layui-tab{
+    width: 95%;
+    margin: auto;
+}
+.layui-card{
+    border: 2px solid #4E5465;
+    width: 46%;
+    margin: 20px;
+    float: left;
+}
+.hotelMessage{
+    border: 2px solid #4E5465;
+    width: 80%;
+    margin: auto;
+}
+.signUpper{
+    text-align: center;
+    font-size: 25px;
+    color: #4E5465;
+}
+.hotelForm{
+     width: 80%;
+     margin:30px auto;
+ }
+.customer{
+    font-size: 16px;
+    margin-left: 15px;
+    margin-top: 10px;
+}
+.eachReserve{
+    border: 2px solid #4E5465;
+    width: 46%;
+    margin: 20px;
+    float: left;
+}
+
+@media screen and (max-width: 1200px) {
+    .eachReserve{
+        width: 40% !important;
+    }
+}
+@media screen and (max-width: 900px) {
+    .eachReserve{
+        width: 92% !important;
+    }
+}

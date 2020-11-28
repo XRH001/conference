@@ -1,0 +1,33 @@
+.detailContainer{
+    margin: 20px;
+    border:2px solid #4E5465;
+    border-radius: 5px;
+}
+.titleP{
+    font-size: 35px;
+    color: #4E5465;
+    text-align: center;
+}
+.baseInfo{
+    border-right: #999999 solid 2px;
+    padding: 15px;
+}
+.relateMe{
+    padding: 15px;
+}
+.hotelManage{
+    margin: auto;
+}
+.smallTitleP{
+    text-align: center;
+    margin: 10px;
+    font-size: 20px;
+}
+.createMeeting{
+    width: 60%;
+    margin: auto;
+    padding: 20px;
+}
+.beforeCheckBox{
+    height: 30px;
+}
