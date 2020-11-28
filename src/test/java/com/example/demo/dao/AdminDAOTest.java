@@ -17,7 +17,6 @@ public class AdminDAOTest {
     @Test
     public void test(){
         System.out.println(adminDAO.findAll());
-        System.out.println();
 
     }
 
