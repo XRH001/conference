@@ -2,7 +2,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: 1234
+    password: 000622m4a1
     url: jdbc:mysql://119.3.235.179:3306/conferencemanagersystem?serverTimezone=GMT%2b8&useSSL=false
 
 
