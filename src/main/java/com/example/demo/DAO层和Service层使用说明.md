@@ -18,7 +18,7 @@ ssh链接:git@gitee.com:li-jiaxv/conference-manager-system.git
 
 5. ​     **utils**
 
-6. ​     **enumValue**
+6. ​     **EnumValue**
 
    
 
