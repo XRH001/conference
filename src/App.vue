@@ -1,28 +1,88 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div>
+      <ul class="layui-nav layui-row ">
+        <span>
+        <li class="layui-nav-item "><router-link to="/index" :active-class="thisActive" >首页</router-link></li>
+        <li class="layui-nav-item  "><router-link to="/search" :active-class="thisActive">查询</router-link></li><!--{{$store.state.user.userId}}-->
+        <li class="layui-nav-item  layui-col-lg-offset7"><router-link to="/About" :active-class="thisActive">关于</router-link></li>
+          </span>
+
+        <span v-if="$store.state.haveLogin">
+        <li class="layui-nav-item "><router-link to="/my-message" :active-class="thisActive">我的消息</router-link></li>
+        <li class="layui-nav-item ">
+          <router-link to="/personalInfo" :active-class="thisActive">
+            <img :src="$store.getters.headPath" class="smallHead" ><!--$store.getters.headPath-->
+            <span>{{$store.state.user.username}}</span>
+          </router-link></li>
+        <li class="layui-nav-item "><a @click="exitCount()">退出登录</a></li>
+          </span>
+
+        <span v-else>
+          <li class="layui-nav-item "><router-link to="/login" :active-class="thisActive">登录</router-link></li>
+          <li class="layui-nav-item "><router-link to="/register" :active-class="thisActive">注册</router-link></li>
+        </span>
+      </ul>
+    </div>
+
+    <keep-alive exclude="detail,create,login"><router-view></router-view></keep-alive>
+
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  name:"App",
+  data(){
+    return {
+      show:true,
+      thisActive:'underLine'
+    }
+  },
+  methods:{
+    //退出登录
+    exitCount(){
+      let flag=confirm("确定退出登录？");
+      if(flag){
+        this.$store.commit("exitCount");
+        this.$router.push("/index");
+      }
+    },
+    //刷新存保存数据
+    saveLocal(){
+      //   在页面加载时读取sessionStorage里的状态信息
+      if ( sessionStorage.getItem('state') ) {
+        this.$store.replaceState( Object.assign( {}, this.$store.state,
+                JSON.parse(sessionStorage.getItem('state') ) ) )
+      }
+      /*localStorage.getItem('state') && this.$store.replaceState(JSON.parse(localStorage.getItem('state')));*/
+      //   页面刷新时将state数据存储到sessionStorage中
+      window.addEventListener('beforeunload',()=>{
+        sessionStorage.setItem('state',JSON.stringify(this.$store.state) )
+      })
+    }
+  },
+  created() {
+    //刷新页面保持登录状态
+    this.saveLocal();
+
+
   }
 }
 </script>
-
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.underLine{
+  border-bottom: 5px solid orange;
 }
+.container{
+  margin: 15px ;
+  border: #999999;
+  border-radius: 5px;
+
+}
+  .smallHead{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
 </style>
