@@ -18,7 +18,6 @@
                 <tr>
                     <td>平台ID</td><td>{{$store.state.user.userId}}</td>
                 </tr>
-
             </tbody>
         </table>
 

@@ -95,11 +95,11 @@
             <!--                    3．填写参会的往返时间、住宿要求及其它情况-->
             <tbody>
             <tr>
-                <td colspan="2"><h2>{{$store.getters.headPath}}</h2></td>
+                <td colspan="2"><h2>{{$store.state.user.username}}</h2></td>
             </tr>
             <tr>
-                <td>我的邮箱</td>
-                <td>{{$store.state.userEmail}}</td>
+                <td>我的联系方式</td>
+                <td>{{$store.state.user.userEmail}}</td>
             </tr>
             <tr>
                 <td>往返时间</td>
@@ -124,8 +124,7 @@
             return {
                 memberShow:false,
                 managerShow:false,
-                meetingId:"",
-                userId:""
+                meetingId:""
             }
         },
         computed:{
@@ -144,7 +143,6 @@
         },
         created() {
             this.meetingId=this.$route.query.meetingId;
-            this.userId=this.$route.query.userId;
         }
     }
 </script>

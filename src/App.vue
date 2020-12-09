@@ -4,7 +4,7 @@
       <ul class="layui-nav layui-row ">
         <span>
         <li class="layui-nav-item "><router-link to="/index" :active-class="thisActive" >首页</router-link></li>
-        <li class="layui-nav-item  "><router-link to="/search" :active-class="thisActive">查询</router-link></li><!--{{$store.state.user.userId}}-->
+        <li class="layui-nav-item  "><router-link to="/search" :active-class="thisActive">查询{{$store.state.onTime}}</router-link></li><!--{{$store.state.user.userId}}-->
         <li class="layui-nav-item  layui-col-lg-offset7"><router-link to="/About" :active-class="thisActive">关于</router-link></li>
           </span>
 
@@ -20,7 +20,7 @@
 
         <span v-else>
           <li class="layui-nav-item "><router-link to="/login" :active-class="thisActive">登录</router-link></li>
-          <li class="layui-nav-item "><router-link to="/register" :active-class="thisActive">注册</router-link></li>
+          <li class="layui-nav-item "><router-link to="/Register" :active-class="thisActive">注册</router-link></li>
         </span>
       </ul>
     </div>
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+
 export default {
   name:"App",
   data(){
@@ -65,12 +66,13 @@ export default {
   created() {
     //刷新页面保持登录状态
     this.saveLocal();
-
+    this.$store.dispatch("computeTime");
 
   }
 }
 </script>
 <style>
+  @import "./assets/css/normalize.css";
 .underLine{
   border-bottom: 5px solid orange;
 }

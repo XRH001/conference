@@ -1,13 +1,13 @@
 <template>
     <div class="container layui-row " >
-        <swiper></swiper>
+        <Swiper></Swiper>
         <div class="layui-col-lg-offset1 layui-col-lg4 layui-col-md4 ">
             <button class="layui-btn menuButton" onclick="menuClick()"><span class="layui-icon layui-icon-spread-left"></span></button>
             <div class="layui-card leftCard layui-bg-cyan">
                 <div class="cardTitle">tips</div>
                 <div class="layui-card-body">
-                    卡片式面板面板通常用于非白色背景色的主体内<br>
-                    从而映衬出边框投影<br>
+                    账号身份在登录后自动检测，可在个人信息中修改<br>
+                    系统管理员可通过隐藏按键进行登录<br>
                     扫描二维码体验小程序版<br>
                     <img class="secondImg" src="../assets/miniapp.png" >
                 </div>
@@ -30,13 +30,13 @@
                         <input type="text" name="password" required v-model.lazy="password" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
                     </div>
                 </div><br>
-                <p class="warming" :class="{'displayNone':right}">账号或密码错误，请重新输入</p>
+                <p class="warming" :class="{'displayNone':right}">{{warming}}</p>
                 <br><br>
                 <div class="layui-form-item">
                     <div class="layui-input-block layui-col-space30">
                         <input type="button" class="layui-btn"  @click="loginClick()" value="登录">
-                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                        <a class="layui-btn" href="pages/register/register.html">注册</a>
+                        <button class="layui-btn layui-btn-primary" @click="clearClick()">重置</button>
+                        <a class="layui-btn" :href="$store.state.url+'pages/register/register.html'">注册</a>
                     </div>
                 </div>
             </div>
@@ -45,16 +45,19 @@
 </template>
 
 <script>
-    import swiper from "../components/swiper";
+    import Swiper from "../components/Swiper";/*
+    import SETUSER from "../store/mutations-types"
+    import SETMEETINGS from "../store/mutations-types"*/
     export default {
         name: "login",
         components:{
-            swiper
+            Swiper
         },data(){
             return {
                 email:"",
                 password:"",
-                right:true
+                right:true,
+                warming:"账号或密码错误，请重新输入"
             }
         },
         methods:{
@@ -83,8 +86,18 @@
                             }
                         });
                     }
+                }).catch( () =>{
+                    this.right=false;
+                    this.warming="网络请求异常"
                 });
+            },
+            clearClick(){
+                this.email="";
+                this.password="";
             }
+        },
+        created() {
+            this.email=this.$route.query.email;
         }
     }
 </script>
@@ -93,6 +106,8 @@
     .warming{
         font-size: 20px;
         color:orangered;
+        margin:auto ;
+        text-align: center;
     }
     .displayNone{
         display: none;
@@ -117,6 +132,7 @@
     }
 
     .leftCard{
+        padding: 20px;
         font-size: 25px;
         font-family: '楷体';
         color:#007DDB;

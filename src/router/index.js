@@ -6,6 +6,7 @@ const personalInfo=() => import('../views/personalInfo' ); // personalInfo from
 const create=() => import('../views/create');
 const login= ()=>import('../views/login');
 const About= () => import('../views/About.vue');
+const Register= () => import('../views/Register');
 Vue.use(VueRouter);
 
 const routes = [
@@ -42,6 +43,11 @@ const routes = [
     path:'/login',
     name:'login',
     component:login
+  },
+  {
+    path:'/Register',
+    name:'Register',
+    component:Register
   }
 ];
 
