@@ -25,7 +25,7 @@
       </ul>
     </div>
 
-    <keep-alive exclude="detail,create,login"><router-view></router-view></keep-alive>
+    <keep-alive exclude="detail,create,login,Register"><router-view></router-view></keep-alive>
 
   </div>
 </template>

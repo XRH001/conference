@@ -5,7 +5,7 @@
                 <span v-if="meetingItem.show" class="layui-icon layui-icon-down"></span>
                 <span v-else class="layui-icon layui-icon-right"></span>
                 {{meetingItem.name}}
-                <span class="meetingState">{{meetingItem.time}}</span></h2>
+                <span class="meetingState">{{meetingItem.state}}</span></h2>
             <div class="layui-colla-content " :class="{'layui-show':meetingItem.show}"><!--layui-show-->
                     <router-link class="layui-btn detailButton" :to="{path:routerTo,query:{meetingId:meetingItem.id}}">
                         <i class="layui-icon layui-icon-align-left"> </i>详细信息</router-link>

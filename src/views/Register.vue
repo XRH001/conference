@@ -27,7 +27,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label" for="password2">确认密码</label>
                         <div class="layui-input-inline">
-                            <input type="password" id="password2" v-model.lazy="sendData.password2" @blur="password2Check" required lay-verify="required" placeholder="请再次确认密码(必填)" autocomplete="off" class="layui-input">
+                            <input type="password" id="password2" v-model.lazy="password2" @blur="password2Check" required lay-verify="required" placeholder="请再次确认密码(必填)" autocomplete="off" class="layui-input">
                             <span :class="{'displayNone':password2Warming}" class="warming">两次输入不同</span>
                         </div>
                         <!--                <div class="layui-form-mid layui-word-aux">辅助文字</div>-->
@@ -47,6 +47,17 @@
                         </div>
                     </div>
                     <div class="layui-form-item">
+                        <label class="layui-form-label">账户类别</label>
+                        <div class="layui-input-block sexSelect">
+                            <input  class="radioSex" type="radio" v-model="sendData.identity" value="common"  checked>
+                            <span class="layui-icon layui-icon-user">一般账户</span>
+                            <input class="radioSex" type="radio" v-model="sendData.identity" value="driver"  >
+                            <span class="iconfont icon-car">司机</span>
+                            <input class="radioSex" type="radio" v-model="sendData.identity" value="hotel"  >
+                            <span class="iconfont icon-Hotel">酒店</span>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
                         <label class="layui-form-label">邮箱</label>
                         <div class="layui-input-block">
                             <input type="text" id="email" v-model.lazy="sendData.email" class="layui-input" required placeholder="请输入正确邮箱账号(必填)">
@@ -57,12 +68,14 @@
                     <div class="layui-form-item layui-form-text">
                         <label class="layui-form-label">头像</label>
                         <div class="layui-input-block layui-upload">
-                            <button type="button" class="layui-btn" id="headImg">
+                            <button class="layui-btn" @click="fileClick" id="headImg">
+                                <input type="file" id="headFileInput" @change="headFileChange(this)" class="displayNone">
                                 <i class="layui-icon">&#xe67c;</i>上传图片
                             </button>
                             <div class="layui-upload-list">
-                                <img class="layui-upload-img" id="preview" src="../assets/defaultHead.png">
-                                <p id="demoText"></p>
+                                <img class="layui-upload-img" id="preview" :src="headSrc">
+<!--                                <img class="layui-upload-img"  src="../assets/defaultHead.png" :src="headSrc">-->
+<!--                                <p id="demoText">{{headSrc}}</p>-->
                             </div>
                         </div>
                     </div>
@@ -78,7 +91,7 @@
             </div>
             <div class="layui-col-lg2 layui-col-md2 setFloat">
                 <p>扫码使用小程序</p>
-                <img src="../assets/miniapp.png">
+                <img  src="../assets/miniapp.png">
             </div>
 
             <br><br>
@@ -91,18 +104,21 @@
     import Swiper from "../components/Swiper";
     import EmailCode from "../components/EmailCode";
     import Popup from "../components/Popup";
+    import ('../assets/css/fonts.css');
     export default {
         name: "register",
         data(){
             return {
                 emailCode:"",
                 codeInput:"",
+                headSrc:require("../assets/defaultHead.png"),
+                password2:'',
                 sendData:{
                     username:'',
                     password:'',
-                    password2:'',
                     email:'',
                     sex:'male',
+                    identity:'common',
                     birthday:""
                 },
                 nameWarming:true,
@@ -131,7 +147,7 @@
                 return this.passwordWarming
             },
             password2Check(){
-              this.password2Warming=this.sendData.password===this.sendData.password2;
+              this.password2Warming=this.sendData.password===this.password2;
               return this.password2Warming
             },
             registerSend(){
@@ -171,6 +187,19 @@
                         birthday:""
                 };
                 this.codeInput='';
+                this.headSrc=require("../assets/defaultHead.png");
+            },
+            fileClick(){
+                document.getElementById("headFileInput").click();
+            },
+            headFileChange(){
+                let file=document.getElementById("headFileInput").files[0];
+                if(!/image\/\w+/.test(file.type)){
+                    alert("请确保文件为图像类型");
+                    return;
+                }
+
+                this.headSrc=URL.createObjectURL(file);//获取图片URL
             }
         },
         components: {Popup, EmailCode, Swiper}

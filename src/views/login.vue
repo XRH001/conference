@@ -41,16 +41,20 @@
                 </div>
             </div>
         </div>
+        <Popup ref="popup1" set-color="#FF832A"></Popup>
     </div>
 </template>
 
 <script>
-    import Swiper from "../components/Swiper";/*
-    import SETUSER from "../store/mutations-types"
-    import SETMEETINGS from "../store/mutations-types"*/
+    import Swiper from "../components/Swiper";
+    import Popup from "../components/Popup";
+    /*
+        import SETUSER from "../store/mutations-types"
+        import SETMEETINGS from "../store/mutations-types"*/
     export default {
         name: "login",
         components:{
+            Popup,
             Swiper
         },data(){
             return {
@@ -62,6 +66,14 @@
         },
         methods:{
             loginClick(){
+                if(!this.email){
+                    this.$refs.popup1.showMsg("请输入账号");
+                    return;
+                }
+                if(!this.password){
+                    this.$refs.popup1.showMsg("请输入密码");
+                    return;
+                }
                 this.$http.get("/UserServlet?action=loginFront",{
                     params:{
                         email:this.email,
@@ -78,9 +90,14 @@
                         //this.$store.state.user=loginJSON.user; 不建议使用
                         //  vuex中的数据发生改变时触发localStorage的存储操作
                         localStorage.setItem('state', JSON.stringify(this.$store.state));
+                        //登录状态改为true
                         this.$store.state.haveLogin=true;
+
+                        //按身份跳转
+                        let routerPath="/index";
+                        if(this.$store.state.user.identity==="common")routerPath="/index";
                         this.$router.push({
-                            path:"/index",
+                            path:routerPath,
                             query:{
                                 /*meetings:loginJSON.meetings*/
                             }
