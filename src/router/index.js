@@ -7,6 +7,9 @@ const create=() => import('../views/create');
 const login= ()=>import('../views/login');
 const About= () => import('../views/About.vue');
 const Register= () => import('../views/Register');
+const Driver= () => import('../views/Driver/Driver');
+const Hotel= () => import('../views/Hotel/Hotel');
+const Ordinary= () => import('../views/Ordinary/Ordinary');
 Vue.use(VueRouter);
 
 const routes = [
@@ -48,6 +51,21 @@ const routes = [
     path:'/Register',
     name:'Register',
     component:Register
+  },
+  {
+    path:'/Driver',
+    name:'Driver',
+    component:Driver
+  },
+  {
+    path:'/Hotel',
+    name:'Hotel',
+    component:Hotel
+  },
+  {
+    path:'/Ordinary',
+    name:'Ordinary',
+    component:Ordinary
   }
 ];
 

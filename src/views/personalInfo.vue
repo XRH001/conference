@@ -18,6 +18,9 @@
                 <tr>
                     <td>平台ID</td><td>{{$store.state.user.userId}}</td>
                 </tr>
+                <tr>
+                    <td colspan="2"><div class="headDiv"><button @click="exitCount" class="layui-btn layui-btn-danger">退出登录</button></div></td>
+                </tr>
             </tbody>
         </table>
 
@@ -29,6 +32,16 @@
         name: "personalInfo",
         computed:{
 
+        },
+        methods:{
+            //退出登录
+            exitCount(){
+                let flag=confirm("确定退出登录？");
+                if(flag){
+                    this.$store.commit("exitCount");
+                    this.$router.push("/index");
+                }
+            }
         }
     }
 </script>

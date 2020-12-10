@@ -101,10 +101,10 @@
 </template>
 
 <script>
-    import Swiper from "../components/Swiper";
-    import EmailCode from "../components/EmailCode";
+    import Swiper from "components/Swiper";
+    import EmailCode from "components/EmailCode";
     import Popup from "../components/Popup";
-    import ('../assets/css/fonts.css');
+    import ('assets/css/fonts.css');
     export default {
         name: "register",
         data(){

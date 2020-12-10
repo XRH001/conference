@@ -36,7 +36,7 @@
                     <div class="layui-input-block layui-col-space30">
                         <input type="button" class="layui-btn"  @click="loginClick()" value="登录">
                         <button class="layui-btn layui-btn-primary" @click="clearClick()">重置</button>
-                        <a class="layui-btn" :href="$store.state.url+'pages/register/register.html'">注册</a>
+                        <router-link to="/Register" class="layui-btn layui-btn-normal">注册</router-link>
                     </div>
                 </div>
             </div>
@@ -46,8 +46,8 @@
 </template>
 
 <script>
-    import Swiper from "../components/Swiper";
-    import Popup from "../components/Popup";
+    import Swiper from "components/Swiper";
+    import Popup from "components/Popup";
     /*
         import SETUSER from "../store/mutations-types"
         import SETMEETINGS from "../store/mutations-types"*/
@@ -92,12 +92,8 @@
                         localStorage.setItem('state', JSON.stringify(this.$store.state));
                         //登录状态改为true
                         this.$store.state.haveLogin=true;
-
-                        //按身份跳转
-                        let routerPath="/index";
-                        if(this.$store.state.user.identity==="common")routerPath="/index";
                         this.$router.push({
-                            path:routerPath,
+                            path:"/Ordinary",
                             query:{
                                 /*meetings:loginJSON.meetings*/
                             }

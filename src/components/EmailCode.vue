@@ -7,9 +7,11 @@
                        @blur="$emit('getCodeInput',codeInput)" required  class="layui-input checkCodeInput">
             </slot>
         </div>
-        <div class=" layui-input-inline">
-            <button @click="getCode()" :disabled="disable" :class="{'bgGray':disable}" class="layui-btn layui-btn-normal getCodeButton">获取验证码{{secondShow}}</button>
+        <div class=" layui-input-inline"><div class="layui-icon layui-icon-refresh-1 rotateSpan" :class="{'displayNone':!disable}"></div>
+            <button @click="getCode()" :disabled="disable" :class="{'bgGray':disable}" class="layui-btn layui-btn-normal getCodeButton">
+                获取验证码{{secondShow}}</button>
         </div>
+
         <!--弹框-->
         <Popup ref="popup1" ></Popup>
     </div>
@@ -91,7 +93,60 @@
 </script>
 
 <style scoped>
+    .displayNone{
+        display: none;
+    }
 .bgGray{
     background-color: darkgray;
+}
+    .rotateSpan{
+        color: #a2ff99;
+        width: 16px;
+        font-size: 16px;
+        padding: 0;
+        margin: 0;
+        float: left;
+        position: relative;
+        left: 20px;
+        top:8px;
+        -webkit-transition-property: -webkit-transform;
+
+        -webkit-transition-duration: 1s;
+
+        -moz-transition-property: -moz-transform;
+
+        -moz-transition-duration: 1s;
+
+        -webkit-animation: rotate 3s linear infinite;
+
+        -moz-animation: rotate 3s linear infinite;
+
+        -o-animation: rotate 3s linear infinite;
+
+        animation: rotate 3s linear infinite;
+
+    }
+@-webkit-keyframes rotate{from{-webkit-transform: rotate(0deg)}
+
+    to{-webkit-transform: rotate(360deg)}
+
+}
+
+@-moz-keyframes rotate{from{-moz-transform: rotate(0deg)}
+
+    to{-moz-transform: rotate(359deg)}
+
+}
+
+@-o-keyframes rotate{from{-o-transform: rotate(0deg)}
+
+    to{-o-transform: rotate(359deg)}
+
+}
+
+@keyframes rotate{from{transform: rotate(0deg)}
+
+    to{transform: rotate(359deg)}
+
 }
 </style>
