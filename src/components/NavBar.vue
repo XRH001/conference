@@ -22,7 +22,7 @@
         </span>
         </ul>
 
-        <keep-alive exclude="detail,create,login,Register"><router-view></router-view></keep-alive>
+        <keep-alive exclude="index,detail,create,login,Register"><router-view></router-view></keep-alive>
     </div>
 </template>
 

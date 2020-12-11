@@ -2,8 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from "./store"
-import axios from "axios"
-
+import {request} from "./network/request"
 
 require("layui-src/dist/css/layui.css");
 
@@ -12,11 +11,12 @@ new Vue({
   router,store,
   render: h => h(App)
 }).$mount('#app');
-Vue.prototype.$http = axios;
-
-/*.create({
-  baseURL:"http://localhost:8080/mine/",
-  timeout:5000
-});*/
-
+Vue.prototype.$request=request;
+request({
+  url:"swipeServlet?action=getImgPathJson"}
+).then(res =>{
+  console.log(res);
+}).catch(err =>{
+  console.log(err);
+});
 

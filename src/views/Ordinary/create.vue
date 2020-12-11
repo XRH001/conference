@@ -35,7 +35,7 @@
 </template>
 
 <script>
-    import EmailCode from "../components/EmailCode";
+    import EmailCode from "components/EmailCode";
     export default {
         name: "create",
         components: {EmailCode}

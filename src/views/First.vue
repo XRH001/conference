@@ -1,5 +1,7 @@
 <template>
-    
+    <div>
+        <h1>这里是花里胡哨的未登录时首页</h1>
+    </div>
 </template>
 
 <script>

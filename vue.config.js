@@ -8,7 +8,14 @@ module.exports = {
         }
     },
     devServer: {
-        proxy: "http://localhost:8080/mine/",
-        port:8088
-            }
-        };
+        proxy: "http://localhost:8080/mine",
+        port: 8088
+    } };
+/*
+
+{'/test':{
+    target:"http://localhost:8080/",
+        changeOrigin:true,
+        pathRewrite:{'/test':'/mine'}
+}
+}*/

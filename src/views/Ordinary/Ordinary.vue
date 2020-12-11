@@ -12,9 +12,13 @@
                 </ul>
                 <div class="layui-tab-content">
                     <div :class="{'layui-show':joinDiv.show===1}" class="layui-tab-item " >
+                        <p class="emptyWarming" v-if="joinDiv.newMeetings.length===0">您的未结束会议为空，可立即
+                            <i @click="joinDiv.show=3">查找新的会议</i>加入哦</p>
                         <meeting-list :meetings="joinDiv.newMeetings"></meeting-list>
                     </div>
                     <div :class="{'layui-show':joinDiv.show===2}" class="layui-tab-item">
+                        <p class="emptyWarming" v-if="joinDiv.overMeetings.length===0">您的已结束会议为空，可立即
+                            <i @click="joinDiv.show=3">查找新的会议</i>加入哦</p>
                         <meeting-list :meetings="joinDiv.overMeetings"></meeting-list>
                     </div>
                     <div :class="{'layui-show':joinDiv.show===3}" class="layui-tab-item layui-row">
@@ -27,6 +31,8 @@
                         <meeting-list :meetings="joinDiv.searchMeetings"></meeting-list>
                     </div>
                     <div :class="{'layui-show':joinDiv.show===4}" class="layui-tab-item">
+                        <p class="emptyWarming" v-if="joinDiv.applyMeetings.length===0">您所申请的会议为空，可立即
+                            <i @click="joinDiv.show=3">查找新的会议</i>加入哦</p>
                         <meeting-list :meetings="joinDiv.applyMeetings"></meeting-list>
                     </div>
                 </div>
@@ -43,9 +49,13 @@
                 </ul>
                 <div class="layui-tab-content">
                     <div :class="{'layui-show':managerDiv.show===1}" class="layui-tab-item">
+                        <p class="emptyWarming" v-if="managerDiv.newMeetings.length===0">您的所管理的未结束会议为空，可立即
+                            <i @click="managerDiv.show=3">创建新的会议</i></p>
                         <meeting-list :meetings="joinDiv.overMeetings"></meeting-list>
                     </div>
                     <div :class="{'layui-show':managerDiv.show===2}" class="layui-tab-item">
+                        <p class="emptyWarming" v-if="managerDiv.newMeetings.length===0">您的所管理的已结束会议为空，可立即
+                            <i @click="managerDiv.show=3">创建新的会议</i></p>
                         <meeting-list :meetings="joinDiv.applyMeetings" router-to="/manage"></meeting-list>
                     </div>
                     <div :class="{'layui-show':managerDiv.show===3}" class="layui-tab-item ">
@@ -101,6 +111,8 @@
                     show:1
                 },
                 managerDiv:{
+                    newMeetings:[],
+                    overMeetings:[],
                     show:1
                 }
             }
@@ -109,7 +121,26 @@
             restart(){
                 alert("这个时候可以选择曾经创建的会议填充到下个页面");
                 this.$router.push("/create");
+            },
+            setJoinMeetings(){
+                let join=this.$store.state.meetings.join;
+                //console.log(this.joinDiv);
+                this.joinDiv.newMeetings=join.newMeetings;
+                this.joinDiv.overMeetings=join.overMeetings;
+                this.joinDiv.applyMeetings=join.applyMeetings;
+                if(join.newMeetings.length===0)this.joinDiv.show=3;
+            },
+            setManageMeetings(){
+                let manage=this.$store.state.meetings.manage;
+                this.managerDiv.newMeetings=manage.newMeetings;
+                this.managerDiv.overMeetings=manage.overMeetings;
+                if(manage.newMeetings.length===0)this.managerDiv.show=3;
             }
+        },
+        created() {
+            this.setJoinMeetings();
+            this.setManageMeetings();
+
         }
     }
 
@@ -174,7 +205,14 @@
     .buttonBack:hover{
         color: #c1c1c1 !important;
     }
-
+    .emptyWarming{
+        width: 100%;
+        font-size: 20px;
+        color: #464955;
+    }
+    .emptyWarming > i{
+        color: #007ddb;
+    }
 
     /*阿里矢量图标*/
     @font-face {font-family: "iconfont";

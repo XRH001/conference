@@ -3,13 +3,14 @@ import VueRouter from 'vue-router'
 import index from '../views/index'
 const detail=() =>import('../views/detail');
 const personalInfo=() => import('../views/personalInfo' ); // personalInfo from
-const create=() => import('../views/create');
+const create=() => import('../views/Ordinary/create');
 const login= ()=>import('../views/login');
 const About= () => import('../views/About.vue');
 const Register= () => import('../views/Register');
 const Driver= () => import('../views/Driver/Driver');
 const Hotel= () => import('../views/Hotel/Hotel');
 const Ordinary= () => import('../views/Ordinary/Ordinary');
+const First= () => import('../views/First');
 Vue.use(VueRouter);
 
 const routes = [
@@ -66,6 +67,11 @@ const routes = [
     path:'/Ordinary',
     name:'Ordinary',
     component:Ordinary
+  },
+  {
+    path:'/First',
+    name:'First',
+    component:First
   }
 ];
 

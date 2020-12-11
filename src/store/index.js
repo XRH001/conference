@@ -12,14 +12,24 @@ const moduleA={
     mutations:{},
     actions:{},
     getters:{}
-}
+};
 //创建store
 const store= new Vuex.Store({
     state:{
         haveLogin:false,
         url:"http://localhost:8080/mine/",
         user:{},
-        meetings:{},
+        meetings:{
+            join:{
+                newMeetings:[],
+                overMeetings:[],
+                applyMeetings:[]
+            },
+            manage:{
+                newMeetings:[],
+                overMeetings:[]
+            }
+        },
         onTime:0
         /*userId:"3213",
         username:"混元",

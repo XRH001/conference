@@ -2,8 +2,8 @@
     <div class="container layui-row " >
         <Swiper></Swiper>
         <div class="layui-col-lg-offset1 layui-col-lg4 layui-col-md4 ">
-            <button class="layui-btn menuButton" onclick="menuClick()"><span class="layui-icon layui-icon-spread-left"></span></button>
-            <div class="layui-card leftCard layui-bg-cyan">
+            <button class="layui-btn menuButton" @click="tipsShow=!tipsShow"><span class="layui-icon layui-icon-spread-left"></span></button>
+            <div class="layui-card leftCard layui-bg-cyan" :class="{'displayBlock':tipsShow}">
                 <div class="cardTitle">tips</div>
                 <div class="layui-card-body">
                     账号身份在登录后自动检测，可在个人信息中修改<br>
@@ -61,7 +61,8 @@
                 email:"",
                 password:"",
                 right:true,
-                warming:"账号或密码错误，请重新输入"
+                warming:"账号或密码错误，请重新输入",
+                tipsShow:true
             }
         },
         methods:{
@@ -74,7 +75,7 @@
                     this.$refs.popup1.showMsg("请输入密码");
                     return;
                 }
-                this.$http.get("/UserServlet?action=loginFront",{
+                this.$request("/UserServlet?action=loginFront",{
                     params:{
                         email:this.email,
                         password:this.password
@@ -82,8 +83,9 @@
                 }).then(res => {
                     if(res.data.toString()==="")this.right=false;
                     else{
+                        console.log(res.data);
                         //获取的数据是字符串，得自己转JSON
-                        let loginJSON = eval('(' +res.data+')');
+                        let loginJSON =eval('(' +res.data+')'); //JSON.parse(res.data);
 
                         this.$store.commit("setUser",loginJSON.user);
                         this.$store.commit("setMeetings",loginJSON.meetings);
@@ -93,16 +95,16 @@
                         //登录状态改为true
                         this.$store.state.haveLogin=true;
                         this.$router.push({
-                            path:"/Ordinary",
+                            path:"/index",
                             query:{
                                 /*meetings:loginJSON.meetings*/
                             }
                         });
                     }
-                }).catch( () =>{
+                })/*.catch( () =>{
                     this.right=false;
                     this.warming="网络请求异常"
-                });
+                })*/;
             },
             clearClick(){
                 this.email="";
@@ -124,6 +126,9 @@
     }
     .displayNone{
         display: none;
+    }
+    .displayBlock{
+        display: block !important;
     }
     .container{
         margin: 0;
@@ -161,7 +166,7 @@
         display: none;
         margin-left: 9%;
     }
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width: 1200px) {
         .leftCard{
             display: none;
         }

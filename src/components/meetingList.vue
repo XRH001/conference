@@ -1,12 +1,12 @@
 <template>
     <div class="layui-collapse">
-        <div class="layui-colla-item" v-for="meetingItem in meetings" :key="meetingItem.id" >
-            <h2 class="layui-colla-title" @click="meetingItem.show=!meetingItem.show">
-                <span v-if="meetingItem.show" class="layui-icon layui-icon-down"></span>
+        <div class="layui-colla-item" v-for="(meetingItem,inx) in meetings" :key="meetingItem.id" >
+            <h2 class="layui-colla-title" @click="show.splice(inx,1,!show[inx])">
+                <span v-if="show[inx]" class="layui-icon layui-icon-down"></span>
                 <span v-else class="layui-icon layui-icon-right"></span>
                 {{meetingItem.name}}
                 <span class="meetingState">{{meetingItem.state}}</span></h2>
-            <div class="layui-colla-content " :class="{'layui-show':meetingItem.show}"><!--layui-show-->
+            <div class="layui-colla-content " :class="{'layui-show':show[inx]}"><!--layui-show-->
                     <router-link class="layui-btn detailButton" :to="{path:routerTo,query:{meetingId:meetingItem.id}}">
                         <i class="layui-icon layui-icon-align-left"> </i>详细信息</router-link>
                 <br><br>
@@ -35,6 +35,21 @@
             routerTo:{
                 type:String,
                 default:"/detail"
+            }
+        },
+        data(){
+            return {
+                show:[]
+
+            }
+        },created() {
+
+            if(this.meetings)
+            {
+                let length = this.meetings.length;
+                for(let inx; inx< length; inx++){
+                                this.show.push(false);
+                            }
             }
         }
     }
