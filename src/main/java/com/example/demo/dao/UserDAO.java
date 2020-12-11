@@ -22,9 +22,7 @@ public interface UserDAO extends JpaRepository<UserDO,Integer> {
 
     public List<UserDO> queryUserDOSByBirth(Date time);
 
-    public List<UserDO> queryUserDOSByPosition(String position);
-
-    public UserDO queryUserDOByWorkID(String workID);
+    public List<UserDO> queryUserDOSByIdentity(int identity);
 
     public UserDO queryUserDOByEmail(String email);
 

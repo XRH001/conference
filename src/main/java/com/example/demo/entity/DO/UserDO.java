@@ -44,8 +44,7 @@ public class UserDO {
     private String password;
     private int sex;
     private Date birth;
-    private String position;
-    private String workID;
+    private int identity;
     private String email;
     private String imgPath;
     private String phone;
@@ -53,15 +52,14 @@ public class UserDO {
     public UserDO() {
     }
 
-    public UserDO(int ID, String name, String username, String password, int sex, Date birth, String position, String workID, String email, String imgPath, String phone) {
+    public UserDO(int ID, String name, String username, String password, int sex, Date birth, int identity, String email, String imgPath, String phone) {
         this.ID = ID;
         this.name = name;
         this.username = username;
         this.password = password;
         this.sex = sex;
         this.birth = birth;
-        this.position = position;
-        this.workID = workID;
+        this.identity = identity;
         this.email = email;
         this.imgPath = imgPath;
         this.phone = phone;
@@ -129,20 +127,12 @@ public class UserDO {
         this.birth = birth;
     }
 
-    public String getPosition() {
-        return position;
+    public int getIdentity() {
+        return identity;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    public String getWorkID() {
-        return workID;
-    }
-
-    public void setWorkID(String workID) {
-        this.workID = workID;
+    public void setIdentity(int identity) {
+        this.identity = identity;
     }
 
     public String getEmail() {
@@ -176,12 +166,11 @@ public class UserDO {
         UserDO userDO = (UserDO) o;
         return ID == userDO.ID &&
                 sex == userDO.sex &&
+                identity == userDO.identity &&
                 Objects.equals(name, userDO.name) &&
                 Objects.equals(username, userDO.username) &&
                 Objects.equals(password, userDO.password) &&
                 Objects.equals(birth, userDO.birth) &&
-                Objects.equals(position, userDO.position) &&
-                Objects.equals(workID, userDO.workID) &&
                 Objects.equals(email, userDO.email) &&
                 Objects.equals(imgPath, userDO.imgPath) &&
                 Objects.equals(phone, userDO.phone);
@@ -189,7 +178,7 @@ public class UserDO {
 
     @Override
     public int hashCode() {
-        return Objects.hash(ID, name, username, password, sex, birth, position, workID, email, imgPath, phone);
+        return Objects.hash(ID, name, username, password, sex, birth, identity, email, imgPath, phone);
     }
 
     @Override
@@ -201,8 +190,7 @@ public class UserDO {
                 ", password='" + password + '\'' +
                 ", sex=" + sex +
                 ", birth=" + birth +
-                ", position='" + position + '\'' +
-                ", workID='" + workID + '\'' +
+                ", identity=" + identity +
                 ", email='" + email + '\'' +
                 ", imgPath='" + imgPath + '\'' +
                 ", phone='" + phone + '\'' +

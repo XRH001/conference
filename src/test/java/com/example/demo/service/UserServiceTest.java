@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.DTO.User;
+import com.example.demo.enumValue.Identity;
 import com.example.demo.enumValue.Sex;
 import com.example.demo.service.mehod.UserService;
 import org.junit.Test;
@@ -16,7 +17,8 @@ import java.time.LocalDate;
 public class UserServiceTest {
     @Autowired
     UserService userService;
-    User user=new User(3,"user1","user1","user1", Sex.Female, LocalDate.of(2020,1,1),"经理","616161616",
+
+    User user=new User(3,"user1","user1","user1", Sex.Female, LocalDate.of(2020,1,1),Identity.Common,
                             "616161616@163.com","/static/img","7894561230");
 
     @Test
@@ -61,12 +63,7 @@ public class UserServiceTest {
 
     @Test
     public void queryUserDOSByPosition() {
-        System.out.println(userService.queryUsersByPosition("讲师"));
-    }
-
-    @Test
-    public void queryUserDOByWorkID() {
-        System.out.println(userService.queryUserByWorkID("616161616"));
+        System.out.println(userService.queryUsersByIdentity(Identity.Common));
     }
 
     @Test

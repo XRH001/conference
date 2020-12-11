@@ -3,6 +3,7 @@ package com.example.demo.service.mehod;
 import com.example.demo.dao.UserDAO;
 import com.example.demo.entity.DTO.User;
 import com.example.demo.entity.DO.UserDO;
+import com.example.demo.enumValue.Identity;
 import com.example.demo.enumValue.Sex;
 import com.example.demo.utils.TimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,7 +113,6 @@ public class UserService {
      * @return
      */
     public List<User> queryUsersByBirth(LocalDate time){
-
         List<UserDO> userDOList=userDAO.queryUserDOSByBirth(TimeUtils.converseTrans(LocalDateTime.of(time, LocalTime.of(0,0,0))));
         for(UserDO u:userDOList){
             list.add(toUser(u));
@@ -122,26 +122,16 @@ public class UserService {
 
     /**
      * 查询user集合
-     * 根据工作职位
-     * @param position
+     * 根据用户身份
+     * @param identity
      * @return
      */
-    public List<User> queryUsersByPosition(String position){
-        List<UserDO> userDOList=userDAO.queryUserDOSByPosition(position);
+    public List<User> queryUsersByIdentity(Identity identity){
+        List<UserDO> userDOList=userDAO.queryUserDOSByIdentity(identity.getID());
         for(UserDO u:userDOList){
             list.add(toUser(u));
         }
         return list;
-    }
-
-    /**
-     * 查询一个user
-     * 根据工号
-     * @param workID
-     * @return
-     */
-    public User queryUserByWorkID(String workID){
-        return toUser(userDAO.queryUserDOByWorkID(workID));
     }
 
     /**
@@ -201,8 +191,7 @@ public class UserService {
         user.setPassword(userDO.getPassword());
         user.setSex(userDO.getSex()==0?Sex.Male: Sex.Female); ;
         user.setBirth(TimeUtils.transLocalDate(userDO.getBirth())) ;
-        user.setPosition (userDO.getPosition()) ;
-        user.setWorkID (userDO.getWorkID()) ;
+        user.setIdentity (Identity.choose(userDO.getIdentity())); ;
         user.setEmail(userDO.getEmail())  ;
         user.setImgPath(userDO.getImgPath());
         user.setPhone(userDO.getPhone());
@@ -225,8 +214,7 @@ public class UserService {
         userDO.setPassword(userDO.getPassword());
         userDO.setSex(user.getSex().getNum());
         userDO.setBirth(TimeUtils.converseTrans(user.getBirth()));
-        userDO.setPosition(user.getPosition());
-        userDO.setWorkID(user.getWorkID());
+        userDO.setIdentity(user.getIdentity().getID());
         userDO.setEmail(user.getEmail());
         userDO.setImgPath(user.getImgPath());
         userDO.setPhone(user.getPhone());
