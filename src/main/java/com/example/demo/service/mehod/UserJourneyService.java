@@ -87,7 +87,7 @@ public class UserJourneyService {
 
           userJourney.setID(userJourneyDO.getID());
           userJourney.setUser(userService.queryUserByID(userJourneyDO.getUserID()));
-          userJourney.setJourney(journeyService.queryByID(userJourneyDO.getJourneyID()));
+          userJourney.setJourney(journeyService.queryJourneyByID(userJourneyDO.getJourneyID()));
 
           return userJourney;
       }
