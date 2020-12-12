@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class ConferenceServiceTest {
     @Autowired
     ConferenceService conferenceService;
-    Conference conference=new Conference(4,"第三次会议","主教楼", OrderStatus.Running,20, LocalDateTime.now(),LocalDateTime.now(),
+    Conference conference=new Conference(1,"第三次会议","主教楼", OrderStatus.Running,20, LocalDateTime.now(),LocalDateTime.now(),
                                             LocalDateTime.now(),true);
 
     @Test

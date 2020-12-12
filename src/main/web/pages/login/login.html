@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>首页</title>
+    <link rel="stylesheet" href="../../static/layui/css/layui.css">
+    <link rel="stylesheet" href="login.css">
+</head>
+<body class="layui-bg-green">
+<script src="../../static/layui/layui.js"></script>
+<script src="../../static/js/jquery-3.3.1.min.js"></script>
+<script src="login.js"></script>
+    <div class="container layui-row " >
+        <div class="layui-carousel " id="test1" >
+            <div carousel-item>
+                <div style="background-color: #ecffe4"><div class="swipe layui-icon layui-icon-templeate-1 ">欢迎使用易渠会议</div></div>
+                <div style="background-color: #ffeae8"><div class="swipe layui-icon layui-icon-tabs">支持所有人创建会议</div></div>
+                <div style="background-color: #f8e8ff"><div class="swipe layui-icon layui-icon-app">会议后勤功能完善</div></div>
+                <div style="background-color: #abf2ff"><div class="swipe layui-icon layui-icon-slider">操作简单快捷</div></div>
+            </div>
+        </div>
+        <div class="layui-col-lg-offset1 layui-col-lg4 layui-col-md4 ">
+            <button class="layui-btn menuButton" onclick="menuClick()"><span class="layui-icon layui-icon-spread-left"></span></button>
+            <div class="layui-card leftCard layui-bg-cyan">
+                <div class="cardTitle">tips</div>
+                <div class="layui-card-body">
+                    卡片式面板面板通常用于非白色背景色的主体内<br>
+                    从而映衬出边框投影<br>
+                    扫描二维码体验小程序版<br>
+                    <img class="secondImg" src="../../img/miniapp.png" >
+                </div>
+            </div>
+        </div>
+    <div class="center layui-bg-cyan layui-col-lg-offset1 layui-col-md-offset1 layui-col-xs-offset1 layui-col-lg5 layui-col-md6 layui-col-xs10 ">
+        <p class="layui-icon layui-icon-read loginTitle">登录</p>
+        <a href="" class="layui-icon layui-icon-layer forget">忘记密码？</a>
+        <br><br><br>
+        <form action="/meeting/UserServlet?action=login" method="post" class="layui-form ">
+            <div class="layui-form-item">
+                <label class="layui-form-label ">邮箱/账号</label>
+                <div class="layui-input-block ">
+                    <input type="text" name="email" required  lay-verify="required" placeholder="请输入邮箱或账号" autocomplete="off" class="layui-input">
+                </div>
+            </div><br><br>
+            <div class="layui-form-item">
+                <label class="layui-form-label ">密码</label>
+                <div class="layui-input-block ">
+                    <input type="text" name="password" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                </div>
+            </div><br><br>
+            <div class="layui-form-item">
+                <div class="layui-input-block layui-col-space30">
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">登录</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    <a class="layui-btn" href="../register/register.html">注册</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

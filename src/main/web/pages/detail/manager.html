@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>详情</title>
+
+    <link rel="stylesheet" href="detail.css">
+    <link rel="stylesheet" href="../common/common.css">
+    <link rel="stylesheet" href="../../static/layui/css/layui.css">
+</head>
+<body>
+<script src="../../static/layui/layui.js"></script>
+<script src="../../static/js/jquery-3.3.1.min.js"></script>
+<script src="detail.js"></script>
+<script src="../common/common.js"></script>
+<ul class="layui-nav layui-row ">
+    <li class="layui-nav-item "><a href="../index/index.html">首页</a></li>
+    <li class="layui-nav-item  layui-this"><a href="../detail/detail.html">详情</a></li>
+    <li class="layui-nav-item  "><a href="../driver/driver.html">车队</a></li>
+    <li class="layui-nav-item "><a href="../hotel/hotel.html">酒店</a></li>
+    <li class="layui-nav-item  layui-col-lg-offset6"><a href="">系统管理</a></li>
+    <li class="layui-nav-item "><a href="">我的消息</a></li>
+    <li class="layui-nav-item ">
+        <a href=""><img src="../../img/defaultHead.png" class="layui-nav-img">我</a>
+        <dl class="layui-nav-child">
+            <dd><a href="javascript:;">个人信息</a></dd>
+            <dd><a href="javascript:;">安全管理</a></dd>
+            <dd><a href="javascript:;">退出登陆</a></dd>
+        </dl>
+    </li>
+</ul>
+
+<div class="detailContainer layui-row">
+    <div class="baseInfo layui-col-lg8"><p class="titleP">基本信息</p>
+        <table class="layui-table">
+            <colgroup>
+                <col width="20%">
+                <col width="80%">
+            </colgroup>
+            <tbody>
+            <tr>
+                <td>会议名</td>
+                <td>
+                    <input type="text" name="meetingName" required  lay-verify="required" value="废物心理学" autocomplete="off" class="layui-input">
+                </td>
+            </tr>
+            <tr>
+                <td>会议开始时间</td>
+                <td>
+                    <input type="text" name="startTime" required  lay-verify="required" value="2020年11月21日09:55" autocomplete="off" class="layui-input">
+                </td>
+            </tr>
+            <tr>
+                <td>会议结束时间</td>
+                <td>
+                    <input type="text" name="overTime" required  lay-verify="required" value="2020年11月21日09:55" autocomplete="off" class="layui-input">
+                </td>
+            </tr>
+            <tr>
+                <td>会议地点</td>
+                <td>
+                    <input type="text" name="meetingPosition" required  lay-verify="required" value="信工楼b202" autocomplete="off" class="layui-input">
+                </td>
+            </tr>
+            <tr>
+                <td>会议状态</td>
+                <td>
+                    <input type="text" name="meetingStatus" required  lay-verify="required" value="未开始" autocomplete="off" class="layui-input">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div><button class="layui-btn layui-btn-checked">确认修改</button></div>
+        <hr class="layui-bg-orange">
+        <p class="titleP">人员管理</p>
+        <br>
+        <div class="layui-collapse">
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">管理员名单</h2>
+                <div class="layui-colla-content ">
+                    <div class=" layui-row">
+                        <div class="searchInputDiv layui-col-lg10 layui-col-md10 layui-col-xs10">
+                            <input class="layui-input" type="text" placeholder="输入成员邮箱进行查找" value="2313@qq.com">
+                        </div>
+                        <div class="searchButtonDiv layui-col-lg2 layui-col-md2 layui-col-xs2">
+                            <button class="searchButton layui-btn layui-btn"><span class="layui-icon layui-icon-search"></span></button>
+                        </div>
+
+                        <div class="layui-col-lg11 layui-col-md11 layui-col-xs11">
+                            <br>
+                            <table  class="layui-table">
+                                <colgroup>
+                                    <col width="30%">
+                                    <col width="50%">
+                                    <col width="20%">
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>姓名</th>
+                                    <th>联系方式</th>
+                                    <th>动作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>洪秀全</td>
+                                    <td>4384381@qq.com</td>
+                                    <td><button class="layui-btn layui-btn-normal  layui-btn-sm">添加</button></td>
+                                </tr>
+                                </tbody>
+                            </table></div>
+                    </div>
+                    <table class="layui-table">
+                        <colgroup><col width="30%"><col width="50%"/><col width="20%"> </colgroup>
+                        <thead><tr><th>姓名</th><th>联系方式</th><th>删除</th></tr></thead>
+                        <tbody>
+                        <tr><td>金城山</td><td>2312@qq.com</td><td><button class="layui-btn layui-btn-danger"><span class="layui-icon layui-icon-delete"></span></button></td></tr>
+                        <tr><td>程世峰</td><td>321312@qq.com</td><td><button class="layui-btn layui-btn-danger"><span class="layui-icon layui-icon-delete"></span></button></td></tr>
+                        <tr><td>关婷楼</td><td>4124112@qq.com</td><td><button class="layui-btn layui-btn-danger"><span class="layui-icon layui-icon-delete"></span></button></td></tr>
+                        </tbody>
+                    </table></div>
+            </div>
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">普通成员名单</h2>
+                <div class="layui-colla-content ">
+
+                    <div class=" layui-row">
+                        <div class="searchInputDiv layui-col-lg10 layui-col-md10 layui-col-xs10">
+                            <input class="layui-input" type="text" placeholder="输入成员邮箱进行查找" value="2313@qq.com">
+                        </div>
+                        <div class="searchButtonDiv layui-col-lg2 layui-col-md2 layui-col-xs2">
+                            <button class="searchButton layui-btn "><span class="layui-icon layui-icon-search"></span></button>
+                        </div>
+
+                        <div class="layui-col-lg11 layui-col-md11 layui-col-xs11">
+                            <br>
+                            <table  class="layui-table">
+                                <colgroup>
+                                    <col width="30%">
+                                    <col width="50%">
+                                    <col width="20%">
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>姓名</th>
+                                    <th>联系方式</th>
+                                    <th>动作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>洪秀全</td>
+                                    <td>4384381@qq.com</td>
+                                    <td><button class="layui-btn layui-btn-normal  layui-btn-sm">添加</button></td>
+                                </tr>
+                                </tbody>
+                            </table></div>
+                    </div>
+                    <table class="layui-table">
+                        <colgroup><col width="30%"><col width="50%"/><col width="20%"> </colgroup>
+                        <thead><tr><th>姓名</th><th>联系方式</th><th>踢出</th></tr></thead>
+                        <tbody>
+                        <tr><td>金城山</td><td>2312@qq.com</td><td><button class="layui-btn layui-btn-danger"><span class="layui-icon layui-icon-delete"></span></button></td></tr>
+                        <tr><td>程世峰</td><td>321312@qq.com</td><td><button class="layui-btn layui-btn-danger"><span class="layui-icon layui-icon-delete"></span></button></td></tr>
+                        <tr><td>关婷楼</td><td>4124112@qq.com</td><td><button class="layui-btn layui-btn-danger"><span class="layui-icon layui-icon-delete"></span></button></td></tr>
+                        <tr><td>金城山</td><td>2312@qq.com</td><td><button class="layui-btn layui-btn-danger"><span class="layui-icon layui-icon-delete"></span></button></td></tr>
+                        <tr><td>程世峰</td><td>321312@qq.com</td><td><button class="layui-btn layui-btn-danger"><span class="layui-icon layui-icon-delete"></span></button></td></tr>
+                        <tr><td>关婷楼</td><td>4124112@qq.com</td><td><button class="layui-btn layui-btn-danger"><span class="layui-icon layui-icon-delete"></span></button></td></tr>
+                        </tbody>
+                    </table></div>
+            </div>
+        </div>
+
+        <hr class="layui-bg-orange">
+        <p class="titleP">后勤服务管理</p>
+        <br>
+        <div class="hotelManage layui-row">
+            <p class="smallTitleP">预约酒店房间</p>
+            <div class="layui-col-lg10"><input type="text" placeholder="根据邮箱或id查询酒店：" class="layui-input"></div>
+            <div class="layui-col-lg2"><button class="layui-btn layui-btn-normal"><span class="layui-icon layui-icon-search"></span></button></div>
+            <br><br>
+            <table  class="layui-table">
+                <colgroup>
+                    <col width="30%">
+                    <col width="50%">
+                    <col width="20%">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>店名</th>
+                    <th>联系方式</th>
+                    <th>动作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>居家旅馆</td>
+                    <td>4384381@qq.com</td>
+                    <td><button class="layui-btn layui-btn-normal  layui-btn-sm">预约</button></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="hotelManage layui-row">
+            <p class="smallTitleP">预约司机接送</p>
+            <div class="layui-col-lg10"><input type="text" placeholder="根据邮箱或id查询司机：" class="layui-input"></div>
+            <div class="layui-col-lg2"><button class="layui-btn layui-btn-normal"><span class="layui-icon layui-icon-search"></span></button></div>
+            <br><br>
+            <table  class="layui-table">
+                <colgroup>
+                    <col width="30%">
+                    <col width="50%">
+                    <col width="20%">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>司机</th>
+                    <th>联系方式</th>
+                    <th>动作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>马大师</td>
+                    <td>4384381@qq.com</td>
+                    <td><button class="layui-btn layui-btn-normal  layui-btn-sm">预约</button></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <div class="relateMe layui-col-lg4"><p class="titleP">有关我的</p><table class="layui-table">
+        <!--                    3．填写参会的往返时间、住宿要求及其它情况-->
+        <colgroup>
+            <col width="30%">
+            <col width="70%">
+        </colgroup>
+        <tbody>
+        <tr>
+            <td>往返时间</td>
+            <td><input  type="text" name="leaveTime" required  lay-verify="required" value="2020年11月20日20:56-2020年11月23日20:56" autocomplete="off" class="layui-input"></td>
+        </tr>
+        <tr>
+            <td>住宿要求</td>
+            <td><input  type="text" name="stayRequire" required  lay-verify="required" value="单人间" autocomplete="off" class="layui-input"></td>
+        </tr>
+        <tr><td>其他要求</td><td><input  type="text" name="memberCount" required  lay-verify="required" value="住宿能报销吗，不能的话我睡大街。" autocomplete="off" class="layui-input"></td></tr>
+        </tbody>
+    </table>
+        <button class="layui-btn layui-btn-normal">确认提交</button></div>
+    </div>
+
+
+</body>
+</html>

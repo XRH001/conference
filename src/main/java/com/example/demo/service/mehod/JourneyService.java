@@ -49,7 +49,7 @@ public class JourneyService {
      * @param journeyID
      * @return
      */
-    public Journey queryByID(int journeyID){
+    public Journey queryJourneyByID(int journeyID){
         return toJourney(journeyDAO.findById(journeyID).get());
     }
 

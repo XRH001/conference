@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class JourneyServiceTest {
     @Autowired
     JourneyService journeyService;
-    Journey journey=new Journey(5, LocalDateTime.now(),"南昌西站","南昌大学");
+    Journey journey=new Journey(1, LocalDateTime.now(),"南昌西站","南昌大学");
     @Test
     public void saveJourney() {
         journeyService.saveJourney(journey);
@@ -28,7 +28,7 @@ public class JourneyServiceTest {
 
     @Test
     public void queryByID() {
-        System.out.println(journeyService.queryByID(4));
+        System.out.println(journeyService.queryJourneyByID(4));
     }
 
     @Test

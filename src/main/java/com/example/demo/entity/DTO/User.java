@@ -2,6 +2,7 @@ package com.example.demo.entity.DTO;
 
 
 
+import com.example.demo.enumValue.Identity;
 import com.example.demo.enumValue.Sex;
 
 import java.time.LocalDate;
@@ -34,8 +35,7 @@ public class User {
     private String password;
     private Sex sex;
     private LocalDate birth;
-    private String position;
-    private String workID;
+    private Identity identity;
     private String email;
     private String imgPath;
     private String phone;
@@ -43,15 +43,14 @@ public class User {
     public User() {
     }
 
-    public User(int ID, String name, String username, String password, Sex sex, LocalDate birth, String position, String workID, String email, String imgPath, String phone) {
+    public User(int ID, String name, String username, String password, Sex sex, LocalDate birth, Identity identity, String email, String imgPath, String phone) {
         this.ID = ID;
         this.name = name;
         this.username = username;
         this.password = password;
         this.sex = sex;
         this.birth = birth;
-        this.position = position;
-        this.workID = workID;
+        this.identity=identity;
         this.email = email;
         this.imgPath = imgPath;
         this.phone = phone;
@@ -119,20 +118,12 @@ public class User {
         this.birth = birth;
     }
 
-    public String getPosition() {
-        return position;
+    public Identity getIdentity() {
+        return identity;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    public String getWorkID() {
-        return workID;
-    }
-
-    public void setWorkID(String workID) {
-        this.workID = workID;
+    public void setIdentity(Identity identity) {
+        this.identity = identity;
     }
 
     public String getEmail() {
@@ -170,8 +161,7 @@ public class User {
                 Objects.equals(password, user.password) &&
                 sex == user.sex &&
                 Objects.equals(birth, user.birth) &&
-                Objects.equals(position, user.position) &&
-                Objects.equals(workID, user.workID) &&
+                identity == user.identity &&
                 Objects.equals(email, user.email) &&
                 Objects.equals(imgPath, user.imgPath) &&
                 Objects.equals(phone, user.phone);
@@ -179,7 +169,7 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(ID, name, username, password, sex, birth, position, workID, email, imgPath, phone);
+        return Objects.hash(ID, name, username, password, sex, birth, identity, email, imgPath, phone);
     }
 
     @Override
@@ -191,8 +181,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", sex=" + sex +
                 ", birth=" + birth +
-                ", position='" + position + '\'' +
-                ", workID='" + workID + '\'' +
+                ", identity=" + identity +
                 ", email='" + email + '\'' +
                 ", imgPath='" + imgPath + '\'' +
                 ", phone='" + phone + '\'' +

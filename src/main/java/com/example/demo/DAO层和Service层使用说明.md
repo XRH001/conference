@@ -2,9 +2,9 @@
 
 ##### Gitee链接:
 
-https链接:https://gitee.com/li-jiaxv/conference-manager-system.git
+https链接:https://gitee.com/li-jiaxv/conference.git
 
-ssh链接:git@gitee.com:li-jiaxv/conference-manager-system.git
+ssh链接:git@gitee.com:li-jiaxv/conference.git
 
 #### Java代码项目结构
 
@@ -18,7 +18,7 @@ ssh链接:git@gitee.com:li-jiaxv/conference-manager-system.git
 
 5. ​     **utils**
 
-6. ​     **EnumValue**
+6. ​     **enumValue**
 
    
 

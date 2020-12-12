@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>注册页面</title>
+    <link rel="stylesheet" href="../../static/layui/css/layui.css">
+    <link rel="stylesheet" href="./register.css">
+    <link href="favicon.ico" rel="shortcut icon">
+</head>
+<body>
+
+<script src="../../static/js/jquery-3.3.1.min.js"></script>
+<script src="../../static/layui/layui.js"></script>
+<script src="./register.js"></script>
+<div class="">
+    <div class="layui-carousel" id="rotation">
+        <div carousel-item>
+            <div style="background-color: #f4fffc"><div class="swipe layui-icon layui-icon-templeate-1 ">欢迎注册易渠会议</div></div>
+            <div style="background-color: #ffdde1"><div class="swipe layui-icon layui-icon-tabs">注册后即可创建会议</div></div>
+            <div style="background-color: #c5f1ff"><div class="swipe layui-icon layui-icon-app">会议后勤功能完善</div></div>
+            <div style="background-color: #dcfff5"><div class="swipe layui-icon layui-icon-slider">操作简单快捷</div></div>
+        </div>
+    </div>
+    <div class="layui-container layui-row">
+        <div class="layui-col-lg-offset2  layui-col-lg8">
+        <form class="layui-form" action="/meeting/registerServlet">
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="name" id="name" required  lay-verify="required" placeholder="请输入少于20位的任意字符(必填)" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">密码</label>
+                <div class="layui-input-inline">
+                    <input type="password" id="password" name="password" required lay-verify="required" placeholder="请输入6~18位密码(必填)" autocomplete="off" class="layui-input">
+                </div>
+<!--                <div class="layui-form-mid layui-word-aux">辅助文字</div>-->
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">确认密码</label>
+                <div class="layui-input-inline">
+                    <input type="password" id="password2" name="password2" required lay-verify="required" placeholder="请再次确认密码(必填)" autocomplete="off" class="layui-input">
+                </div>
+                <!--                <div class="layui-form-mid layui-word-aux">辅助文字</div>-->
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">生日</label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input" id="birthday">
+                </div>
+
+            </div>
+            <div class="layui-form-item">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-block">
+                <input type="radio" name="sex" value="男" title="男" checked>
+                <input type="radio" name="sex" value="女" title="女" >
+            </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">邮箱</label>
+                <div class="layui-input-block">
+                    <input type="text" id="email" class="layui-input" required placeholder="请输入正确邮箱账号(必填)">
+                    <!--
+                    <input type="checkbox" name="like[write]" title="写作">
+                    <input type="checkbox" name="like[read]" title="阅读" checked>
+                    <input type="checkbox" name="like[dai]" title="发呆">-->
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">验证码</label>
+                <div class="layui-input-inline">
+                    <input type="text" lay-filter="formDemo" id="checkCode" required  class="layui-input">
+
+                </div>
+                <div class=" layui-input-inline">
+                <button class="layui-btn layui-btn-normal" id="getEmailCode" type="button" onclick="emailCode()">获取邮箱验证码<span id="getCode"></span></button>
+            </div>
+            </div>
+
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">头像</label>
+                <div class="layui-input-block layui-upload">
+                    <button type="button" class="layui-btn" id="headImg">
+                        <i class="layui-icon">&#xe67c;</i>上传图片
+                    </button>
+                    <div class="layui-upload-list">
+                        <img class="layui-upload-img" id="preview" src="../../img/defaultHead.png">
+                        <p id="demoText"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item layui-row layui-col-space10">
+                <div class="layui-input-block ">
+                    <button class="layui-btn" lay-submit lay-filter="formDemo"><i class="layui-icon layui-icon-friends"></i>立即注册</button>
+                    <button type="reset" class="layui-btn layui-btn-primary"><i class="layui-icon layui-icon-close-fill"></i>重置</button>
+                    <a class="layui-btn" href="../login/login.html"><i class="layui-icon layui-icon-user"></i>立即登录</a>
+                </div>
+            </div>
+        </form>
+        </div>
+        <div class="layui-col-lg2 layui-col-md2 setFloat">
+            <p>扫码使用小程序</p>
+            <img src="../../img/miniapp.png">
+        </div>
+
+        <br><br>
+    </div>
+    <br>
+</div>
+
+</body>
+</html>

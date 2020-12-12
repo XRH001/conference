@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>详情</title>
+
+    <link rel="stylesheet" href="detail.css">
+    <link rel="stylesheet" href="../common/common.css">
+    <link rel="stylesheet" href="../../static/layui/css/layui.css">
+</head>
+<body>
+<script src="../../static/layui/layui.js"></script>
+<script src="../../static/js/jquery-3.3.1.min.js"></script>
+<script src="detail.js"></script>
+<script src="../common/common.js"></script>
+<ul class="layui-nav layui-row ">
+    <li class="layui-nav-item "><a href="../index/index.html">首页</a></li>
+    <li class="layui-nav-item  layui-this"><a href="../detail/detail.html">详情</a></li>
+    <li class="layui-nav-item  "><a href="../driver/driver.html">车队</a></li>
+    <li class="layui-nav-item "><a href="../hotel/hotel.html">酒店</a></li>
+    <li class="layui-nav-item  layui-col-lg-offset6"><a href="">系统管理</a></li>
+    <li class="layui-nav-item "><a href="">我的消息</a></li>
+    <li class="layui-nav-item ">
+        <a href=""><img src="../../img/defaultHead.png" class="layui-nav-img">我</a>
+        <dl class="layui-nav-child">
+            <dd><a href="javascript:;">个人信息</a></dd>
+            <dd><a href="javascript:;">安全管理</a></dd>
+            <dd><a href="javascript:;">退出登陆</a></dd>
+        </dl>
+    </li>
+</ul>
+
+<div class="detailContainer layui-row">
+    <div class="baseInfo layui-col-lg8"><p class="titleP">基本信息</p>
+        <table class="layui-table">
+                        <colgroup>
+                            <col width="20%">
+                            <col width="80%">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <td>会议名</td>
+                            <td>
+                                <input disabled type="text" name="meetingName" required  lay-verify="required" value="废物心理学" autocomplete="off" class="layui-input">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>会议编号</td>
+                            <td>
+                                <input disabled type="text" name="meetingID" required  lay-verify="required" value="123421" autocomplete="off" class="layui-input">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>会议开始时间</td>
+                            <td>
+                                <input disabled type="text" name="startTime" required  lay-verify="required" value="2020年11月21日09:55" autocomplete="off" class="layui-input">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>会议预计结束时间</td>
+                            <td>
+                                <input disabled type="text" name="overTime" required  lay-verify="required" value="2020年11月21日09:55" autocomplete="off" class="layui-input">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>会议地点</td>
+                            <td>
+                                <input disabled type="text" name="meetingPosition" required  lay-verify="required" value="信工楼b202" autocomplete="off" class="layui-input">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>会议状态</td>
+                            <td>
+                                <input disabled type="text" name="meetingStatus" required  lay-verify="required" value="未开始" autocomplete="off" class="layui-input">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>创建时间</td>
+                            <td>
+                                <input disabled type="text" name="createTime" required  lay-verify="required" value="2020年11月23日17:14" autocomplete="off" class="layui-input">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>酒店预约信息</td>
+                            <td>
+                                <p>店名：花里胡哨铝管<br>地址：学校旁边。<br>联系方式：241231@qq.com</p>
+                                <div class="layui-collapse">
+                                    <div class="layui-colla-item">
+                                        <div class="layui-colla-title">预约房间</div>
+                                        <div class="layui-colla-content">
+                                            <table class="layui-table">
+                                                <colgroup></colgroup>
+                                                <thead>
+                                                <tr>
+                                                    <th>房间类型</th>
+                                                    <th>预定数量</th>
+                                                    <th>预定时间段</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>单人间</td>
+                                                    <td>5</td>
+                                                    <td>2020年12月2日-2020年12月5日</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div></div></td>
+                        </tr>
+                        <tr>
+                            <td>接送车信息</td>
+                            <td>
+<!--                                <input type="text" name="driverMessage" required  lay-verify="required" value="司机：王红利。可乘坐：20人。" autocomplete="off" class="layui-input">-->
+                                <p>司机：高昌恒。<br>联系方式：278212323@dsa.cas<br>车牌号：赣·P32123</p>
+                                <div class="layui-collapse">
+                                    <div class="layui-colla-item">
+                                        <div class="layui-colla-title">接车信息</div>
+                                        <div class="layui-colla-content">
+                                <table class="layui-table">
+                                    <colgroup><col width="40%"><col width=60%"></colgroup>
+                                    <thead><tr><th>接车地点</th><th>接车时间</th></tr></thead>
+                                    <tbody>
+                                        <tr><td>医学院</td><td>2020年11月23日19:55</td></tr>
+                                        <tr><td>医学院</td><td>2020年11月23日19:55</td></tr>
+                                        <tr><td>医学院</td><td>2020年11月23日19:55</td></tr>
+                                    </tbody>
+                                </table></div></div></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>会议人数</td>
+                            <td>
+                                <input disabled type="text" name="memberCount" required  lay-verify="required" value="234" autocomplete="off" class="layui-input">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+        <div class="layui-collapse">
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">管理员名单</h2>
+                <div class="layui-colla-content ">
+                    <table class="layui-table">
+                        <colgroup><col width="40%"><col width="60%"/> </colgroup>
+                        <thead><tr><th>姓名</th><th>联系方式</th></tr></thead>
+                        <tbody>
+                        <tr><td>金城山</td><td>2312@qq.com</td></tr>
+                        <tr><td>程世峰</td><td>321312@qq.com</td></tr>
+                        <tr><td>关婷楼</td><td>4124112@qq.com</td></tr>
+                        </tbody>
+                    </table></div>
+            </div>
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">普通成员名单</h2>
+                <div class="layui-colla-content ">
+                    <table class="layui-table">
+                        <colgroup><col width="40%"><col width="60%"/> </colgroup>
+                        <thead><tr><th>姓名</th><th>联系方式</th></tr></thead>
+                        <tbody>
+                        <tr><td>金城山</td><td>2312@qq.com</td></tr>
+                        <tr><td>程世峰</td><td>321312@qq.com</td></tr>
+                        <tr><td>关婷楼</td><td>4124112@qq.com</td></tr>
+                        <tr><td>金城山</td><td>2312@qq.com</td></tr>
+                        <tr><td>程世峰</td><td>321312@qq.com</td></tr>
+                        <tr><td>关婷楼</td><td>4124112@qq.com</td></tr>
+                        </tbody>
+                    </table></div>
+            </div>
+        </div>
+    </div>
+    <div class="relateMe layui-col-lg4"><p class="titleP">有关我的</p><table class="layui-table">
+<!--                    3．填写参会的往返时间、住宿要求及其它情况-->
+                    <colgroup>
+                        <col width="30%">
+                        <col width="70%">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <td>往返时间</td>
+                        <td><input  type="text" name="leaveTime" required  lay-verify="required" value="2020年11月20日20:56-2020年11月23日20:56" autocomplete="off" class="layui-input"></td>
+                    </tr>
+                    <tr>
+                        <td>住宿要求</td>
+                        <td><input  type="text" name="stayRequire" required  lay-verify="required" value="单人间" autocomplete="off" class="layui-input"></td>
+                    </tr>
+                    <tr><td>其他要求</td><td><input  type="text" name="memberCount" required  lay-verify="required" value="住宿能报销吗，不能的话我睡大街。" autocomplete="off" class="layui-input"></td></tr>
+                    </tbody>
+                </table>
+        <button class="layui-btn layui-btn-normal">确认提交</button>
+    </div>
+</div>
+</body>
+</html>
