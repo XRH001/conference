@@ -211,7 +211,7 @@ public class UserService {
         userDO.setID(user.getID());
         userDO.setName(user.getName());
         userDO.setUsername(user.getUsername());
-        userDO.setPassword(userDO.getPassword());
+        userDO.setPassword(user.getPassword());
         userDO.setSex(user.getSex().getNum());
         userDO.setBirth(TimeUtils.converseTrans(user.getBirth()));
         userDO.setIdentity(user.getIdentity().getID());

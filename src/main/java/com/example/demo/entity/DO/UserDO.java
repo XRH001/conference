@@ -29,8 +29,7 @@ public class UserDO {
      * @param password 密码
      * @param sex 性别
      * @param birth 出生日期
-     * @param position 职务
-     * @param workID 工号
+     * @param identity 职务
      * @param email 电子邮箱
      * @param phone 电话号码
      * @param imgPath 头像图片存放路径

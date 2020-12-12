@@ -18,11 +18,12 @@ public class UserServiceTest {
     @Autowired
     UserService userService;
 
-    User user=new User(3,"user1","user1","user1", Sex.Female, LocalDate.of(2020,1,1),Identity.Common,
+    User user=new User("user1","user1","user1", Sex.Female, LocalDate.of(2020,1,1),Identity.Common,
                             "616161616@163.com","/static/img","7894561230");
 
     @Test
     public void saveUser() {
+        System.out.println(user);
         System.out.println(userService.saveUser(user));
     }
 

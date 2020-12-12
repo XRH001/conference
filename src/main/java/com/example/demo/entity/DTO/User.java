@@ -56,7 +56,20 @@ public class User {
         this.phone = phone;
     }
 
-//    public User(UserDO userDo){
+    public User(String name, String username, String password, Sex sex, LocalDate birth, Identity identity, String email, String imgPath, String phone) {
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.sex = sex;
+        this.birth = birth;
+        this.identity = identity;
+        this.email = email;
+        this.imgPath = imgPath;
+        this.phone = phone;
+    }
+
+
+    //    public User(UserDO userDo){
 //        this.ID = userDo.getID();
 //        this.name = userDo.getName();
 //        this.username = userDo.getUsername();

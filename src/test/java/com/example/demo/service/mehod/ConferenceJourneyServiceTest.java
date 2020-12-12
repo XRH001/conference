@@ -2,6 +2,8 @@ package com.example.demo.service.mehod;
 
 import com.example.demo.entity.DO.ConferenceJourneyDO;
 import com.example.demo.entity.DTO.ConferenceJourney;
+import com.example.demo.entity.DTO.User;
+import com.example.demo.enumValue.Sex;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -29,6 +31,7 @@ class ConferenceJourneyServiceTest {
 
     @Test
     void deleteConferenceJourneyByID() {
+
     }
 
     @Test
