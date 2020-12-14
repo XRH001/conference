@@ -18,11 +18,9 @@ public class RegisterYzController {
         try{
             userService.queryUserByEmail(email);
         }catch(NullPointerException e){
-            // 如果查询不存在的邮箱将会报错 返回MD5加密后验证码给前端
+            // 如果查询不存在的邮箱将会报错 返回加密后验证码给前端
             try{
                 String emailCode = MailSendUtil.mail(email);
-                System.out.println(emailCode);
-                System.out.println(passwordCode(emailCode));
                 return passwordCode(emailCode);
             }catch(Exception err){
                 return "error";
