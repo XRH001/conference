@@ -11,6 +11,7 @@
     "axios": "^0.21.0",
     "core-js": "^3.6.5",
     "eslint": "^7.15.0",
+    "js-md5": "^0.7.3",
     "layui-src": "^2.5.7",
     "vue": "^2.6.11",
     "vue-concise-slider": "^3.4.4",

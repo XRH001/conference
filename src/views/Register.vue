@@ -35,7 +35,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label" for="birthday">生日</label>
                         <div class="layui-input-block">
-                            <input type="date" class="layui-input" v-model="sendData.birthday" id="birthday">
+                            <input type="date" class="layui-input" v-model="birthday" id="birthday">
                         </div>
 
                     </div>
@@ -106,20 +106,21 @@
     import Popup from "../components/Popup";
     import ('assets/css/fonts.css');
     export default {
-        name: "register",
+        name: "Register",
         data(){
             return {
                 emailCode:"",
                 codeInput:"",
                 headSrc:require("../assets/defaultHead.png"),
                 password2:'',
+                birthday:"",
                 sendData:{
                     username:'',
                     password:'',
                     email:'',
                     sex:'male',
                     identity:'common',
-                    birthday:""
+                    birth:""
                 },
                 nameWarming:true,
                 passwordWarming:true,
@@ -152,17 +153,23 @@
             },
             registerSend(){
                 console.log(this.codeInput);
-                this.codeWarming=this.codeInput.toLowerCase()===this.emailCode.toLowerCase();
+
+
+                this.codeWarming=this.codeInput.toLowerCase()===this.$decrypt(this.emailCode).toLowerCase();
+                console.log(this.$decrypt(this.emailCode));
+                //解决日期format问题
+                this.sendData.birth=this.birthday.replaceAll('-','/');
+                console.log(this.sendData.birth);
                 if(this.codeWarming)
-                    if(this.nameCheck() && this.passwordCheck() && this.password2Check() && this.sendData.birthday!==''){
+                    if(this.nameCheck() && this.passwordCheck() && this.password2Check() && this.sendData.birth!==''){
                         //提交表单
-                        this.$http.get("/UserServlet?action=newRegister",{
-                            params:{
-                                userInfo:this.sendData
-                            }
+                        this.$request("/register",{
+                            params:
+                                this.sendData
+
                         }).then( res => {
                             if(res.data==="success"){
-                            this.$refs.popup1.showMsg("注册成功，请登录");
+                            alert("注册成功，请登录");
                             this.$router.push({
                                 path:"/login",
                                 query:{
@@ -184,7 +191,7 @@
                         password2:'',
                         email:'',
                         sex:'male',
-                        birthday:""
+                        birth:""
                 };
                 this.codeInput='';
                 this.headSrc=require("../assets/defaultHead.png");

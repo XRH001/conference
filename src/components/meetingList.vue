@@ -5,7 +5,7 @@
                 <span v-if="show[inx]" class="layui-icon layui-icon-down"></span>
                 <span v-else class="layui-icon layui-icon-right"></span>
                 {{meetingItem.name}}
-                <span class="meetingState">{{meetingItem.state}}</span></h2>
+                <span class="meetingState">{{meetingItem.orderStatus}}</span></h2>
             <div class="layui-colla-content " :class="{'layui-show':show[inx]}"><!--layui-show-->
                     <router-link class="layui-btn detailButton" :to="{path:routerTo,query:{meetingId:meetingItem.id}}">
                         <i class="layui-icon layui-icon-align-left"> </i>详细信息</router-link>
@@ -13,13 +13,13 @@
                 <fieldset class="layui-elem-field ">
                     <legend>会议开始时间</legend>
                     <div class="layui-field-box">
-                        {{meetingItem.startTime}}
+                        {{meetingItem.beginTime}}
                     </div>
                 </fieldset>
                 <fieldset class="layui-elem-field">
                     <legend>会议地点</legend>
                     <div class="layui-field-box">
-                        {{meetingItem.position}}
+                        {{meetingItem.address}}
                     </div>
                 </fieldset>
             </div>

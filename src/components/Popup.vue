@@ -1,6 +1,7 @@
 <template>
-    <span class="popupStyle" :class="{'displayNone':ifHidden}" :style="bgColor">
+    <span class="popupStyle" :class="{'displayNone':ifHidden}" :style="bgColor" >
         {{setText}}
+        <span v-if="setAlert"><button @click="alertClick()" class="layui-btn layui-btn-normal">{{buttonText}}</button></span>
     </span>
 </template>
 
@@ -10,7 +11,9 @@
         data(){
             return {
                 ifHidden:true,
-                setText:"提示！"
+                setText:"提示！",
+                setAlert:false,
+                buttonText:"确定"
             }
         },
         props:{
@@ -36,6 +39,20 @@
                 setTimeout(()=>{
                     this.ifHidden=true;
                 },this.setTime);
+            },
+            showAlert(msg,buttonText){
+                this.setText=msg;
+                this.ifHidden=false;
+                this.setAlert=true;
+                this.buttonText=buttonText;
+                setTimeout(()=>{
+                    this.ifHidden=true;
+                },this.setTime);
+
+                return true;
+            },
+            alertClick(){
+                return true;
             }
         }
     }

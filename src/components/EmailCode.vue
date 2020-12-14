@@ -69,7 +69,7 @@
                     //alert("邮箱格式错误");
                     return false;
                 }
-                this.$http.get("/EmailServlet?action=sendEmail",{
+                this.$request("/registerYz",{
                     params:{
                         email:email
                     }
@@ -79,8 +79,9 @@
                         this.$refs.popup1.showMsg("该邮箱已注册过本平台。");this.disable=false;}
                     else {
                         this.$refs.popup1.showMsg("验证码已发送");
-                        let emailCode =res.data;
-                        this.$emit("getEmailCode",emailCode);
+                        let emailCodeM =res.data;
+                        console.log(emailCodeM);
+                        this.$emit("getEmailCode",emailCodeM);
                         this.buttonSet();
                     }
                 }).catch(res =>{

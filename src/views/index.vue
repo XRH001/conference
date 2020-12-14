@@ -24,9 +24,9 @@
 
             if(this.$store.state.haveLogin){
                 let user = this.$store.state.user;
-               if(user.identity==="common")this.$router.push({path:"/Ordinary",query:this.$route.query});
-               else if(user.identity==="driver")this.$router.push({path:"/Driver",query:this.$route.query});
-               else if(user.identity==="hotel")this.$router.push({path:"/Hotel",query:this.$route.query});
+               if(user.identity.toLowerCase()==="common")this.$router.push({path:"/Ordinary",query:this.$route.query});
+               else if(user.identity.toLowerCase()==="driver")this.$router.push({path:"/Driver",query:this.$route.query});
+               else if(user.identity.toLowerCase()==="hotel")this.$router.push({path:"/Hotel",query:this.$route.query});
             }
             else this.$router.push("/First");
         }

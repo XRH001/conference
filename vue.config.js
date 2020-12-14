@@ -7,12 +7,19 @@ module.exports = {
             }
         }
     },
-    devServer: {
-        proxy: "http://localhost:8080/mine",
-        port: 8088
-    } };
-/*
 
+    devServer: {
+        proxy:{
+            '/api':{
+                target:"http://192.168.137.245:8080",
+                changeOrigin:true,
+                ws:true,
+                pathRewrite:{"^/api":""}
+        }},
+        port: 8088
+    }
+};
+/*
 {'/test':{
     target:"http://localhost:8080/",
         changeOrigin:true,

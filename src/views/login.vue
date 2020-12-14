@@ -75,18 +75,20 @@
                     this.$refs.popup1.showMsg("请输入密码");
                     return;
                 }
-                this.$request("/UserServlet?action=loginFront",{
+                this.$request("/UserJudge?",{
                     params:{
                         email:this.email,
                         password:this.password
                     }
                 }).then(res => {
-                    if(res.data.toString()==="")this.right=false;
+                    if(res.data.toString()==="password error")this.right=false;
+                    else if(res.data.toString()==="error"){this.$refs.popup1.showMsg("发生错误");}
                     else{
-                        console.log(res.data);
-                        //获取的数据是字符串，得自己转JSON
-                        let loginJSON =eval('(' +res.data+')'); //JSON.parse(res.data);
+                        //console.log(res.data);
 
+                        let loginJSON =res.data;//JSON.parse(res.data);//eval('(' +res.data+')'); //
+                        //console.log(loginJSON.user);
+                        //console.log(loginJSON.meetings);
                         this.$store.commit("setUser",loginJSON.user);
                         this.$store.commit("setMeetings",loginJSON.meetings);
                         //this.$store.state.user=loginJSON.user; 不建议使用
