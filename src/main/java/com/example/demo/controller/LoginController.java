@@ -48,8 +48,8 @@ public class LoginController {
 
         User user1=userService.queryUserByEmail(email);
         if (userService.queryUserByEmail(email)!=null)
-            if(password!=user1.getPassword())
-                return "password error";                    //判断密码是否正确
+            if(!Objects.equals(password, user1.getPassword()))
+               return "password error";                     //判断密码是否正确
 
         ArrayList<Conference> joinAll=new ArrayList<>();
         ArrayList<Conference> manageAll=new ArrayList<>();
