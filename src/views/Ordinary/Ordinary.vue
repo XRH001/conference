@@ -13,26 +13,27 @@
                 <div class="layui-tab-content">
                     <div :class="{'layui-show':joinDiv.show===1}" class="layui-tab-item " >
                         <p class="emptyWarming" v-if="joinDiv.newMeetings.length===0">您的未结束会议为空，可立即
-                            <i @click="joinDiv.show=3">查找新的会议</i>加入哦</p>
+                            <a href="javascript:void(0)"><i @click="joinDiv.show=3">查找新的会议</i></a>加入哦</p>
                         <meeting-list :meetings="joinDiv.newMeetings"></meeting-list>
                     </div>
                     <div :class="{'layui-show':joinDiv.show===2}" class="layui-tab-item">
                         <p class="emptyWarming" v-if="joinDiv.overMeetings.length===0">您的已结束会议为空，可立即
-                            <i @click="joinDiv.show=3">查找新的会议</i>加入哦</p>
+                            <a href="javascript:void(0)"><i @click="joinDiv.show=3">查找新的会议</i></a>加入哦</p>
                         <meeting-list :meetings="joinDiv.overMeetings"></meeting-list>
                     </div>
                     <div :class="{'layui-show':joinDiv.show===3}" class="layui-tab-item layui-row">
                         <div class="searchInputDiv layui-col-lg10 layui-col-md10 layui-col-xs10">
-                            <input class="layui-input" type="text" placeholder="输入会议id或名称进行查找" value="废物">
+                            <input v-model.lazy="joinDiv.search" class="layui-input" type="text" placeholder="输入会议id或名称进行查找" value="废物">
                         </div>
                         <div class="searchButtonDiv layui-col-lg2 layui-col-md2 layui-col-xs2">
-                            <button class="searchButton layui-btn layui-btn"><span class="layui-icon layui-icon-search"></span></button>
+                            <button @click="searchClick" class="searchButton layui-btn layui-btn"><span class="layui-icon layui-icon-search"></span></button>
                         </div><br><br><br>
+                        <p class="emptyWarming" v-if="joinDiv.searchMeetings.length===0">未查找到。。。</p>
                         <meeting-list :meetings="joinDiv.searchMeetings"></meeting-list>
                     </div>
                     <div :class="{'layui-show':joinDiv.show===4}" class="layui-tab-item">
                         <p class="emptyWarming" v-if="joinDiv.applyMeetings.length===0">您所申请的会议为空，可立即
-                            <i @click="joinDiv.show=3">查找新的会议</i>加入哦</p>
+                            <a href="javascript:void(0)"><i @click="joinDiv.show=3">查找新的会议</i></a>加入哦</p>
                         <meeting-list :meetings="joinDiv.applyMeetings"></meeting-list>
                     </div>
                 </div>
@@ -50,13 +51,13 @@
                 <div class="layui-tab-content">
                     <div :class="{'layui-show':managerDiv.show===1}" class="layui-tab-item">
                         <p class="emptyWarming" v-if="managerDiv.newMeetings.length===0">您的所管理的未结束会议为空，可立即
-                            <i @click="managerDiv.show=3">创建新的会议</i></p>
-                        <meeting-list :meetings="joinDiv.overMeetings"></meeting-list>
+                            <a href="javascript:void(0)"><i @click="managerDiv.show=3">创建新的会议</i></a></p>
+                        <meeting-list :meetings="managerDiv.newMeetings"></meeting-list>
                     </div>
                     <div :class="{'layui-show':managerDiv.show===2}" class="layui-tab-item">
-                        <p class="emptyWarming" v-if="managerDiv.newMeetings.length===0">您的所管理的已结束会议为空，可立即
-                            <i @click="managerDiv.show=3">创建新的会议</i></p>
-                        <meeting-list :meetings="joinDiv.applyMeetings" router-to="/manage"></meeting-list>
+                        <p class="emptyWarming" v-if="managerDiv.overMeetings.length===0">您的所管理的已结束会议为空，可立即
+                            <a href="javascript:void(0)"><i @click="managerDiv.show=3">创建新的会议</i></a></p>
+                        <meeting-list :meetings="managerDiv.overMeetings" router-to="/manage"></meeting-list>
                     </div>
                     <div :class="{'layui-show':managerDiv.show===3}" class="layui-tab-item ">
                         <div class="managerButtonBox">
@@ -73,15 +74,17 @@
                 </div>
             </div>
         </div>
+        <Popup ref="popup1"></Popup>
     </div>
 </template>
 
 <script>
     import MeetingList from "components/meetingList";
+    import Popup from "../../components/Popup";
     const meetingList = ()=> import("components/meetingList");
     export default {
         name: "Ordinary",
-        components: {MeetingList},
+        components: {Popup, MeetingList},
         comments:{
             meetingList
         },
@@ -89,30 +92,22 @@
             return{
                 joinDiv:{
                     newMeetings:[
-                        {id:"233",name:'五分钟内，我要全部信息',state:"5小时后开始",startTime:"2020年12月6日12:36",position:"信工楼b区",show:false},
-                        {id:"234",name:'可是',state:"5小时后开始",startTime:"2020年12月6日12:36",position:"信工楼b区",show:false},
-                        {id:"235",name:'不行',state:"5小时后开始",startTime:"2020年12月6日12:36",position:"信工楼b区",show:false}
                     ],
                     overMeetings:[
-                        {id:"233",name:'五分钟内，我要一点信息',state:"5小时后开始",startTime:"2020年12月6日12:36",position:"信工楼b区",show:false},
-                        {id:"234",name:'可是',state:"5小时后开始",startTime:"2020年12月6日12:36",position:"信工楼b区",show:false},
-                        {id:"235",name:'不行',state:"5小时后开始",startTime:"2020年12月6日12:36",position:"信工楼b区",show:false}
                     ],
                     searchMeetings:[
-                        {id:"233",name:'五分钟内，我要一点信息',state:"5小时后开始",startTime:"2020年12月6日12:36",position:"信工楼b区",show:false},
-                        {id:"234",name:'可是',state:"5小时后开始",startTime:"2020年12月6日12:36",position:"信工楼b区",show:false},
-                        {id:"235",name:'不行',state:"5小时后开始",startTime:"2020年12月6日12:36",position:"信工楼b区",show:false}
+                        {id:"233",name:'样例会议',orderStatus:"5小时后开始",beginTime:"2020年12月6日12:36",address:"信工楼b区"},
+                        {id:"234",name:'仅供参考',orderStatus:"5小时后开始",beginTime:"2020年12月6日12:36",address:"信工楼b区"},
+                        {id:"235",name:'没事别点',orderStatus:"5小时后开始",beginTime:"2020年12月6日12:36",address:"信工楼b区"}
                     ],
                     applyMeetings:[
-                        {id:"233",name:'五分钟内，我要一点信息',state:"申请中，未开始",startTime:"2020年12月6日12:36",position:"信工楼b区",show:false},
-                        {id:"234",name:'可是',state:"被拒绝",startTime:"2020年12月6日12:36",position:"信工楼b区",show:false},
-                        {id:"235",name:'不行',state:"已通过",startTime:"2020年12月6日12:36",position:"信工楼b区",show:false}
-                    ],
+                    ],search:"",
                     show:1
                 },
                 managerDiv:{
                     newMeetings:[],
                     overMeetings:[],
+                    creator:[],
                     show:1
                 }
             }
@@ -133,8 +128,31 @@
             setManageMeetings(){
                 let manage=this.$store.state.meetings.manage;
                 this.managerDiv.newMeetings=manage.newMeetings;
+                let creator = this.$store.state.meetings.creator;
+                console.log(creator);
+                if(creator)
+                    this.managerDiv.newMeetings+=creator;
                 this.managerDiv.overMeetings=manage.overMeetings;
                 if(manage.newMeetings.length===0)this.managerDiv.show=3;
+            },
+            searchClick(){
+                /*this.$http("mainServlet?ac=need&apiName=searchMeetings")*/
+                this.$request(this.$url.searchMeetings,{
+                        params:{
+                            search:this.joinDiv.search
+                    }
+                }).then(
+                    res =>{
+                        let resp=res.data;
+                        if(resp.msg==="success")
+                            this.joinDiv.searchMeetings=resp.searchMeetings;
+                        else if(resp.msg==="empty")this.joinDiv.searchMeetings=[];
+                        else this.$refs.popup1.showMsg("查询失败");
+                    }
+                ).catch(err =>{
+                    console.log(err);
+                    this.$refs.popup1.showMsg("查询异常");
+                });
             }
         },
         created() {
@@ -210,7 +228,7 @@
         font-size: 20px;
         color: #464955;
     }
-    .emptyWarming > i{
+    .emptyWarming >a> i{
         color: #007ddb;
     }
 

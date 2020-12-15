@@ -43,13 +43,15 @@
 
             }
         },created() {
-
             if(this.meetings)
             {
                 let length = this.meetings.length;
-                for(let inx; inx< length; inx++){
+
+                for(let inx=0; inx< length; inx++){
                                 this.show.push(false);
+                                /*js的Date实在是太难用啦//this.meetings[inx].beginTime=new Date(this.meetings[inx].beginTime).format("yyyy年MM月dd日 hh:mm:ss");*/
                             }
+
             }
         }
     }

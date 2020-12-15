@@ -17,8 +17,17 @@ const moduleA={
 const store= new Vuex.Store({
     state:{
         haveLogin:false,
-        url:"http://localhost:8080/mine/",
-        user:{},
+        url:"",
+        user:{name:"",
+            username:"",
+            sex:"",
+            birth:"",
+            identity:"",
+            email:"",
+            imgPath:"",
+            phone:"",
+            id:""
+        },
         meetings:{
             join:{
                 newMeetings:[],
@@ -28,7 +37,8 @@ const store= new Vuex.Store({
             manage:{
                 newMeetings:[],
                 overMeetings:[]
-            }
+            },
+            creator:[]
         },
         onTime:0
         /*userId:"3213",
@@ -45,12 +55,17 @@ const store= new Vuex.Store({
         //刚刚登录
         setUser(state,user){
             state.user=user;
+            //登录状态改为true
+            state.haveLogin=true;
         },
         setMeetings(state,meetings){
             state.meetings=meetings;
         },
         incOnTime(state){
             state.onTime++;
+        },
+        setURL(state,url){
+            state.url=url;
         }
     },
     actions:{
@@ -62,7 +77,7 @@ const store= new Vuex.Store({
     },
     getters:{
         headPath(state){
-            return state.url+state.user.headImg;
+            return state.url+state.user.imgPath;
         }
     },
     modules:{

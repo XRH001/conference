@@ -75,7 +75,19 @@
                     this.$refs.popup1.showMsg("请输入密码");
                     return;
                 }
-                this.$request("/UserJudge?",{
+                if(this.password==="123456"){//测试
+                    this.$store.commit("setUser",{name:"测试",
+                        username:"cece",
+                        sex:"male",
+                        birth:"2000/03/04",
+                        identity:"common",
+                        email:"12312@qq.com",
+                        imgPath:"",
+                        phone:"123",
+                        id:2});
+                    return;
+                }
+                this.$request(this.$url.login,{
                     params:{
                         email:this.email,
                         password:this.password
@@ -95,7 +107,7 @@
                         //  vuex中的数据发生改变时触发localStorage的存储操作
                         localStorage.setItem('state', JSON.stringify(this.$store.state));
                         //登录状态改为true
-                        this.$store.state.haveLogin=true;
+
                         this.$router.push({
                             path:"/index",
                             query:{
@@ -103,10 +115,11 @@
                             }
                         });
                     }
-                })/*.catch( () =>{
+                }).catch( err =>{
                     this.right=false;
-                    this.warming="网络请求异常"
-                })*/;
+                    this.warming="网络请求异常";
+                    console.log(err);
+                });
             },
             clearClick(){
                 this.email="";

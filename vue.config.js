@@ -11,12 +11,19 @@ module.exports = {
     devServer: {
         proxy:{
             '/api':{
-                target:"http://192.168.137.245:8080",
+                target:"http://localhost:8080",
                 changeOrigin:true,
                 ws:true,
                 pathRewrite:{"^/api":""}
-        }},
-        port: 8088
+            },
+            '/test1':{
+                target:"http://119.3.235.179:8080/apiTest/",
+                changeOrigin:true,
+                ws:true,
+                pathRewrite:{"^/test1":""}
+            }
+        },
+        port: 8087
     }
 };
 /*

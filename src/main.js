@@ -2,8 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from "./store"
-//import axios from 'axios'
-import {request} from "./network/request";
+import {decrypt,format,replaceAll,notFind} from "./assets/js/tools"
+import {request,http,url} from "./network/request";
 
 require("layui-src/dist/css/layui.css");
 
@@ -13,24 +13,16 @@ new Vue({
   render: h => h(App)
 }).$mount('#app');
 
-Vue.prototype.$request=request;
-Vue.prototype.$decrypt=function (code) {
-  let str = "";
-  for(let i=0;i<code.length/2;i++){
-    str += String.fromCharCode(parseInt(code[i*2]+code[i*2+1], 16));
-  }
-  console.log(str);
-  return str;
 
-};
-String.prototype.replaceAll = function(s1, s2) {
-  return this.replace(new RegExp(s1, "gm"), s2);
-};
-/*request({
-  url:"swipeServlet?action=getImgPathJson"}
-).then(res =>{
-  console.log(res);
-}).catch(err =>{
-  console.log(err);
-});*/
+Vue.prototype.$request=request;
+Vue.prototype.$http=http;
+
+Vue.prototype.$decrypt=decrypt;
+//图片未找到
+Vue.prototype.$notFind=notFind;
+//配置所有地址
+Vue.prototype.$url=url;
+String.prototype.replaceAll = replaceAll;
+Date.prototype.format=format;
+
 

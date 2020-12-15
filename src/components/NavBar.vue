@@ -11,7 +11,7 @@
         <li class="layui-nav-item "><router-link to="/my-message" :active-class="thisActive">我的消息</router-link></li>
         <li class="layui-nav-item ">
           <router-link to="/personalInfo" :active-class="thisActive">
-            <img :src="$store.getters.headPath" class="smallHead" ><!--$store.getters.headPath-->
+            <img :src="$store.getters.headPath" class="smallHead" @error="this.$notFind('../assets/defaultHead.png')"><!--$store.getters.headPath-->
             <span>{{$store.state.user.username}}</span>
           </router-link></li>
           </span>

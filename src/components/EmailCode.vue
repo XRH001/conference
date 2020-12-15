@@ -32,6 +32,9 @@
             }
         },props:{
             email:String,
+            sendURL:{
+                type:String
+            }
         },
         computed:{
             secondShow(){
@@ -69,18 +72,18 @@
                     //alert("邮箱格式错误");
                     return false;
                 }
-                this.$request("/registerYz",{
+                this.$request(this.sendURL,{
                     params:{
                         email:email
                     }
                 }).then(res =>{
-                    if(res.data===""){this.$refs.popup1.showMsg("-该邮箱账号不可用-");this.disable=false;}
-                    else if(res.data==="already"){
+                    if(res.data===""||res.data==="error"){this.$refs.popup1.showMsg("-该邮箱账号不可用-");this.disable=false;}
+                    if(res.data==="already"){
                         this.$refs.popup1.showMsg("该邮箱已注册过本平台。");this.disable=false;}
                     else {
                         this.$refs.popup1.showMsg("验证码已发送");
                         let emailCodeM =res.data;
-                        console.log(emailCodeM);
+                        //console.log(emailCodeM);
                         this.$emit("getEmailCode",emailCodeM);
                         this.buttonSet();
                     }

@@ -11,6 +11,8 @@ const Driver= () => import('../views/Driver/Driver');
 const Hotel= () => import('../views/Hotel/Hotel');
 const Ordinary= () => import('../views/Ordinary/Ordinary');
 const First= () => import('../views/First');
+const Manage= () => import('../views/Ordinary/Manage');
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -72,6 +74,11 @@ const routes = [
     path:'/First',
     name:'First',
     component:First
+  },
+  {
+    path:'/Manage',
+    name:'Manage',
+    component:Manage
   }
 ];
 

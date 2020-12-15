@@ -13,10 +13,22 @@
                     <td>用户名</td><td>{{$store.state.user.username}}</td>
                 </tr>
                 <tr>
-                    <td>邮箱</td><td>{{$store.state.user.userEmail}}</td>
+                    <td>邮箱</td><td>{{$store.state.user.email}}</td>
                 </tr>
                 <tr>
-                    <td>平台ID</td><td>{{$store.state.user.userId}}</td>
+                    <td>性别</td><td>{{$store.state.user.sex}}</td>
+                </tr>
+                <tr>
+                    <td>生日</td><td>{{$store.state.user.birth}}</td>
+                </tr>
+                <tr>
+                    <td>平台ID</td><td>{{$store.state.user.id}}</td>
+                </tr>
+                <tr>
+                    <td>手机</td><td>{{$store.state.user.phone}}</td>
+                </tr>
+                <tr>
+                    <td>用户类别</td><td>{{$store.state.user.identity}}</td>
                 </tr>
                 <tr>
                     <td colspan="2"><div class="headDiv"><button @click="exitCount" class="layui-btn layui-btn-danger">退出登录</button></div></td>

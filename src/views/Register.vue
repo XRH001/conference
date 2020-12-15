@@ -63,7 +63,7 @@
                             <input type="text" id="email" v-model.lazy="sendData.email" class="layui-input" required placeholder="请输入正确邮箱账号(必填)">
                         </div>
                     </div>
-                    <EmailCode :email="sendData.email"  @getEmailCode="passwordCode" @getCodeInput="getChildCode"></EmailCode>
+                    <EmailCode :email="sendData.email" :sendURL="this.$url.registerCode" @getEmailCode="passwordCode" @getCodeInput="getChildCode"></EmailCode>
 
                     <div class="layui-form-item layui-form-text">
                         <label class="layui-form-label">头像</label>
@@ -132,7 +132,7 @@
             //获取邮箱验证码时调用
             passwordCode(emailCode){
                 this.emailCode=emailCode;
-                console.log(this.emailCode);
+                //console.log(this.emailCode);
             },
             //子组件的input值获取
             getChildCode(codeInput){
@@ -152,18 +152,16 @@
               return this.password2Warming
             },
             registerSend(){
-                console.log(this.codeInput);
-
-
+                //console.log(this.codeInput);
                 this.codeWarming=this.codeInput.toLowerCase()===this.$decrypt(this.emailCode).toLowerCase();
-                console.log(this.$decrypt(this.emailCode));
+                //console.log(this.$decrypt(this.emailCode));
                 //解决日期format问题
                 this.sendData.birth=this.birthday.replaceAll('-','/');
-                console.log(this.sendData.birth);
+                //console.log(this.sendData.birth);
                 if(this.codeWarming)
                     if(this.nameCheck() && this.passwordCheck() && this.password2Check() && this.sendData.birth!==''){
                         //提交表单
-                        this.$request("/register",{
+                        this.$request(this.$url.register,{
                             params:
                                 this.sendData
 
@@ -219,9 +217,7 @@
         font-size: 20px;
         color: gray;
     }
-    .displayNone{
-        display: none;
-    }
+
     .warming{
         color: red;
         float: left;
