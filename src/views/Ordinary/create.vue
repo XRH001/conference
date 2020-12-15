@@ -72,7 +72,7 @@
                 //验证码
                 let codeRight;
                 if(this.codeInput!==""){
-                 codeRight=true;}//this.codeInput.toLowerCase()===this.$decrypt(this.emailCode).toLowerCase();}
+                 codeRight=this.codeInput.toLowerCase()===this.$decrypt(this.emailCode).toLowerCase();}
                 else this.$refs.popup1.showMsg("请输入验证码");
                 if(codeRight){
                     if(this.checkName()&&this.checkTime()&&this.checkPosition()){
@@ -104,11 +104,11 @@
                                 },1500);
                             }else if(resp.msg==="fail"){
                                 this.$refs.popup1.showMsg("创建失败，请重试")
-                            }else this.$refs.popup1.showMsg("服务器出现差错")
+                            }else this.$refs.popup1.showMsg("服务器出错")
                         }).catch(err => {
                             console.log(err);
                             this.$refs.popup1.showMsg("发生错误");
-                        })
+                        });
                     }
                 }
                 else this.$refs.popup1.showMsg("验证码错误");

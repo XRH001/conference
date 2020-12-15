@@ -7,27 +7,28 @@
         <div class="atCenter">
             <div class="managerButtonBox">
                 <a href="javascript:void(0)">
-                    <span class="iconfont icon-table  buttonBack"> </span>
+                    <span class="iconfont icon-table  buttonBack back1"> </span>
                     <div class="sixBorder">界面简洁</div></a>
             </div>
             <div class="managerButtonBox">
                 <a href="javascript:void(0)">
-                    <span class="iconfont icon-ziyuan173  buttonBack"> </span>
+                    <span class="iconfont icon-ziyuan173  buttonBack back2"> </span>
                     <div class="sixBorder">功能齐全</div></a>
             </div>
             <div class="managerButtonBox">
                 <a href="javascript:void(0)">
-                    <span class="iconfont icon-car carIcon buttonBack"> </span>
+                    <span class="iconfont icon-car carIcon buttonBack back3"> </span>
                     <div class="sixBorder">平台司机</div></a>
             </div>
             <div class="managerButtonBox">
                 <a href="javascript:void(0)">
-                    <span class="iconfont icon-hotel  buttonBack"> </span>
+                    <span class="iconfont icon-hotel  buttonBack back4"> </span>
                     <div class="sixBorder ">预约酒店</div></a>
             </div>
         </div>
-<!--        <div><img src="../assets/book.jpg"></div>-->
+        <div><img class="fullImg" src="../assets/book2.jpg"></div>
         <button class="centerButton" @click="toRegister">立即体验</button>
+        <router-link to="/login" class="centerP">浑元形意 会务管理</router-link>
     </div>
 </template>
 
@@ -37,7 +38,7 @@
         name: "First",
         data(){
             return{
-                topSet:0
+                topSet:-1000
             }
         },computed:{
           marginTop(){
@@ -53,7 +54,7 @@
             this.$store.commit("setURL",baseURL);
             var add=0.1;
             setInterval(() =>{
-                if(this.topSet<-350)add=-0.1;
+                if(this.topSet<-1000)add=-0.1;
                 if(this.topSet>0)add=0.1;
                 this.topSet-=add;
                 },20)
@@ -67,7 +68,7 @@
     .backgroundImg>img{
 
         width: 100%;
-        opacity: 90%;
+        opacity: 80%;
     }
     .atCenter{
         width: 100%;
@@ -86,8 +87,11 @@
         color: #1e9fff;
 
     }
-    .buttonBack{color: #ffe2be !important;}
-    .buttonBack:hover{color: #deffa9 !important;}
+    .back1{color: #249312 !important;}
+    .back2{color: #2E2D3C !important;}
+    .back3{color: #01aaed !important;}
+    .back4{color: #ff7f05 !important;}
+    .buttonBack:hover{color: #e7daff !important;}
     .sixBorder{
         font-size: 25px;
         color: #4588b8;
@@ -95,7 +99,7 @@
         background-color: #f9fdff;
         width: 120px;
         border-radius: 5px;
-        opacity: 80%;
+        opacity: 60%;
     }
     .centerButton{
         width: 200px;
@@ -107,9 +111,22 @@
         border-radius: 10px;
         background-color: transparent;
         font-size: 30px;
-        opacity: 80%;
+        opacity: 60%;
     }
     .centerButton:hover{
         background:linear-gradient(to bottom, #56bbd3, #e4faff);
+    }
+    .centerP{
+        position: fixed;
+        top:40%;
+        left: 27%;
+        text-align: center;
+        font-size: 80px;
+        color: #1f0058;
+        font-family: 华文行楷;
+
+    }
+    .fullImg{
+        width: 100%;
     }
 </style>

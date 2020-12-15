@@ -1,7 +1,7 @@
 <template>
     <div class="">
         <Swiper>
-                <div slot="t1" class="swipe layui-icon layui-icon-templeate-1 ">欢迎注册易渠会议</div>
+                <div slot="t1" class="swipe layui-icon layui-icon-templeate-1 ">欢迎注册浑元形意会务管理</div>
                 <div slot="t2" class="swipe layui-icon layui-icon-tabs">注册后即可创建会议</div>
                 <div slot="t3" class="swipe layui-icon layui-icon-app">会议后勤功能完善</div>
                 <div slot="t4" class="swipe layui-icon layui-icon-slider">操作简单快捷</div>
