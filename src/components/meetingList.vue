@@ -1,6 +1,6 @@
 <template>
     <div class="layui-collapse">
-        <div class="layui-colla-item" v-for="(meetingItem,inx) in meetings" :key="meetingItem.id" >
+        <div  class="layui-colla-item" v-for="(meetingItem,inx) in meetings" :key="meetingItem.id" >
             <h2 class="layui-colla-title" @click="show.splice(inx,1,!show[inx])">
                 <span v-if="show[inx]" class="layui-icon layui-icon-down"></span>
                 <span v-else class="layui-icon layui-icon-right"></span>
@@ -40,13 +40,12 @@
         data(){
             return {
                 show:[]
-
             }
         },created() {
             if(this.meetings)
             {
                 let length = this.meetings.length;
-
+                /*if(length===0){this.ifCreate=false;return;}*/
                 for(let inx=0; inx< length; inx++){
                                 this.show.push(false);
                                 /*js的Date实在是太难用啦//this.meetings[inx].beginTime=new Date(this.meetings[inx].beginTime).format("yyyy年MM月dd日 hh:mm:ss");*/

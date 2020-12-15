@@ -4,21 +4,21 @@
         <span>
         <li class="layui-nav-item "><router-link to="/index" :active-class="thisActive" >首页</router-link></li>
         <li class="layui-nav-item  "><router-link to="/search" :active-class="thisActive">查询{{$store.state.onTime}}</router-link></li><!--{{$store.state.user.userId}}-->
-        <li class="layui-nav-item layui-col-sm-offset4 layui-col-md-offset6 layui-col-lg-offset7"><router-link to="/About" :active-class="thisActive">关于</router-link></li>
+        <li class="layui-nav-item floatRight"><router-link to="/About" :active-class="thisActive">关于</router-link></li>
           </span>
 
             <span v-if="$store.state.haveLogin">
-        <li class="layui-nav-item "><router-link to="/my-message" :active-class="thisActive">我的消息</router-link></li>
-        <li class="layui-nav-item ">
+        <li class="layui-nav-item floatRight"><router-link to="/my-message" :active-class="thisActive">我的消息</router-link></li>
+        <li class="layui-nav-item floatRight">
           <router-link to="/personalInfo" :active-class="thisActive">
-            <img :src="$store.getters.headPath" class="smallHead" @error="this.$notFind('../assets/defaultHead.png')"><!--$store.getters.headPath-->
+            <img :src="$store.getters.headPath" class="smallHead" @error="notFindImg()"><!--$store.getters.headPath-->
             <span>{{$store.state.user.username}}</span>
           </router-link></li>
           </span>
 
             <span v-else>
-          <li class="layui-nav-item "><router-link to="/login" :active-class="thisActive">登录</router-link></li>
-          <li class="layui-nav-item "><router-link to="/Register" :active-class="thisActive">注册</router-link></li>
+          <li class="layui-nav-item floatRight"><router-link to="/login" :active-class="thisActive">登录</router-link></li>
+          <li class="layui-nav-item floatRight"><router-link to="/Register" :active-class="thisActive">注册</router-link></li>
         </span>
         </ul>
 
@@ -32,10 +32,16 @@
         data(){
             return {
                 show:true,
-                thisActive:'underLine'
+                thisActive:'underLine',
+                headError:require('assets/defaultHead.png')
             }
         },
         methods:{
+            notFindImg(){
+                this.$notFind(this.headError);
+            }
+        },
+        created() {
 
         }
     }
@@ -51,4 +57,6 @@
         height: 50px;
         border-radius: 50%;
     }
+    .floatRight{
+        float: right;}
 </style>

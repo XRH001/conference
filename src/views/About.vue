@@ -11,13 +11,13 @@
       return {imgPaths:[],path:""}
     },
     created() {
-      this.$http.get("/swipeServlet?action=getImgPathJson"
+      this.$http("/swipeServlet?action=getImgPathJson"
       ).then(res =>{
         this.imgPaths=res.data;
       });
       let num=0;
       setInterval(()=>{
-        this.path=this.$store.state.url+this.imgPaths[num%3].imgPath;
+        this.path=this.$url.baseURL+this.imgPaths[num%3].imgPath;
         num++;
       },3000);
     },

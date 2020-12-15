@@ -17,7 +17,7 @@ const moduleA={
 const store= new Vuex.Store({
     state:{
         haveLogin:false,
-        url:"",
+        url:"",//在App中赋值
         user:{name:"",
             username:"",
             sex:"",
@@ -66,6 +66,17 @@ const store= new Vuex.Store({
         },
         setURL(state,url){
             state.url=url;
+        },
+        addCreateMeetings(state,newMeeting){
+            //{
+            //                 id:newMeeting.id,
+            //                 name:newMeeting.name,
+            //                 address:newMeeting.position,
+            //                 beginTime:newMeeting.beginTime,
+            //                 orderStatus:newMeeting.orderStatus
+            //             }
+            state.meetings.manage.newMeetings.push(newMeeting);
+            console.log(state.meetings.manage.newMeetings);
         }
     },
     actions:{
@@ -76,7 +87,7 @@ const store= new Vuex.Store({
         }
     },
     getters:{
-        headPath(state){
+        headPath(state){//记得加上baseURL
             return state.url+state.user.imgPath;
         }
     },

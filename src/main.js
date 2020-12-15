@@ -6,7 +6,7 @@ import {decrypt,format,replaceAll,notFind} from "./assets/js/tools"
 import {request,http,url} from "./network/request";
 
 require("layui-src/dist/css/layui.css");
-
+require("assets/css/fonts.css");
 Vue.config.productionTip = false;
 new Vue({
   router,store,

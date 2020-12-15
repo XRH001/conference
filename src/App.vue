@@ -39,11 +39,18 @@ export default {
 }
 </script>
 <style>
-  @import "./assets/css/normalize.css";
+  .displayNone{
+    display: none;
+  }
   .container{
     margin: 15px ;
     border: #999999;
     border-radius: 5px;
 
+  }
+  .area{
+    font-size: 16px;
+    padding: 10px;
+    height: 120px!important;
   }
 </style>

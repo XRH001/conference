@@ -28,8 +28,8 @@
                 <div class="layui-form-item layui-row layui-col-space10">
                     <div class="layui-input-block ">
                         <button class="layui-btn" @click="createClick"><i class="layui-icon layui-icon-friends"></i>立即创建</button>
-                        <button  type="reset" class="layui-btn layui-btn-primary displayNone"><i class="layui-icon layui-icon-close-fill"></i>重置</button>
-                        <a class="layui-btn" @click="history.back()"><i class="layui-icon layui-icon-user"></i>取消</a>
+                        <button  @click="resetAll()" class="layui-btn layui-btn-primary displayNone"><i class="layui-icon layui-icon-close-fill"></i>重置</button>
+                        <a class="layui-btn" @click="cancelCreate"><i class="layui-icon layui-icon-user"></i>取消</a>
                     </div>
                 </div>
             </div>
@@ -70,7 +70,10 @@
                 this.codeInput=codeInput;
             },createClick(){
                 //验证码
-                let codeRight =this.codeInput.toLowerCase()===this.$decrypt(this.emailCode).toLowerCase();
+                let codeRight;
+                if(this.codeInput!==""){
+                 codeRight=true;}//this.codeInput.toLowerCase()===this.$decrypt(this.emailCode).toLowerCase();}
+                else this.$refs.popup1.showMsg("请输入验证码");
                 if(codeRight){
                     if(this.checkName()&&this.checkTime()&&this.checkPosition()){
                         this.$http("mainServlet?ac=need&apiName=createMeetingSuccess"
@@ -87,7 +90,15 @@
                             let resp=res.data;
                             if(resp.msg==="success"){
                                 this.$refs.popup1.showMsg("创建成功，即将跳转到详情页");
+                                let newMeeting={
+                                    name:this.meetingName,
+                                    beginTime: this.beginTime,
+                                    address:this.position,
+                                    id:resp.meetingID,
+                                    orderStatus:"已通过审核！"
+                                };
                                 //在这里把创建的会议存到creator里
+                                this.$store.commit("addCreateMeetings",newMeeting);
                                 setTimeout(() =>{
                                     this.$router.push({path:"/Manage",query:{meetingId:resp.meetingID}})
                                 },1500);
@@ -131,7 +142,15 @@
                     this.show.position=true;
                     return true;
                 }
+            },resetAll(){
+                this.codeInput="";
+                this.meetingName="";
+                this.beginTime="";
+                this.position="";
             },
+            cancelCreate(){
+                this.$router.push("/index");
+            }
         }
     }
 </script>

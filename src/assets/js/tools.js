@@ -51,7 +51,8 @@ export function replaceAll(s1, s2) {
 
 export function notFind(url){
     let img=event.srcElement;
-    //url="http://119.3.235.179:8080/driver/picture/head1011608000531344.jpg";
+    //alert("根本没触发");
+    //let url="http://119.3.235.179:8080/driver/picture/head1011608000531344.jpg";
     img.src=url; //替换的图片
     img.onerror=null; //控制不要一直触发错误
 }

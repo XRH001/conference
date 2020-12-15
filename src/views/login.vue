@@ -3,13 +3,18 @@
         <Swiper></Swiper>
         <div class="layui-col-lg-offset1 layui-col-lg4 layui-col-md4 ">
             <button class="layui-btn menuButton" @click="tipsShow=!tipsShow"><span class="layui-icon layui-icon-spread-left"></span></button>
-            <div class="layui-card leftCard layui-bg-cyan" :class="{'displayBlock':tipsShow}">
+            <div class="layui-card leftCard " :class="{'displayBlock':tipsShow}">
                 <div class="cardTitle">tips</div>
                 <div class="layui-card-body">
-                    账号身份在登录后自动检测，可在个人信息中修改<br>
-                    系统管理员可通过隐藏按键进行登录<br>
-                    扫描二维码体验小程序版<br>
-                    <img class="secondImg" src="../assets/miniapp.png" >
+                    *账号身份在登录后自动检测，并跳转到对应首页<br>
+                    *系统管理员登录入口不在此<br>
+                    *暂时只支持使用邮箱登录<br>
+                    *密码必须超过6位<br>
+                    *界面使用了layui样式但layui组件的功能是由vue辅助完成的(主要是因为Vue里面最好不要引入jquery)<br>
+                    <div class="layui-col-lg2 layui-col-md2 setFixed">
+                        <p>扫码使用小程序</p>
+                        <img  src="../assets/miniapp.png">
+                    </div>
                 </div>
             </div>
         </div>
@@ -41,6 +46,7 @@
                 </div>
             </div>
         </div>
+
         <Popup ref="popup1" set-color="#FF832A"></Popup>
     </div>
 </template>
@@ -62,7 +68,7 @@
                 password:"",
                 right:true,
                 warming:"账号或密码错误，请重新输入",
-                tipsShow:true
+                tipsShow:false
             }
         },
         methods:{
@@ -82,9 +88,10 @@
                         birth:"2000/03/04",
                         identity:"common",
                         email:"12312@qq.com",
-                        imgPath:"",
+                        imgPath:"img/head.jpg",
                         phone:"123",
                         id:2});
+                    this.$router.push("/index");
                     return;
                 }
                 this.$request(this.$url.login,{
@@ -163,20 +170,25 @@
         font-size: 20px;
         float: right;
     }
+    .setFixed{
+        margin-top: 20px;
+        width: 150px;
+        padding: 10px;
+    }
+    .setFixed>img{
+         height: 100px;
 
+     }
     .leftCard{
         padding: 20px;
-        font-size: 25px;
+        font-size: 17px;
         font-family: '楷体';
-        color:#007DDB;
-        opacity: 70%;
+        color: #7ac6b8;
+
         border-radius: 6px;
         margin: 20px;
     }
-    .secondImg{
-        height: 220px;
-        margin-left: 90px ;
-    }
+
     .menuButton{
         display: none;
         margin-left: 9%;
