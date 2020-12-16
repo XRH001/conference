@@ -1,7 +1,7 @@
 <template>
     <div class="firstBack">
         <div class="backgroundImg">
-            <img :style="marginTop" src="../assets/book.jpg">
+            <img :style="marginTop" src="../assets/book1.png">
 
         </div>
         <div class="atCenter">
@@ -64,7 +64,7 @@
 
 <style scoped>
 
-    .backgroundImg{height: 300px;overflow: hidden}
+    .backgroundImg{height: 300px;overflow: hidden;background-color:white}
     .backgroundImg>img{
 
         width: 100%;
@@ -76,7 +76,7 @@
         height: 300px;
 
         padding: 20px 20px 20px 40px;
-        background:linear-gradient(to bottom,darkslategray,white);
+        background:linear-gradient(to bottom, white,#7B7B7B);
     }
     .firstBack{
         background-color: #2f4056;
@@ -118,13 +118,15 @@
     }
     .centerP{
         position: fixed;
-        top:40%;
+        top:38%;
         left: 27%;
         text-align: center;
         font-size: 80px;
         color: #1f0058;
         font-family: 华文行楷;
-
+        background-color: white;
+        opacity: 60%;
+        border-radius: 20px;
     }
     .fullImg{
         width: 100%;

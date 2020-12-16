@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="center layui-bg-cyan layui-col-lg-offset1 layui-col-md-offset1 layui-col-xs-offset1 layui-col-lg5 layui-col-md6 layui-col-xs10 ">
-            <p class="layui-icon layui-icon-read loginTitle">登录</p>
+            <p class="layui-icon layui-icon-read loginTitle">用户登录</p>
             <a href="" class="layui-icon layui-icon-layer forget">忘记密码？</a>
             <br><br><br>
             <div class="layui-form ">
@@ -39,9 +39,11 @@
                 <br><br>
                 <div class="layui-form-item">
                     <div class="layui-input-block layui-col-space30">
-                        <input type="button" class="layui-btn"  @click="loginClick()" value="登录">
+                        <input type="button" class="layui-btn layui-btn-checked"  @click="loginClick()" value="登录">
                         <button class="layui-btn layui-btn-primary" @click="clearClick()">重置</button>
                         <router-link to="/Register" class="layui-btn layui-btn-normal">注册</router-link>
+                        <router-link to="/DriverLogin" class="layui-btn layui-btn-normal">司机登录</router-link>
+                        <router-link to="/HotelLogin" class="layui-btn layui-btn-normal">酒店登录</router-link>
                     </div>
                 </div>
             </div>
@@ -86,7 +88,7 @@
                         username:"cece",
                         sex:"male",
                         birth:"2000/03/04",
-                        identity:"common",
+                        identity:"driver",
                         email:"12312@qq.com",
                         imgPath:"img/head.jpg",
                         phone:"123",
@@ -104,12 +106,12 @@
                     else if(res.data.toString()==="error"){this.$refs.popup1.showMsg("发生错误");}
                     else{
                         //console.log(res.data);
-
                         let loginJSON =res.data;//JSON.parse(res.data);//eval('(' +res.data+')'); //
                         //console.log(loginJSON.user);
                         //console.log(loginJSON.meetings);
                         this.$store.commit("setUser",loginJSON.user);
-                        this.$store.commit("setMeetings",loginJSON.meetings);
+                        if(loginJSON.meetings)
+                            this.$store.commit("setMeetings",loginJSON.meetings);
                         //this.$store.state.user=loginJSON.user; 不建议使用
                         //  vuex中的数据发生改变时触发localStorage的存储操作
                         localStorage.setItem('state', JSON.stringify(this.$store.state));

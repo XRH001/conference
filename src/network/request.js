@@ -24,6 +24,6 @@ const url={
     registerCode:"/registerYz",
     sendCode:"/sas",
     create:"/create",
-    searchMeetings:"/search"
+    searchMeetings:"/SearchMeeting"
 };
 export {url}

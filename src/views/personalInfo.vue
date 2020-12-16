@@ -1,6 +1,7 @@
 <template>
-    <div><div class="personalContainer">
-        <table class="layui-table">
+    <div>
+        <div v-if="show===0" class="personalContainer">
+            <table class="layui-table">
             <colgroup>
                 <col width="20%">
                 <col width="80%">
@@ -41,7 +42,7 @@
                 </tr>
             </tbody>
         </table>
-        <table class="alterTable layui-table" :class="{'displayNone':alterNone}">
+            <table class="alterTable layui-table" v-show="alterNone">
             <colgroup>
                 <col width="30%">
                 <col width="70%">
@@ -60,7 +61,7 @@
                 </tr>
             </tbody>
         </table>
-        <table class="alterTable layui-table" :class="{'displayNone':passwordChangeNone}">
+            <table class="alterTable layui-table" v-show="passwordChangeNone">
             <colgroup>
                 <col width="30%">
                 <col width="70%">
@@ -76,8 +77,12 @@
             </td></tr>
             </tbody>
         </table>
+        </div>
+        <div v-if="show===1">司机信息</div>
+        <div v-if="show===2">酒店信息</div>
+        <div v-if="show===3"><h1>未找到您的信息请<a href="javascript:void(0)" @click="errorInfo()">重新登录</a></h1></div>
+        <div class="cover" :class="{'displayNone':alterNone&&passwordChangeNone}"></div>
     </div>
-        <div class="cover" :class="{'displayNone':alterNone&&passwordChangeNone}"></div></div>
 </template>
 
 <script>
@@ -86,7 +91,8 @@
         data(){
             return{
                 alterNone:true,
-                passwordChangeNone:true
+                passwordChangeNone:true,
+                show:0
             }
         },
         computed:{
@@ -111,7 +117,17 @@
             },
             notFindImg(){
                 this.$notFind(require("assets/defaultHead.png"));
+            },
+            errorInfo(){
+                this.$store.commit("exitCount");
+                this.$router.push("/login");
             }
+        },
+        created() {
+            if(this.$store.state.identity.toLowerCase() ==='common')this.show=0;
+            else if(this.$store.state.identity.toLowerCase() ==='driver')this.show=1;
+            else if(this.$store.state.identity.toLowerCase() ==='hotel')this.show=2;
+            else this.show=3;
         }
     }
 </script>

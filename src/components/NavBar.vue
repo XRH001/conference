@@ -12,7 +12,7 @@
         <li class="layui-nav-item floatRight">
           <router-link to="/personalInfo" :active-class="thisActive">
             <img :src="$store.getters.headPath" class="smallHead" @error="notFindImg()"><!--$store.getters.headPath-->
-            <span>{{$store.state.user.username}}</span>
+            <span>{{$store.getters.getName}}</span>
           </router-link></li>
           </span>
 

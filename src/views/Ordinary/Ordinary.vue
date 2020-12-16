@@ -137,6 +137,7 @@
             },
             searchClick(){
                 /*this.$http("mainServlet?ac=need&apiName=searchMeetings")*/
+                console.log(this.joinDiv.search);
                 this.$request(this.$url.searchMeetings,{
                         params:{
                             search:this.joinDiv.search
@@ -144,6 +145,7 @@
                 }).then(
                     res =>{
                         let resp=res.data;
+                        console.log(resp);
                         if(resp.msg==="success")
                             this.joinDiv.searchMeetings=resp.searchMeetings;
                         else if(resp.msg==="empty")this.joinDiv.searchMeetings=[];

@@ -1,28 +1,24 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import {driver} from './driver'
+import {hotel} from './hotel'
 
 /*import SETUSER from "../store/mutations-types"
 import SETMEETINGS from "../store/mutations-types"*/
 //安装
 Vue.use(Vuex);
 
-//模块
-const moduleA={
-    state:{},
-    mutations:{},
-    actions:{},
-    getters:{}
-};
+
 //创建store
 const store= new Vuex.Store({
     state:{
         haveLogin:false,
         url:"",//在App中赋值
+        identity:"common",
         user:{name:"",
             username:"",
             sex:"",
             birth:"",
-            identity:"",
             email:"",
             imgPath:"",
             phone:"",
@@ -50,12 +46,16 @@ const store= new Vuex.Store({
         //退出登录
         exitCount(state){
             state.user={};
+            state.hotel={};
+            state.driver={};
             state.haveLogin=false;
         },
         //刚刚登录
         setUser(state,user){
             state.user=user;
             //登录状态改为true
+            state.haveLogin=true;
+        },setLogin(state){
             state.haveLogin=true;
         },
         setMeetings(state,meetings){
@@ -77,6 +77,9 @@ const store= new Vuex.Store({
             //             }
             state.meetings.manage.newMeetings.push(newMeeting);
             console.log(state.meetings.manage.newMeetings);
+        },
+        setIdentity(state,identity){
+            state.identity=identity;
         }
     },
     actions:{
@@ -88,11 +91,23 @@ const store= new Vuex.Store({
     },
     getters:{
         headPath(state){//记得加上baseURL
-            return state.url+state.user.imgPath;
+            let headPath;
+            if(state.identity.toLowerCase()==="driver")headPath=state.url+state.driver.driver.imgPath;
+            else if(state.identity.toLowerCase()==="hotel")headPath=state.url+state.hotel.hotel.imgPath;
+            else headPath=state.url+state.user.imgPath;
+            return headPath;
+        },
+        getName(state){
+            let name;
+            if(state.identity.toLowerCase()==="driver")name=state.driver.driver.name;
+            else if(state.identity.toLowerCase()==="hotel")name=state.hotel.hotel.name;
+            else name=state.user.name;
+            return name;
         }
     },
     modules:{
-        aMod:moduleA
+        driver:driver,
+        hotel:hotel
     }
 
 });
