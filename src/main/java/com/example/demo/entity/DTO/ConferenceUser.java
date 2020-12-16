@@ -41,6 +41,15 @@ public class ConferenceUser{
         this.info = info;
     }
 
+    public ConferenceUser(User user, Conference conference, Position position, InvitationStatus invitationStatus, OrderStatus orderStatus, String info) {
+        this.user = user;
+        this.conference = conference;
+        this.position = position;
+        this.invitationStatus = invitationStatus;
+        this.orderStatus = orderStatus;
+        this.info = info;
+    }
+
     public int getID() {
         return ID;
     }

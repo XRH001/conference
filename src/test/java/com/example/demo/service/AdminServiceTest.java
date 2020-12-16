@@ -17,19 +17,23 @@ public class AdminServiceTest {
 
     @Test
     public void saveAdmin() {
-        System.out.println(adminService.saveAdmin(admin));
+        System.out.println(adminService.saveAdmin(null));
     }
 
     @Test
     public void delete(){
-        adminService.deleteAdmin(7);
+        System.out.println(adminService.deleteAdmin(7));
     }
 
     @Test
     public void query(){
         System.out.println(adminService.queryAdmins());
         System.out.println(adminService.queryAdminByUsername("user2"));
+    }
 
+    @Test
+    public void queryAdminByID(){
+        System.out.println(adminService.queryAdminByID(100));
     }
 
     @Test

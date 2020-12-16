@@ -7,10 +7,12 @@ import com.example.demo.entity.DTO.DriverPickUp;
 import com.example.demo.entity.DTO.UserJourney;
 import com.example.demo.enumValue.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * @author 李嘉旭
@@ -26,7 +28,7 @@ public class DriverPickUpService {
     @Autowired
     DriverService driverService;
     List<DriverPickUp> list=new ArrayList<>();
-    List<DriverPickUpDO> driverPickUpDOList=new ArrayList<>();
+    List<DriverPickUpDO> driverPickUpDOList;
 
     /**
      * 增加或修改一个driverPickUp
@@ -36,7 +38,11 @@ public class DriverPickUpService {
      * @return null表示失败,否则表示成功
      */
     public DriverPickUp saveDriverPickUp(DriverPickUp driverPickUp){
-        return toDriverPickUp(driverPickUpDAO.save(toDriverPickUpDO(driverPickUp)));
+        if (driverPickUp!=null){
+            return toDriverPickUp(driverPickUpDAO.save(toDriverPickUpDO(driverPickUp)));
+        }else {
+            return null;
+        }
     }
 
     /**
@@ -44,8 +50,13 @@ public class DriverPickUpService {
      * 根据ID
      * @param driverPickUpID 要删除的driverPickUpID
      */
-    public void deleteDriverPickUpByID(int driverPickUpID){
-        driverPickUpDAO.deleteById(driverPickUpID);
+    public int deleteDriverPickUpByID(int driverPickUpID){
+        try{
+            driverPickUpDAO.deleteById(driverPickUpID);
+            return 1;
+        }catch (EmptyResultDataAccessException e){
+            return -1;
+        }
     }
 
     /**
@@ -55,7 +66,11 @@ public class DriverPickUpService {
      * @return
      */
     public DriverPickUp queryDriverPickUpByID(int driverPickUpID){
-        return toDriverPickUp(driverPickUpDAO.findById(driverPickUpID).get());
+        try {
+            return toDriverPickUp(driverPickUpDAO.findById(driverPickUpID).get());
+        }catch (NoSuchElementException e){
+            return null;
+        }
     }
 
     /**
@@ -64,13 +79,15 @@ public class DriverPickUpService {
      */
     public List<DriverPickUp> queryDriverPickUps(){
         list.clear();
-       
         driverPickUpDOList=driverPickUpDAO.findAll();
-        for(DriverPickUpDO d:driverPickUpDOList){
-            list.add(toDriverPickUp(d));
+        if (driverPickUpDOList.size()!=0){
+            for(DriverPickUpDO d:driverPickUpDOList){
+                list.add(toDriverPickUp(d));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
-
     }
 
     /**
@@ -88,13 +105,20 @@ public class DriverPickUpService {
      * @return 一个页面的driverPickUp集合
      */
     public List<DriverPickUp> queryForPageItems(int begin,int pageSize){
-        list.clear();
-
-        driverPickUpDOList=driverPickUpDAO.queryForPageItems(begin, pageSize);
-        for(DriverPickUpDO d:driverPickUpDOList){
-            list.add(toDriverPickUp(d));
+        try {
+            list.clear();
+            driverPickUpDOList=driverPickUpDAO.queryForPageItems(begin, pageSize);
+            if (driverPickUpDOList.size()!=0){
+                for(DriverPickUpDO d:driverPickUpDOList){
+                    list.add(toDriverPickUp(d));
+                }
+                return list;
+            }else {
+                return null;
+            }
+        }catch (Exception e){
+            return null;
         }
-        return list;
     }
 
     /**

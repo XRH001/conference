@@ -9,10 +9,12 @@ import com.example.demo.enumValue.InvitationStatus;
 import com.example.demo.enumValue.OrderStatus;
 import com.example.demo.enumValue.Position;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * @author 李嘉旭 
@@ -28,7 +30,7 @@ public class ConferenceUserService {
     @Autowired
     ConferenceService conferenceService;
     List<ConferenceUser> list=new ArrayList<>();
-    List<ConferenceUserDO> conferenceUserDOList=new ArrayList<>();
+    List<ConferenceUserDO> conferenceUserDOList;
 
     /**
      * 增加或修改一个conferenceUser
@@ -38,8 +40,12 @@ public class ConferenceUserService {
      * @return 插入后conferenceUser
      */
     public ConferenceUser saveConferenceUser(ConferenceUser conferenceUser){
+        if (conferenceUser!=null){
+            return toConferenceUser(conferenceUserDAO.save(toConferenceUserDO(conferenceUser)));
+        }else {
+            return null;
+        }
 
-        return toConferenceUser(conferenceUserDAO.save(toConferenceUserDO(conferenceUser)));
     }
 
     /**
@@ -47,8 +53,14 @@ public class ConferenceUserService {
      * 根据ID
      * @param conferenceUserID 要删除的conferenceUserID
      */
-    public void deleteConferenceUser(int conferenceUserID){
-        conferenceUserDAO.deleteById(conferenceUserID);
+    public int deleteConferenceUser(int conferenceUserID){
+        try {
+            conferenceUserDAO.deleteById(conferenceUserID);
+            return 1;
+        }catch (EmptyResultDataAccessException e){
+            return -1;
+        }
+
     }
 
     /**
@@ -58,7 +70,12 @@ public class ConferenceUserService {
      * @return
      */
     public ConferenceUser queryConferenceUserByID(int conferenceUserID){
-        return toConferenceUser(conferenceUserDAO.findById(conferenceUserID).get());
+        try {
+            return toConferenceUser(conferenceUserDAO.findById(conferenceUserID).get());
+        }catch (NoSuchElementException e){
+            return null;
+        }
+
     }
 
     /**
@@ -68,10 +85,14 @@ public class ConferenceUserService {
     public List<ConferenceUser> queryConferenceUsers(){
         list.clear();
         conferenceUserDOList=conferenceUserDAO.findAll();
-        for(ConferenceUserDO c:conferenceUserDOList){
-            list.add(toConferenceUser(c));
+        if (conferenceUserDOList.size()!=0){
+            for(ConferenceUserDO c:conferenceUserDOList){
+                list.add(toConferenceUser(c));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**
@@ -83,10 +104,14 @@ public class ConferenceUserService {
     public List<ConferenceUser> queryConferenceUsersByUser(User user){
         list.clear();
         conferenceUserDOList=conferenceUserDAO.queryConferenceUserDOSByUserID(user.getID());
-        for(ConferenceUserDO c:conferenceUserDOList){
-            list.add(toConferenceUser(c));
+        if (conferenceUserDOList.size()!=0){
+            for(ConferenceUserDO c:conferenceUserDOList){
+                list.add(toConferenceUser(c));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**
@@ -97,12 +122,15 @@ public class ConferenceUserService {
      */
     public List<ConferenceUser> queryConferenceUsersByConference(Conference conference){
         list.clear();
-        
         conferenceUserDOList=conferenceUserDAO.queryConferenceUserDOSByConferenceID(conference.getID());
-        for(ConferenceUserDO c:conferenceUserDOList){
-            list.add(toConferenceUser(c));
+        if (conferenceUserDOList.size()!=0){
+            for(ConferenceUserDO c:conferenceUserDOList){
+                list.add(toConferenceUser(c));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**
@@ -114,12 +142,15 @@ public class ConferenceUserService {
      */
     public List<ConferenceUser> queryConferenceUsersByUserAndPosition(User user, Position position){
         list.clear();
-        
         conferenceUserDOList=conferenceUserDAO.queryConferenceUserDOSByUserIDAndPosition(user.getID(),position.getPositionName());
-        for(ConferenceUserDO c:conferenceUserDOList){
-            list.add(toConferenceUser(c));
+        if (conferenceUserDOList.size()!=0){
+            for(ConferenceUserDO c:conferenceUserDOList){
+                list.add(toConferenceUser(c));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**
@@ -131,12 +162,15 @@ public class ConferenceUserService {
      */
     public List<ConferenceUser> queryConferenceUsersByUserAndInvitationStatus(User user, InvitationStatus invitationStatus){
         list.clear();
-        
         conferenceUserDOList=conferenceUserDAO.queryConferenceUserDOSByUserIDAndInvitationStatus(user.getID(),invitationStatus.getNum());
-        for(ConferenceUserDO c:conferenceUserDOList){
-            list.add(toConferenceUser(c));
+        if (conferenceUserDOList.size()!=0){
+            for(ConferenceUserDO c:conferenceUserDOList){
+                list.add(toConferenceUser(c));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**
@@ -148,12 +182,15 @@ public class ConferenceUserService {
      */
     public List<ConferenceUser> queryConferenceUsersByUserAndOrderStatus(User user, OrderStatus orderStatus){
         list.clear();
-        
         conferenceUserDOList=conferenceUserDAO.queryConferenceUserDOSByUserIDAndOrderStatus(user.getID(),orderStatus.getNum());
-        for(ConferenceUserDO c:conferenceUserDOList){
-            list.add(toConferenceUser(c));
+        if (conferenceUserDOList.size()!=0){
+            for(ConferenceUserDO c:conferenceUserDOList){
+                list.add(toConferenceUser(c));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**
@@ -165,12 +202,15 @@ public class ConferenceUserService {
      */
     public List<ConferenceUser> queryConferenceUsersByConferenceAndPosition(Conference conference,Position position){
         list.clear();
-        
         conferenceUserDOList=conferenceUserDAO.queryConferenceUserDOSByConferenceIDAndPosition(conference.getID(),position.getPositionName());
-        for(ConferenceUserDO c:conferenceUserDOList){
-            list.add(toConferenceUser(c));
+        if (conferenceUserDOList.size()!=0){
+            for(ConferenceUserDO c:conferenceUserDOList){
+                list.add(toConferenceUser(c));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**
@@ -182,12 +222,15 @@ public class ConferenceUserService {
      */
     public List<ConferenceUser> queryConferenceUsersByConferenceAndInvitationStatus(Conference conference,InvitationStatus invitationStatus){
         list.clear();
-        
         conferenceUserDOList=conferenceUserDAO.queryConferenceUserDOSByConferenceIDAndInvitationStatus(conference.getID(),invitationStatus.getNum());
-        for(ConferenceUserDO c:conferenceUserDOList){
-            list.add(toConferenceUser(c));
+        if (conferenceUserDOList.size()!=0){
+            for(ConferenceUserDO c:conferenceUserDOList){
+                list.add(toConferenceUser(c));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**
@@ -199,12 +242,15 @@ public class ConferenceUserService {
      */
     public List<ConferenceUser> queryConferenceUsersByConferenceAndOrderStatus(Conference conference,OrderStatus orderStatus){
         list.clear();
-        
         conferenceUserDOList=conferenceUserDAO.queryConferenceUserDOSByConferenceIDAndOrderStatus(conference.getID(),orderStatus.getNum());
-        for(ConferenceUserDO c:conferenceUserDOList){
-            list.add(toConferenceUser(c));
+        if (conferenceUserDOList.size()!=0){
+            for(ConferenceUserDO c:conferenceUserDOList){
+                list.add(toConferenceUser(c));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**
@@ -223,12 +269,15 @@ public class ConferenceUserService {
      */
     public List<ConferenceUser> queryForPageItems(int begin,int pageSize){
         list.clear();
-        
         conferenceUserDOList=conferenceUserDAO.queryForPageItems(begin,pageSize);
-        for(ConferenceUserDO c:conferenceUserDOList){
-            list.add(toConferenceUser(c));
+        if (conferenceUserDOList.size()!=0){
+            for(ConferenceUserDO c:conferenceUserDOList){
+                list.add(toConferenceUser(c));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**

@@ -5,10 +5,12 @@ import com.example.demo.entity.DO.HotelAccommodationDO;
 import com.example.demo.entity.DTO.HotelAccommodation;
 import com.example.demo.entity.DTO.HotelOrder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * @author 李嘉旭
@@ -34,7 +36,11 @@ public class HotelAccommodationService {
      * @return
      */
     public HotelAccommodation saveHotelAccommodation(HotelAccommodation hotelAccommodation){
-        return toHotelAccommodation(hotelAccommodationDAO.save(toHotelAccommodationDO(hotelAccommodation)));
+        if (hotelAccommodation!=null){
+            return toHotelAccommodation(hotelAccommodationDAO.save(toHotelAccommodationDO(hotelAccommodation)));
+        }else {
+            return null;
+        }
     }
 
     /**
@@ -42,8 +48,14 @@ public class HotelAccommodationService {
      * 根据ID
      * @param hotelAccommodationID
      */
-    public void deleteHotelAccommodation(int hotelAccommodationID){
-        hotelAccommodationDAO.deleteById(hotelAccommodationID);
+    public int deleteHotelAccommodation(int hotelAccommodationID){
+        try {
+            hotelAccommodationDAO.deleteById(hotelAccommodationID);
+            return 1;
+        }catch (EmptyResultDataAccessException e){
+            return -1;
+        }
+
     }
 
     /**
@@ -53,7 +65,11 @@ public class HotelAccommodationService {
      * @return
      */
     public HotelAccommodation queryHotelAccommodationByID(int hotelAccommodationID){
-        return toHotelAccommodation(hotelAccommodationDAO.findById(hotelAccommodationID).get());
+        try {
+            return toHotelAccommodation(hotelAccommodationDAO.findById(hotelAccommodationID).get());
+        }catch (NoSuchElementException e){
+            return null;
+        }
     }
 
     /**

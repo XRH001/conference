@@ -6,10 +6,12 @@ import com.example.demo.entity.DTO.Conference;
 import com.example.demo.entity.DTO.ConferenceJourney;
 import com.example.demo.entity.DTO.Journey;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class ConferenceJourneyService {
@@ -20,45 +22,70 @@ public class ConferenceJourneyService {
     @Autowired
     JourneyService journeyService;
     List<ConferenceJourney> list=new ArrayList<>();
-    List<ConferenceJourneyDO> conferenceJourneyDOList=new ArrayList<>();
+    List<ConferenceJourneyDO> conferenceJourneyDOList;
 
     public ConferenceJourneyDO saveConferenceJourney(ConferenceJourney conferenceJourney){
-        return conferenceJourneyDAO.save(toConferenceJourneyDO(conferenceJourney));
+        if (conferenceJourney!=null){
+            return conferenceJourneyDAO.save(toConferenceJourneyDO(conferenceJourney));
+        }else {
+            return null;
+        }
     }
 
-    public void deleteConferenceJourneyByID(int conferenceJourneyID){
-        conferenceJourneyDAO.deleteById(conferenceJourneyID);
+    public int deleteConferenceJourneyByID(int conferenceJourneyID){
+        try {
+            conferenceJourneyDAO.deleteById(conferenceJourneyID);
+            return 1;
+        }catch (EmptyResultDataAccessException e){
+            return -1;
+        }
     }
 
     public ConferenceJourney queryConferenceJourneyByID(int conferenceJourneyID){
-        return toConferenceJourney(conferenceJourneyDAO.queryConferenceJourneyDOByID(conferenceJourneyID));
+        try {
+            return toConferenceJourney(conferenceJourneyDAO.queryConferenceJourneyDOByID(conferenceJourneyID));
+        }catch (NoSuchElementException e){
+            return null;
+        }
     }
 
     public List<ConferenceJourney> queryConferenceJourneys(){
         list.clear();
         conferenceJourneyDOList=conferenceJourneyDAO.findAll();
-        for (ConferenceJourneyDO conferenceJourneyDO:conferenceJourneyDOList){
-            list.add(toConferenceJourney(conferenceJourneyDO));
+        if (conferenceJourneyDOList.size()!=0){
+            for (ConferenceJourneyDO conferenceJourneyDO:conferenceJourneyDOList){
+                list.add(toConferenceJourney(conferenceJourneyDO));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     public List<ConferenceJourney> queryConferenceJourneysByConference(Conference conference){
         list.clear();
         conferenceJourneyDOList=conferenceJourneyDAO.queryConferenceJourneyDOSByConferenceID(conference.getID());
-        for (ConferenceJourneyDO conferenceJourneyDO:conferenceJourneyDOList){
-            list.add(toConferenceJourney(conferenceJourneyDO));
+        if (conferenceJourneyDOList.size()!=0){
+            for (ConferenceJourneyDO conferenceJourneyDO:conferenceJourneyDOList){
+                list.add(toConferenceJourney(conferenceJourneyDO));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     public List<ConferenceJourney> queryConferenceJourneysByJourney(Journey journey){
         list.clear();
         conferenceJourneyDOList=conferenceJourneyDAO.queryConferenceJourneyDOSByConferenceID(journey.getID());
-        for (ConferenceJourneyDO conferenceJourneyDO:conferenceJourneyDOList){
-            list.add(toConferenceJourney(conferenceJourneyDO));
+        if (conferenceJourneyDOList.size()!=0){
+            for (ConferenceJourneyDO conferenceJourneyDO:conferenceJourneyDOList){
+                list.add(toConferenceJourney(conferenceJourneyDO));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     public int queryForCountTotal(){
@@ -66,12 +93,22 @@ public class ConferenceJourneyService {
     }
 
     public List<ConferenceJourney> queryForPageItems(int begin,int pageSize){
-        list.clear();
-        conferenceJourneyDOList=conferenceJourneyDAO.queryForPageItems(begin,pageSize);
-        for (ConferenceJourneyDO conferenceJourneyDO:conferenceJourneyDOList){
-            list.add(toConferenceJourney(conferenceJourneyDO));
+        try {
+            list.clear();
+            conferenceJourneyDOList=conferenceJourneyDAO.queryForPageItems(begin,pageSize);
+            if (conferenceJourneyDOList.size()!=0){
+                for (ConferenceJourneyDO conferenceJourneyDO:conferenceJourneyDOList){
+                    list.add(toConferenceJourney(conferenceJourneyDO));
+                }
+                return list;
+            }else {
+                return null;
+            }
+
+        }catch (Exception e){
+            return null;
         }
-        return list;
+
     }
 
 

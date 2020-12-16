@@ -44,6 +44,14 @@ public interface DriverDAO extends JpaRepository<Driver,Integer> {
      */
     public List<Driver> queryDriversByMaxNumLessThanEqual(int maxNum);
 
+    public Driver queryDriverByUsername(String username);
+
+    public Driver queryDriverByEmail(String email);
+
+    public Driver queryDriverByPhone(String phone);
+
+    public List<Driver> queryDriverByNameContainingOrCarNumContaining(String name,String carNum);
+
     /**
      * 查询从begin开始,长度为pageSize的司机列表
      * @param begin

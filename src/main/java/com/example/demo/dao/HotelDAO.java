@@ -17,6 +17,12 @@ public interface HotelDAO extends JpaRepository<Hotel,Integer> {
 
     public List<Hotel> queryHotelsByAddress(String address);
 
+    public Hotel queryHotelByUsername(String username);
+
+    public Hotel queryHotelByEmail(String email);
+
+    public List<Hotel> queryHotelsByNameContainingOrAddressContaining(String name,String address);
+
     @Query(value = "select * from hotel limit ?1,?2",nativeQuery = true)
     public List<Hotel> queryForPageItems(int begin, int pageSize);
 

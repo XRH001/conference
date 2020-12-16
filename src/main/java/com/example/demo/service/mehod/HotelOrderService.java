@@ -6,10 +6,12 @@ import com.example.demo.entity.DTO.HotelOrder;
 import com.example.demo.enumValue.OrderStatus;
 import com.example.demo.utils.TimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * @author 李嘉旭
@@ -33,7 +35,11 @@ public class HotelOrderService {
      * @return null表示失败,否则返回查询的结果
      */
     public HotelOrder saveHotelOrder(HotelOrder hotelOrder){
-        return toHotelOrder(hotelOrderDAO.save(toHotelOrderDO(hotelOrder)));
+        if (hotelOrder!=null){
+            return toHotelOrder(hotelOrderDAO.save(toHotelOrderDO(hotelOrder)));
+        }else {
+            return null;
+        }
     }
 
     /**
@@ -41,8 +47,14 @@ public class HotelOrderService {
      * 根据ID
      * @param hotelOrderID
      */
-    public void deleteHotelOrder(int hotelOrderID){
-        hotelOrderDAO.deleteById(hotelOrderID);
+    public int deleteHotelOrder(int hotelOrderID){
+        try{
+            hotelOrderDAO.deleteById(hotelOrderID);
+            return 1;
+        }catch (EmptyResultDataAccessException e){
+            return -1;
+        }
+
     }
 
     /**
@@ -52,7 +64,11 @@ public class HotelOrderService {
      * @return
      */
     public HotelOrder queryHotelOrderByID(int hotelOrderID){
-        return toHotelOrder(hotelOrderDAO.findById(hotelOrderID).get());
+        try {
+            return toHotelOrder(hotelOrderDAO.findById(hotelOrderID).get());
+        }catch (NoSuchElementException e){
+            return null;
+        }
     }
 
     /**
@@ -62,10 +78,15 @@ public class HotelOrderService {
     public List<HotelOrder> queryHotelOrders(){
         list.clear();
         hotelOrderDOList=hotelOrderDAO.findAll();
-        for(HotelOrderDO h:hotelOrderDOList){
-            list.add(toHotelOrder(h));
+        if (hotelOrderDOList.size() != 0) {
+            for(HotelOrderDO h:hotelOrderDOList){
+                list.add(toHotelOrder(h));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
+
     }
 
     /**

@@ -57,7 +57,7 @@ public class ConferenceDO {
         this.isPrivate = isPrivate;
     }
 
-//    public ConferenceDO(Conference conference) {
+    //    public ConferenceDO(Conference conference) {
 //        this.ID=conference.getID();
 //        this.name=conference.getName();
 //        this.address=conference.getAddress();
