@@ -5,7 +5,11 @@ package com.example.demo.entity.DTO;
 import com.example.demo.enumValue.Identity;
 import com.example.demo.enumValue.Sex;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Objects;
 
 
@@ -39,6 +43,7 @@ public class User {
     private String email;
     private String imgPath;
     private String phone;
+
 
     public User() {
     }
@@ -174,17 +179,21 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "ID=" + ID +
-                ", name='" + name + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", sex=" + sex +
-                ", birth=" + birth +
-                ", identity=" + identity +
-                ", email='" + email + '\'' +
-                ", imgPath='" + imgPath + '\'' +
-                ", phone='" + phone + '\'' +
-                '}';
+
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        String Birth = birth.format(formatters);
+        //增加的一个日期格式改造方法 by XRH
+
+        return "{" +
+                "id:" + ID +
+                ", name:'" + name+
+                "', username:'" + username +
+                "', sex:'" + sex +
+                "', birth:'"  + Birth +
+                "', identity:'" + identity +
+                "', email:'" + email +
+                "', imgPath:'" + imgPath +
+                "', phone:'" + phone +
+                "'}";
     }
 }
