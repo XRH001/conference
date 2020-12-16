@@ -22,11 +22,11 @@ public interface UserDAO extends JpaRepository<UserDO,Integer> {
 
     public List<UserDO> queryUserDOSByBirth(Date time);
 
-    public List<UserDO> queryUserDOSByIdentity(int identity);
-
     public UserDO queryUserDOByEmail(String email);
 
     public UserDO queryUserDOByPhone(String phone);
+
+    public List<UserDO> queryUserDOSByNameContaining(String name);
 
     @Query(value = "select * from user limit ?1,?2",nativeQuery = true)
     public List<UserDO> queryForPageItems(int begin, int pageSize);

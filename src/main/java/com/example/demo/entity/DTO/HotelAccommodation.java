@@ -23,6 +23,11 @@ public class HotelAccommodation {
         this.hotelOrder = hotelOrder;
     }
 
+    public HotelAccommodation(ConferenceUser conferenceUser, HotelOrder hotelOrder) {
+        this.conferenceUser = conferenceUser;
+        this.hotelOrder = hotelOrder;
+    }
+
     public int getID() {
         return ID;
     }

@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class DriverServiceTest {
     @Autowired
     DriverService driverService;
-    Driver driver=new Driver(4,"周五","123456789","中巴",20,"a415151");
+    Driver driver=new Driver(1,"周五","123456789","中巴",20,"a415151","driver1","driver1","driver1@qq.com","driver1imgPath");
     @Test
     public void saveDriver() {
         driverService.saveDriver(driver);
@@ -57,5 +57,9 @@ public class DriverServiceTest {
     @Test
     public void queryForPageItems() {
         System.out.println(driverService.queryForPageItems(0,3));
+    }
+
+    @Test public void queryDriverByNameContainingOrCarNumContaining(){
+        System.out.println(driverService.queryDriverByNameContainingOrCarNumContaining("415"));
     }
 }

@@ -6,12 +6,14 @@ import com.example.demo.entity.DO.ConferenceDO;
 import com.example.demo.enumValue.OrderStatus;
 import com.example.demo.utils.TimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * @author 李嘉旭
@@ -32,20 +34,34 @@ public class ConferenceService {
      * @return 插入后的conference
      */
     public Conference saveConference(Conference conference){
-        return toConference(conferenceDAO.save(toConferenceDO(conference)));
+        if (conference!=null){
+            return toConference(conferenceDAO.save(toConferenceDO(conference)));
+        }else {
+            return null;
+        }
     }
 
     /**
      * 删除一个conference
      * 根据ID
      * @param conferenceID
+     * @return
      */
-    public void deleteConference(int conferenceID){
-        conferenceDAO.deleteById(conferenceID);
+    public int deleteConference(int conferenceID){
+        try {
+            conferenceDAO.deleteById(conferenceID);
+            return 1;
+        }catch (EmptyResultDataAccessException e){
+            return -1;
+        }
     }
 
     public Conference queryConferenceByID(int conferenceID){
-        return toConference(conferenceDAO.findById(conferenceID).get());
+        try {
+            return toConference(conferenceDAO.findById(conferenceID).get());
+        }catch (NoSuchElementException e){
+            return null;
+        }
     }
 
     /**
@@ -55,10 +71,14 @@ public class ConferenceService {
     public List<Conference> queryConferences(){
         list.clear();
         List<ConferenceDO> conferenceDOList=conferenceDAO.findAll();
-        for(ConferenceDO c:conferenceDOList){
-            list.add(toConference(c));
+        if (conferenceDOList.size()!=0){
+            for(ConferenceDO c:conferenceDOList){
+                list.add(toConference(c));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**
@@ -70,10 +90,14 @@ public class ConferenceService {
     public List<Conference> queryConferencesByName(String name){
         list.clear();
         List<ConferenceDO> conferenceDOList=conferenceDAO.queryConferenceDOSByName(name);
-        for(ConferenceDO c:conferenceDOList){
-            list.add(toConference(c));
+        if (conferenceDOList.size()!=0){
+            for(ConferenceDO c:conferenceDOList){
+                list.add(toConference(c));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**
@@ -85,10 +109,14 @@ public class ConferenceService {
     public List<Conference> queryConferencesByAddress(String address){
         list.clear();
         List<ConferenceDO> conferenceDOList=conferenceDAO.queryConferenceDOSByAddress(address);
-        for(ConferenceDO c:conferenceDOList){
-            list.add(toConference(c));
+        if (conferenceDOList.size()!=0){
+            for(ConferenceDO c:conferenceDOList){
+                list.add(toConference(c));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**
@@ -100,10 +128,14 @@ public class ConferenceService {
     public List<Conference> queryConferencesByOrderStatus(OrderStatus orderStatus){
         list.clear();
         List<ConferenceDO> conferenceDOList=conferenceDAO.queryConferenceDOSByOrderStatus(orderStatus.getNum());
-        for(ConferenceDO c:conferenceDOList){
-            list.add(toConference(c));
+        if (conferenceDOList.size()!=0){
+            for(ConferenceDO c:conferenceDOList){
+                list.add(toConference(c));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**
@@ -118,10 +150,14 @@ public class ConferenceService {
         list.clear();
         List<ConferenceDO> conferenceDOList=conferenceDAO.queryConferenceDOSByCreateTimeBetween(
                 TimeUtils.converseTrans(beginTime), TimeUtils.converseTrans(endTime));
-        for(ConferenceDO c:conferenceDOList){
-            list.add(toConference(c));
+        if (conferenceDOList.size()!=0){
+            for(ConferenceDO c:conferenceDOList){
+                list.add(toConference(c));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**
@@ -136,10 +172,14 @@ public class ConferenceService {
         list.clear();
         List<ConferenceDO> conferenceDOList=conferenceDAO.queryConferenceDOSByCreateTimeBetween(
                 TimeUtils.converseTrans(beginTime), TimeUtils.converseTrans(endTime));
-        for(ConferenceDO c:conferenceDOList){
-            list.add(toConference(c));
+        if (conferenceDOList.size()!=0){
+            for(ConferenceDO c:conferenceDOList){
+                list.add(toConference(c));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**
@@ -154,10 +194,14 @@ public class ConferenceService {
         list.clear();
         List<ConferenceDO> conferenceDOList=conferenceDAO.queryConferenceDOSByCreateTimeBetween(
                 TimeUtils.converseTrans(beginTime), TimeUtils.converseTrans(endTime));
-        for(ConferenceDO c:conferenceDOList){
-            list.add(toConference(c));
+        if (conferenceDOList.size()!=0){
+            for(ConferenceDO c:conferenceDOList){
+                list.add(toConference(c));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**
@@ -172,10 +216,14 @@ public class ConferenceService {
         list.clear();
         List<ConferenceDO> conferenceDOList=conferenceDAO.queryConferenceDOSByCreateTimeBetween(
                 TimeUtils.converseTrans(beginTime), TimeUtils.converseTrans(endTime));
-        for(ConferenceDO c:conferenceDOList){
-            list.add(toConference(c));
+        if (conferenceDOList.size()!=0){
+            for(ConferenceDO c:conferenceDOList){
+                list.add(toConference(c));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**
@@ -190,10 +238,14 @@ public class ConferenceService {
         list.clear();
         List<ConferenceDO> conferenceDOList=conferenceDAO.queryConferenceDOSByCreateTimeBetween(
                 TimeUtils.converseTrans(beginTime), TimeUtils.converseTrans(endTime));
-        for(ConferenceDO c:conferenceDOList){
-            list.add(toConference(c));
+        if (conferenceDOList.size()!=0){
+            for(ConferenceDO c:conferenceDOList){
+                list.add(toConference(c));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**
@@ -208,10 +260,36 @@ public class ConferenceService {
         list.clear();
         List<ConferenceDO> conferenceDOList=conferenceDAO.queryConferenceDOSByCreateTimeBetween(
                 TimeUtils.converseTrans(beginTime), TimeUtils.converseTrans(endTime));
-        for(ConferenceDO c:conferenceDOList){
-            list.add(toConference(c));
+        if (conferenceDOList.size()!=0){
+            for(ConferenceDO c:conferenceDOList){
+                list.add(toConference(c));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
+    }
+
+    public List<Conference> queryConferenceDOSByNameContaining(String name){
+        list.clear();
+        List<ConferenceDO> conferenceDOList=conferenceDAO.queryConferenceDOSByNameContaining(name);
+        if (conferenceDOList.size()!=0){
+            for(ConferenceDO c:conferenceDOList){
+                list.add(toConference(c));
+            }
+            return list;
+        }else {
+            return null;
+        }
+    }
+
+    /**
+     * 查询总共的记录结果
+     * @return
+     */
+    public int queryForPageCountTotal(){
+        Number count=conferenceDAO.count();
+        return count.intValue();
     }
 
     /**
@@ -221,12 +299,20 @@ public class ConferenceService {
      * @return 一个页面的conference集合
      */
     public List<Conference> queryForPageItems(int begin,int pageSize){
-        list.clear();
-        List<ConferenceDO> conferenceDOList=conferenceDAO.queryForPageItems(begin,pageSize);
-        for(ConferenceDO c:conferenceDOList){
-            list.add(toConference(c));
+        try {
+            list.clear();
+            List<ConferenceDO> conferenceDOList=conferenceDAO.queryForPageItems(begin,pageSize);
+            if (conferenceDOList.size()!=0){
+                for(ConferenceDO c:conferenceDOList){
+                    list.add(toConference(c));
+                }
+                return list;
+            }else {
+                return null;
+            }
+        }catch (Exception e){
+            return null;
         }
-        return list;
     }
 
     /**

@@ -29,7 +29,6 @@ public class UserDO {
      * @param password 密码
      * @param sex 性别
      * @param birth 出生日期
-     * @param identity 职务
      * @param email 电子邮箱
      * @param phone 电话号码
      * @param imgPath 头像图片存放路径
@@ -43,7 +42,6 @@ public class UserDO {
     private String password;
     private int sex;
     private Date birth;
-    private int identity;
     private String email;
     private String imgPath;
     private String phone;
@@ -51,14 +49,13 @@ public class UserDO {
     public UserDO() {
     }
 
-    public UserDO(int ID, String name, String username, String password, int sex, Date birth, int identity, String email, String imgPath, String phone) {
+    public UserDO(int ID, String name, String username, String password, int sex, Date birth, String email, String imgPath, String phone) {
         this.ID = ID;
         this.name = name;
         this.username = username;
         this.password = password;
         this.sex = sex;
         this.birth = birth;
-        this.identity = identity;
         this.email = email;
         this.imgPath = imgPath;
         this.phone = phone;
@@ -126,14 +123,6 @@ public class UserDO {
         this.birth = birth;
     }
 
-    public int getIdentity() {
-        return identity;
-    }
-
-    public void setIdentity(int identity) {
-        this.identity = identity;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -165,7 +154,6 @@ public class UserDO {
         UserDO userDO = (UserDO) o;
         return ID == userDO.ID &&
                 sex == userDO.sex &&
-                identity == userDO.identity &&
                 Objects.equals(name, userDO.name) &&
                 Objects.equals(username, userDO.username) &&
                 Objects.equals(password, userDO.password) &&
@@ -177,7 +165,7 @@ public class UserDO {
 
     @Override
     public int hashCode() {
-        return Objects.hash(ID, name, username, password, sex, birth, identity, email, imgPath, phone);
+        return Objects.hash(ID, name, username, password, sex, birth, email, imgPath, phone);
     }
 
     @Override
@@ -189,7 +177,6 @@ public class UserDO {
                 ", password='" + password + '\'' +
                 ", sex=" + sex +
                 ", birth=" + birth +
-                ", identity=" + identity +
                 ", email='" + email + '\'' +
                 ", imgPath='" + imgPath + '\'' +
                 ", phone='" + phone + '\'' +

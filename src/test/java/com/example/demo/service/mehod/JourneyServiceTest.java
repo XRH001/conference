@@ -23,7 +23,7 @@ public class JourneyServiceTest {
 
     @Test
     public void deleteJourney() {
-        journeyService.deleteJourney(5);
+        System.out.println(journeyService.deleteJourney(5));
     }
 
     @Test
@@ -43,12 +43,12 @@ public class JourneyServiceTest {
 
     @Test
     public void queryJourneysByOrigin() {
-        System.out.println(journeyService.queryJourneysByOrigin("南昌西站"));
+        System.out.println(journeyService.queryJourneysByOrigin("南昌西"));
     }
 
     @Test
     public void queryJourneysByTarget() {
-        System.out.println(journeyService.queryJourneysByTarget("南昌大学"));
+        System.out.println(journeyService.queryJourneysByTarget("南昌大"));
     }
 
     @Test

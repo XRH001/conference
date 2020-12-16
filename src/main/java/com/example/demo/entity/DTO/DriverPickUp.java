@@ -30,6 +30,12 @@ public class DriverPickUp {
         this.orderStatus = orderStatus;
     }
 
+    public DriverPickUp(Driver driver, UserJourney userJourney, OrderStatus orderStatus) {
+        this.driver = driver;
+        this.userJourney = userJourney;
+        this.orderStatus = orderStatus;
+    }
+
     public int getID() {
         return ID;
     }

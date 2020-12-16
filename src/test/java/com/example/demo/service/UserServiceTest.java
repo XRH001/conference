@@ -18,7 +18,7 @@ public class UserServiceTest {
     @Autowired
     UserService userService;
 
-    User user=new User("user1","user1","user1", Sex.Female, LocalDate.of(2020,1,1),Identity.Common,
+    User user=new User("user1","user1","user1", Sex.Female, LocalDate.of(2020,1,1),
                             "616161616@163.com","/static/img","7894561230");
 
     @Test
@@ -63,11 +63,6 @@ public class UserServiceTest {
     }
 
     @Test
-    public void queryUserDOSByPosition() {
-        System.out.println(userService.queryUsersByIdentity(Identity.Common));
-    }
-
-    @Test
     public void queryUserDOByEmail() {
         System.out.println(userService.queryUserByEmail("616161616@163.com"));
     }
@@ -85,5 +80,10 @@ public class UserServiceTest {
     @Test
     public void queryForPageItems() {
         System.out.println(userService.queryForPageItems(0,3));
+    }
+
+    @Test
+    public void queryUserDOSByNameContaining(){
+        System.out.println();
     }
 }
