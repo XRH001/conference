@@ -10,7 +10,7 @@
                 <tr>
                     <td colspan="2"><div class="headDiv"><img class="headImg" :src="$store.getters.headPath" @error="notFindImg()"></div>
                         <button class="floatRight layui-btn layui-btn-normal" @click="alterNone=!alterNone">修改/完善信息</button>
-                        <button class="floatRight layui-btn layui-btn-checked" @click="passwordChangeNone=false">修改密码</button>
+                        <button class="floatRight layui-btn layui-btn-checked" @click="passwordChangeNone=!passwordChangeNone">修改密码</button>
                     </td>
                 </tr>
                 <tr>
@@ -56,7 +56,7 @@
                 <tr><td>真实姓名</td><td><input class="layui-input" placeholder=""></td></tr>
                 <tr><td colspan="2"><div class="buttonDiv">
                     <button  class="layui-btn layui-btn-checked">确认修改</button>
-                    <button @click="alterNone=true" class="layui-btn layui-btn-primary ">取消修改</button>
+                    <button @click="alterNone=!alterNone" class="layui-btn layui-btn-primary ">取消修改</button>
                     </div></td>
                 </tr>
             </tbody>
@@ -72,7 +72,7 @@
             <tr><td>确认新密码</td><td><input class="layui-input" placeholder="找回密码的位置在登录界面"></td></tr>
             <tr><td colspan="2"><div class="buttonDiv">
                 <button  class="layui-btn layui-btn-checked">确认修改</button>
-                <button class="layui-btn layui-btn-primary" @click="passwordChangeNone=true">取消</button>
+                <button class="layui-btn layui-btn-primary" @click="passwordChangeNone=!passwordChangeNone">取消</button>
             </div>
             </td></tr>
             </tbody>
@@ -81,7 +81,7 @@
         <div v-if="show===1">司机信息</div>
         <div v-if="show===2">酒店信息</div>
         <div v-if="show===3"><h1>未找到您的信息请<a href="javascript:void(0)" @click="errorInfo()">重新登录</a></h1></div>
-        <div class="cover" :class="{'displayNone':alterNone&&passwordChangeNone}"></div>
+        <div class="cover" v-show="alterNone^passwordChangeNone"></div>
     </div>
 </template>
 
@@ -90,8 +90,8 @@
         name: "personalInfo",
         data(){
             return{
-                alterNone:true,
-                passwordChangeNone:true,
+                alterNone:false,
+                passwordChangeNone:false,
                 show:0
             }
         },
@@ -102,7 +102,7 @@
             identity(){
                 let identity=this.$store.state.user.identity.toLowerCase();
                 if(identity==="driver")return "司机/车队";
-                else if(identity==="hotel")return "酒店/旅馆"
+                else if(identity==="hotel")return "酒店/旅馆";
                 else return "一般用户";
             }
         },

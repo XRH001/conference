@@ -18,6 +18,13 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
+                    <label class="layui-form-label">结束时间</label>
+                    <div class="layui-input-block">
+                        <input type="datetime-local" v-model="endTime" @blur="checkTime" name="startTime" required   value="" autocomplete="off" class="layui-input">
+                        <span class="warming " :class="{'displayNone':show.endTime}">必填，点右边——></span>
+                    </div>
+                </div>
+                <div class="layui-form-item">
                     <label class="layui-form-label">会议地点</label>
                     <div class="layui-input-block">
                         <textarea name="overTime" v-model="position" @blur="checkPosition" required  placeholder="长度限制100字以内"  class="layui-input area"></textarea>
@@ -51,10 +58,12 @@
                 meetingName:"",
                 beginTime:"",
                 position:"",
+                endTime:"",
                 show:{
                     name:true,
                     startTime:true,
-                    position:true
+                    position:true,
+                    endTime:true
                 }
             }
         },
@@ -72,16 +81,17 @@
                 //验证码
                 let codeRight;
                 if(this.codeInput!==""){
-                 codeRight=this.codeInput.toLowerCase()===this.$decrypt(this.emailCode).toLowerCase();}
-                else this.$refs.popup1.showMsg("请输入验证码");
+                 codeRight=true;}//this.codeInput.toLowerCase()===this.$decrypt(this.emailCode).toLowerCase();}
+                else {this.$refs.popup1.showMsg("请输入验证码");return;}
                 if(codeRight){
-                    if(this.checkName()&&this.checkTime()&&this.checkPosition()){
+                    if(this.checkName()&&this.checkTime()&&this.checkPosition()&&this.checkEndTime()){
                         this.$http("mainServlet?ac=need&apiName=createMeetingSuccess"
                         /*this.$request(this.$url.create*/,{
                             params:{
                                 email:this.$store.state.user.email,
                                 name:this.meetingName,
                                 beginTime: this.beginTime,
+                                endTime:this.endTime,
                                 position:this.position,
                                 userID:this.$store.state.user.ID
                             }
@@ -110,6 +120,7 @@
                             this.$refs.popup1.showMsg("发生错误");
                         });
                     }
+                    else this.$refs.popup1.showMsg("请填写完整");
                 }
                 else this.$refs.popup1.showMsg("验证码错误");
             },
@@ -130,6 +141,16 @@
                 }
                 else {
                     this.show.startTime=true;
+                    return true;
+                }
+            },
+            checkEndTime(){
+                if(this.endTime===""){
+                    this.show.endTime=false;
+                    return false;
+                }
+                else {
+                    this.show.endTime=true;
                     return true;
                 }
             },

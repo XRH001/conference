@@ -23,7 +23,7 @@ module.exports = {
                 pathRewrite:{"^/test1":""}
             }
         },
-        port: 8087
+        port: 8088
     }
 };
 /*

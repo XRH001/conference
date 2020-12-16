@@ -88,7 +88,7 @@
                         username:"cece",
                         sex:"male",
                         birth:"2000/03/04",
-                        identity:"driver",
+
                         email:"12312@qq.com",
                         imgPath:"img/head.jpg",
                         phone:"123",

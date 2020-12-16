@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div >
         <ul class="layui-nav layui-row ">
         <span>
         <li class="layui-nav-item "><router-link to="/index" :active-class="thisActive" >首页</router-link></li>
@@ -22,7 +22,7 @@
         </span>
         </ul>
 
-        <keep-alive exclude="index,detail,create,login,Register"><router-view></router-view></keep-alive>
+        <keep-alive exclude="index,detail,create,login,Register,DriverLogin,HotelLogin"><router-view></router-view></keep-alive>
     </div>
 </template>
 

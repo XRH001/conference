@@ -46,17 +46,7 @@
                             <input class="radioSex" type="radio" v-model="sendData.sex" value="female"  ><span class="layui-icon layui-icon-female">女</span>
                         </div>
                     </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">账户类别</label>
-                        <div class="layui-input-block sexSelect">
-                            <input  class="radioSex" type="radio" v-model="sendData.identity" value="common"  checked>
-                            <span class="layui-icon layui-icon-user">一般账户</span>
-                            <input class="radioSex" type="radio" v-model="sendData.identity" value="driver"  >
-                            <span class="iconfont icon-car">司机</span>
-                            <input class="radioSex" type="radio" v-model="sendData.identity" value="hotel"  >
-                            <span class="iconfont icon-Hotel">酒店</span>
-                        </div>
-                    </div>
+
                     <div class="layui-form-item">
                         <label class="layui-form-label">邮箱</label>
                         <div class="layui-input-block">
@@ -119,7 +109,7 @@
                     password:'',
                     email:'',
                     sex:'male',
-                    identity:'common',
+
                     birth:""
                 },
                 nameWarming:true,
