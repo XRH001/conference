@@ -6,6 +6,7 @@ import com.example.demo.enumValue.Identity;
 import com.example.demo.enumValue.Sex;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 
@@ -174,16 +175,19 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "ID=" + ID +
-                ", name='" + name + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", sex=" + sex +
-                ", birth=" + birth +
-                ", email='" + email + '\'' +
-                ", imgPath='" + imgPath + '\'' +
-                ", phone='" + phone + '\'' +
-                '}';
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        String Birth = birth.format(formatters);
+        //增加的一个日期格式改造方法 by XRH
+
+        return "{" +
+                "id:" + ID +
+                ", name:'" + name+
+                "', username:'" + username +
+                "', sex:'" + sex +
+                "', birth:'"  + Birth +
+                "', email:'" + email +
+                "', imgPath:'" + imgPath +
+                "', phone:'" + phone +
+                "'}";
     }
 }
