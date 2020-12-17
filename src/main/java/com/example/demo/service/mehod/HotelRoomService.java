@@ -64,7 +64,7 @@ public class HotelRoomService {
     public HotelRoom queryHotelRoomByID(int hotelRoomID){
         try {
             return toHotelRoom(hotelRoomDAO.findById(hotelRoomID).get());
-        }catch (NoSuchElementException e){
+        }catch (NoSuchElementException|NullPointerException e){
             return null;
         }
     }

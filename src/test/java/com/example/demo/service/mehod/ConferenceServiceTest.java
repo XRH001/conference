@@ -31,7 +31,7 @@ public class ConferenceServiceTest {
 
     @Test
     public void queryConferenceByID() {
-        System.out.println(conferenceService.queryConferenceByID(999));
+        System.out.println(conferenceService.queryConferenceByID(1));
     }
 
     @Test

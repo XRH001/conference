@@ -65,7 +65,7 @@ public class JourneyService {
     public Journey queryJourneyByID(int journeyID){
         try {
             return toJourney(journeyDAO.findById(journeyID).get());
-        }catch (NoSuchElementException e){
+        }catch (NoSuchElementException|NullPointerException e){
             return null;
         }
     }

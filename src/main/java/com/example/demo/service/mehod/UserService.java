@@ -67,7 +67,7 @@ public class UserService {
     public User queryUserByID(int userID){
         try {
             return toUser(userDAO.findById(userID).get());
-        }catch (NoSuchElementException e){
+        }catch (NoSuchElementException|NullPointerException e){
             return null;
         }
     }
@@ -97,7 +97,7 @@ public class UserService {
     public User queryUserByUsername(String username){
         try {
             return toUser(userDAO.queryUserDOByUsername(username));
-        }catch (NoSuchElementException e){
+        }catch (NoSuchElementException|NullPointerException e){
             return null;
         }
 
@@ -166,7 +166,7 @@ public class UserService {
     public User queryUserByEmail(String email){
         try {
             return toUser(userDAO.queryUserDOByEmail(email));
-        }catch (NoSuchElementException e){
+        }catch (NoSuchElementException|NullPointerException e){
             return null;
         }
     }
@@ -180,7 +180,7 @@ public class UserService {
     public User queryUserByPhone(String phone){
         try {
             return toUser(userDAO.queryUserDOByPhone(phone));
-        }catch (NoSuchElementException e){
+        }catch (NoSuchElementException|NullPointerException e){
             return null;
         }
     }

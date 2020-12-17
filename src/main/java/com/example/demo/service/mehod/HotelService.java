@@ -59,7 +59,7 @@ public class HotelService {
     public Hotel queryHotelByID(int hotelID){
         try {
             return hotelDAO.findById(hotelID).get();
-        }catch (NoSuchElementException e){
+        }catch (NoSuchElementException|NullPointerException e){
             return null;
         }
 
@@ -74,7 +74,7 @@ public class HotelService {
     public Hotel queryHotelByName(String name){
         try {
             return hotelDAO.queryHotelByName(name);
-        }catch (NoSuchElementException e){
+        }catch (NoSuchElementException|NullPointerException e){
             return null;
         }
     }
@@ -88,7 +88,7 @@ public class HotelService {
     public Hotel queryHotelByPhone(String phone){
         try {
             return hotelDAO.queryHotelByPhone(phone);
-        }catch (NoSuchElementException e){
+        }catch (NoSuchElementException|NullPointerException e){
             return null;
         }
     }
@@ -119,7 +119,7 @@ public class HotelService {
     public Hotel queryHotelByEmail(String email){
         try {
             return hotelDAO.queryHotelByEmail(email);
-        }catch (NoSuchElementException e){
+        }catch (NoSuchElementException|NullPointerException e){
             return null;
         }
     }
@@ -127,7 +127,7 @@ public class HotelService {
     public Hotel queryHotelByUsername(String username){
         try {
             return hotelDAO.queryHotelByUsername(username);
-        }catch (NoSuchElementException e){
+        }catch (NoSuchElementException|NullPointerException e){
             return null;
         }
     }
@@ -135,7 +135,7 @@ public class HotelService {
     public List<Hotel> queryHotelsByNameContainingOrAddressContaining(String key){
         try {
             return hotelDAO.queryHotelsByNameContainingOrAddressContaining(key,key);
-        }catch (NoSuchElementException e){
+        }catch (NoSuchElementException|NullPointerException e){
             return null;
         }
 

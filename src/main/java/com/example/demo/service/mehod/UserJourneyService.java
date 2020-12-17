@@ -65,7 +65,7 @@ public class UserJourneyService {
     public UserJourney queryUserJourneyByID(int userJourneyID){
         try {
             return toUserJourney(userJourneyDAO.findById(userJourneyID).get());
-        }catch (NoSuchElementException e){
+        }catch (NoSuchElementException|NullPointerException e){
             return null;
         }
     }

@@ -68,7 +68,7 @@ public class DriverPickUpService {
     public DriverPickUp queryDriverPickUpByID(int driverPickUpID){
         try {
             return toDriverPickUp(driverPickUpDAO.findById(driverPickUpID).get());
-        }catch (NoSuchElementException e){
+        }catch (NoSuchElementException|NullPointerException e){
             return null;
         }
     }

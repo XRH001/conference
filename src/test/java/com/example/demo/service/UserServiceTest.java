@@ -29,7 +29,8 @@ public class UserServiceTest {
 
     @Test
     public void deleteUser() {
-        userService.deleteUser(4);
+        System.out.println( userService.deleteUser(4));
+
     }
 
     @Test
@@ -64,7 +65,7 @@ public class UserServiceTest {
 
     @Test
     public void queryUserDOByEmail() {
-        System.out.println(userService.queryUserByEmail("616161616@163.com"));
+        System.out.println(userService.queryUserByEmail("61616@163.com"));
     }
 
     @Test
