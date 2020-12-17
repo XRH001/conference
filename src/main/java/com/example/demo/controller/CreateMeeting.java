@@ -1,13 +1,12 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.DTO.User;
 import com.example.demo.enumValue.*;
 import com.example.demo.service.mehod.ConferenceService;
 import com.example.demo.service.mehod.ConferenceUserService;
 import com.example.demo.service.mehod.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.example.demo.controller.CenterMeeting;
+import com.example.demo.entity.VO.CenterMeeting;
 import com.example.demo.entity.DTO.Conference;
 import com.example.demo.entity.DTO.ConferenceUser;
 

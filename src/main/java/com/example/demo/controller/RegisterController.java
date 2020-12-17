@@ -1,14 +1,11 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.DTO.User;
-import com.example.demo.controller.RegisterUser;
+import com.example.demo.entity.VO.RegisterUser;
 
-import com.example.demo.enumValue.Identity;
 import com.example.demo.service.mehod.UserService;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.example.demo.enumValue.Sex;
-import com.example.demo.enumValue.Position;
 import org.springframework.web.bind.annotation.*;
 
 
