@@ -10,6 +10,9 @@
     <input type="text" class="layui-input" v-model.lazy="showMsg">
     <button class="layui-btn layui-btn-normal" @click="popupTest">点击测试</button>
     <Popup ref="popup1"></Popup>
+
+    <h1>别人的组件-测试</h1>
+    <h2><el-button @click="showMessage()">这是个好按键</el-button></h2>
   </div>
 </template>
 <script>
@@ -26,6 +29,9 @@
     methods:{
       popupTest(){
         this.$refs.popup1.showMsg(this.showMsg);
+      },
+      showMessage(){
+        this.$message("能弹出来吗？");
       }
     }
 

@@ -18,7 +18,7 @@
                 <tr>
                     <td>会议开始时间</td>
                     <td>
-                        <input disabled type="text" name="startTime" required  lay-verify="required" :value="meetingInfo.startTime" autocomplete="off" class="layui-input">
+                        <input disabled type="text" name="startTime" required  lay-verify="required" :value="meetingInfo.beginTime" autocomplete="off" class="layui-input">
                     </td>
                 </tr>
                 <tr>
@@ -30,13 +30,13 @@
                 <tr>
                     <td>会议地点</td>
                     <td>
-                        <input disabled type="text" name="meetingPosition" required  lay-verify="required" :value="meetingInfo.position" autocomplete="off" class="layui-input">
+                        <input disabled type="text" name="meetingPosition" required  lay-verify="required" :value="meetingInfo.address" autocomplete="off" class="layui-input">
                     </td>
                 </tr>
                 <tr>
                     <td>会议状态</td>
                     <td>
-                        <input disabled type="text" name="meetingStatus" required  lay-verify="required" :value="meetingInfo.state" autocomplete="off" class="layui-input">
+                        <input disabled type="text" name="meetingStatus" required  lay-verify="required" :value="meetingInfo.orderStatus" autocomplete="off" class="layui-input">
                     </td>
                 </tr>
                 <tr>
@@ -48,7 +48,7 @@
                 <tr>
                     <td>会议人数</td>
                     <td>
-                        <input disabled type="text" name="memberCount" required  lay-verify="required" :value="meetingInfo.memBerNum" autocomplete="off" class="layui-input">
+                        <input disabled type="text" name="memberCount" required  lay-verify="required" :value="meetingInfo.num" autocomplete="off" class="layui-input">
                     </td>
                 </tr>
                 </tbody>
@@ -91,59 +91,71 @@
                 </div>
             </div>
         </div>
-        <div class="relateMe layui-col-lg4"><p class="titleP">有关我的</p><table class="layui-table">
-            <!--                    3．填写参会的往返时间、住宿要求及其它情况-->
-            <tbody>
-            <tr>
-                <td colspan="2"><h2>{{$store.state.user.username}}</h2></td>
-            </tr>
-            <tr>
-                <td>我的联系方式</td>
-                <td>{{$store.state.user.userEmail}}</td>
-            </tr>
-            <tr>
-                <td>往返时间</td>
-                <td><input  type="text" name="leaveTime" required  lay-verify="required" value="2020年11月20日20:56-2020年11月23日20:56" autocomplete="off" class="layui-input"></td>
-            </tr>
-            <tr>
-                <td>住宿要求</td>
-                <td><input  type="text" name="stayRequire" required  lay-verify="required" value="单人间" autocomplete="off" class="layui-input"></td>
-            </tr>
-            <tr><td>其他要求</td><td><input  type="text" name="memberCount" required  lay-verify="required" value="住宿能报销吗，不能的话我睡大街。" autocomplete="off" class="layui-input"></td></tr>
-            </tbody>
-        </table>
-            <button class="layui-btn layui-btn-normal">确认提交</button>
-        </div>
+        <RelateToMe :meeting-user="meetingUser"></RelateToMe>
+
     </div>
 </template>
 
 <script>
+    import RelateToMe from "./Ordinary/RelateToMe";
     export default {
         name: "detail",
+        components: {RelateToMe},
         data(){
             return {
                 memberShow:false,
                 managerShow:false,
-                meetingId:""
+                meetingId:"",
+                notFound:false,
+                meetingInfo:{//这里是会议的全部信息
+                    name:"",
+                    id:123,
+                    beginTime:"2020年12月6日20:47",
+                    endTime:"2020年12月6日20:47",
+                    address:"信工楼b区303",
+                    orderStatus:"未开始",
+                    createTime:"2020年12月6日20:48:33",
+                    num:321,
+                    managerInfo:[{id:"",name:"", email:""},{}],
+                    memberInfo:[]
+                },
+                meetingUser:{
+                    ifJoin:false,
+                    info:"备注",
+                    journey:{
+
+                    },
+                    room:{
+
+                    }
+                }
             }
         },
         computed:{
-            meetingInfo(){return {
-                name:"五分钟，我要全部信息",
-                id:"3213",
-                startTime:"2020年12月6日20:47",
-                endTime:"2020年12月6日20:47",
-                position:"信工楼b区303",
-                state:"未开始",
-                createTime:"2020年12月6日20:48:33",
-                memBerNum:321,
-                managerInfo:[{},{}],
-                memberInfo:[{}]
-            }}
+            identity(){
+                return this.$store.state.identity.toLowerCase()==="common";
+            }
         },
         created() {
             this.meetingId=this.$route.query.meetingId;
-
+            let sendUserId;
+            if(!this.identity){//若不是普通用户则不进行关联此id的查找
+                sendUserId=0;
+            }else sendUserId=this.$store.state.user.id;
+            this.$request(this.$url.detail,{
+                params:{
+                    meetingId:this.meetingId,
+                    userId:sendUserId
+                }
+            }).then(res => {
+                if(res.data==="error"){this.notFound=false;this.$message("查询过程出现异常");return;}
+                this.meetingInfo=res.data.meeting;
+                if(this.identity)
+                    this.meetingUser=res.data.meetingUser;
+            }).catch( err => {
+                console.log(err);
+                this.$message("出错啦！")
+            });
         }
     }
 </script>

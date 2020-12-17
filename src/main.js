@@ -4,10 +4,16 @@ import router from './router'
 import store from "./store"
 import {decrypt,format,replaceAll,notFind} from "./assets/js/tools"
 import {request,http,url} from "./network/request";
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+
 
 require("layui-src/dist/css/layui.css");
 require("assets/css/fonts.css");
+
+
 Vue.config.productionTip = false;
+Vue.use(ElementUI);
 new Vue({
   router,store,
   render: h => h(App)
@@ -16,7 +22,6 @@ new Vue({
 
 Vue.prototype.$request=request;
 Vue.prototype.$http=http;
-
 Vue.prototype.$decrypt=decrypt;
 //图片未找到
 Vue.prototype.$notFind=notFind;

@@ -32,9 +32,6 @@
                     <td>手机</td><td>{{$store.state.user.phone}}</td>
                 </tr>
                 <tr>
-                    <td>用户类别</td><td>{{identity}}</td>
-                </tr>
-                <tr>
                     <td>真实姓名</td><td>{{$store.state.user.name}}</td>
                 </tr>
 
@@ -100,12 +97,6 @@
         computed:{
             sex(){
                 return this.$store.state.user.sex==="male"?"男":"女";
-            },
-            identity(){
-                let identity=this.$store.state.user.identity.toLowerCase();
-                if(identity==="driver")return "司机/车队";
-                else if(identity==="hotel")return "酒店/旅馆";
-                else return "一般用户";
             }
         },
         methods:{

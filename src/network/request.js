@@ -24,6 +24,10 @@ const url={
     registerCode:"/registerYz",
     sendCode:"/sas",
     create:"/create",
-    searchMeetings:"/SearchMeeting"
+    searchMeetings:"/SearchMeeting",
+    detail:"/detail",
+    manage:"/manage",
+    driverLogin:"/driverLogin",
+    hotelLogin:"/hotelLogin"
 };
 export {url}
