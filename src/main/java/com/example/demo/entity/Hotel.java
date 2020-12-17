@@ -20,6 +20,10 @@ public class Hotel {
      * @param name 酒店名字
      * @param phone 练习电话
      * @param address 详细地址
+     * @param username
+     * @param password
+     * @param email
+     * @param imgPath
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO,generator = "generator")
@@ -28,15 +32,33 @@ public class Hotel {
     private String name;
     private String phone;
     private String address;
+    private String username;
+    private String password;
+    private String email;
+    private String imgPath;
 
     public Hotel() {
     }
 
-    public Hotel(int ID, String name, String phone, String address) {
+    public Hotel(int ID, String name, String phone, String address, String username, String password, String email, String imgPath) {
         this.ID = ID;
         this.name = name;
         this.phone = phone;
         this.address = address;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.imgPath = imgPath;
+    }
+
+    public Hotel(String name, String phone, String address, String username, String password, String email, String imgPath) {
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.imgPath = imgPath;
     }
 
     public int getID() {
@@ -71,6 +93,38 @@ public class Hotel {
         this.address = address;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getImgPath() {
+        return imgPath;
+    }
+
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -79,12 +133,16 @@ public class Hotel {
         return ID == hotel.ID &&
                 Objects.equals(name, hotel.name) &&
                 Objects.equals(phone, hotel.phone) &&
-                Objects.equals(address, hotel.address);
+                Objects.equals(address, hotel.address) &&
+                Objects.equals(username, hotel.username) &&
+                Objects.equals(password, hotel.password) &&
+                Objects.equals(email, hotel.email) &&
+                Objects.equals(imgPath, hotel.imgPath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ID, name, phone, address);
+        return Objects.hash(ID, name, phone, address, username, password, email, imgPath);
     }
 
     @Override
@@ -94,6 +152,10 @@ public class Hotel {
                 ", name='" + name + '\'' +
                 ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", imgPath='" + imgPath + '\'' +
                 '}';
     }
 }

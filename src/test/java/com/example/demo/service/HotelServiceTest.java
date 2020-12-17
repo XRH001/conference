@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class HotelServiceTest {
     @Autowired
     HotelService hotelService;
-    Hotel hotel=new Hotel(4,"7天连锁酒店","963852741","学府大道");
+    Hotel hotel=new Hotel(1,"7天连锁酒店","963852741","学府大道","hotel1","hotel1","hotel1@qq.cpm","hotel1imgPath");
 
     @Test
     public void saveHotel() {
@@ -58,5 +58,10 @@ public class HotelServiceTest {
     @Test
     public void queryForPageItems() {
         System.out.println(hotelService.queryForPageItems(0,3));
+    }
+
+    @Test
+    public void queryHotelsByNameLikeOOrAddressLike(){
+        System.out.println(hotelService.queryHotelsByNameContainingOrAddressContaining("大道"));
     }
 }

@@ -39,6 +39,15 @@ public class HotelRoom {
         this.maxNum = maxNum;
     }
 
+    public HotelRoom(String type, String roomID, Hotel hotel, double price, boolean isUsed, int maxNum) {
+        this.type = type;
+        this.roomID = roomID;
+        this.hotel = hotel;
+        this.price = price;
+        this.isUsed = isUsed;
+        this.maxNum = maxNum;
+    }
+
     public int getID() {
         return ID;
     }

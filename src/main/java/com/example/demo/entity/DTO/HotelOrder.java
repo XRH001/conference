@@ -45,6 +45,14 @@ public class HotelOrder {
         this.endTime = endTime;
     }
 
+    public HotelOrder(HotelRoom hotelRoom, LocalDateTime createTime, int num, OrderStatus orderStatus, LocalDateTime beginTime, LocalDateTime endTime) {
+        this.hotelRoom = hotelRoom;
+        this.createTime = createTime;
+        this.num = num;
+        this.orderStatus = orderStatus;
+        this.beginTime = beginTime;
+        this.endTime = endTime;
+    }
 
     public int getID() {
         return ID;

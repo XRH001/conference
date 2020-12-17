@@ -8,10 +8,12 @@ import com.example.demo.entity.DO.ConferenceInfoDO;
 import com.example.demo.enumValue.OrderStatus;
 import com.example.demo.utils.TimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * @author 李嘉旭
@@ -25,7 +27,7 @@ public class ConferenceInfoService {
     @Autowired
     ConferenceService conferenceService;
     List<ConferenceInfo> list=new ArrayList<>();
-    List<ConferenceInfoDO> conferenceInfoDOList=new ArrayList<>();
+    List<ConferenceInfoDO> conferenceInfoDOList;
 
     /**
      * 增加或修改一个conferenceInfo
@@ -35,7 +37,11 @@ public class ConferenceInfoService {
      * @return 插入后的conferenceInfo
      */
     public ConferenceInfo saveConferenceInfo(ConferenceInfo conferenceInfo){
-        return toConferenceInfo(conferenceInfoDAO.save(toConferenceInfoDO(conferenceInfo)));
+        if (conferenceInfo!=null){
+            return toConferenceInfo(conferenceInfoDAO.save(toConferenceInfoDO(conferenceInfo)));
+        }else {
+            return null;
+        }
     }
 
     /**
@@ -43,8 +49,13 @@ public class ConferenceInfoService {
      * 根据ID
      * @param conferenceInfoID 给出的conferenceInfo
      */
-    public void deleteConferenceInfo(int conferenceInfoID){
-        conferenceInfoDAO.deleteById(conferenceInfoID);
+    public int deleteConferenceInfo(int conferenceInfoID){
+        try {
+            conferenceInfoDAO.deleteById(conferenceInfoID);
+            return 1;
+        }catch (EmptyResultDataAccessException e){
+            return -1;
+        }
     }
 
     /**
@@ -54,7 +65,11 @@ public class ConferenceInfoService {
      * @return null表示失败,否则表示查询结果
      */
     public ConferenceInfo queryConferenceInfoByID(int conferenceInfoID){
-        return toConferenceInfo(conferenceInfoDAO.findById(conferenceInfoID).get());
+        try {
+            return toConferenceInfo(conferenceInfoDAO.findById(conferenceInfoID).get());
+        }catch (NoSuchElementException|NullPointerException e){
+            return null;
+        }
     }
 
     /**
@@ -64,10 +79,14 @@ public class ConferenceInfoService {
     public List<ConferenceInfo> queryConferenceInfos(){
         list.clear();
         conferenceInfoDOList=conferenceInfoDAO.findAll();
-        for (ConferenceInfoDO c:conferenceInfoDOList){
-            list.add(toConferenceInfo(c));
+        if (conferenceInfoDOList.size()!=0){
+            for (ConferenceInfoDO c:conferenceInfoDOList){
+                list.add(toConferenceInfo(c));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**
@@ -85,12 +104,20 @@ public class ConferenceInfoService {
      * @return null表示查询失败,否则表示查询结果
      */
     public List<ConferenceInfo> queryPageItems(int begin,int pageSize){
-        list.clear();
-        conferenceInfoDOList=conferenceInfoDAO.queryForPageItems(begin,pageSize);
-        for (ConferenceInfoDO c:conferenceInfoDOList){
-            list.add(toConferenceInfo(c));
+        try {
+            list.clear();
+            conferenceInfoDOList=conferenceInfoDAO.queryForPageItems(begin,pageSize);
+            if (conferenceInfoDOList.size()!=0){
+                for (ConferenceInfoDO c:conferenceInfoDOList){
+                    list.add(toConferenceInfo(c));
+                }
+                return list;
+            }else {
+                return null;
+            }
+        }catch (Exception e){
+            return null;
         }
-        return list;
     }
 
     /**

@@ -49,7 +49,18 @@ public class Conference {
         this.isPrivate = isPrivate;
     }
 
-//    public Conference(ConferenceDO conferenceDO){
+    public Conference(String name, String address, OrderStatus orderStatus, int num, LocalDateTime createTime, LocalDateTime beginTime, LocalDateTime endTime, boolean isPrivate) {
+        this.name = name;
+        this.address = address;
+        this.orderStatus = orderStatus;
+        this.num = num;
+        this.createTime = createTime;
+        this.beginTime = beginTime;
+        this.endTime = endTime;
+        this.isPrivate = isPrivate;
+    }
+
+    //    public Conference(ConferenceDO conferenceDO){
 //        this.ID = conferenceDO.getID();
 //        this.name = conferenceDO.getName();
 //        this.address = conferenceDO.getAddress();

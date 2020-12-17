@@ -1,11 +1,14 @@
 package com.example.demo.service.mehod;
 
 import com.example.demo.dao.HotelDAO;
+import com.example.demo.entity.DTO.HotelRoom;
 import com.example.demo.entity.Hotel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * @author 李嘉旭
@@ -16,6 +19,7 @@ import java.util.List;
 public class HotelService {
     @Autowired
     HotelDAO hotelDAO;
+    List<Hotel> list;
 
     /**
      * 增加或修改一个hotel
@@ -25,7 +29,11 @@ public class HotelService {
      * @return null表示失败,否则返回插入后的hotel
      */
     public Hotel saveHotel(Hotel hotel){
-        return hotelDAO.save(hotel);
+        if (hotel!=null){
+            return hotelDAO.save(hotel);
+        }else {
+            return null;
+        }
     }
 
     /**
@@ -33,8 +41,13 @@ public class HotelService {
      * 根据ID
      * @param hotelID
      */
-    public void deleteHotel(int hotelID){
-        hotelDAO.deleteById(hotelID);
+    public int deleteHotel(int hotelID){
+        try {
+            hotelDAO.deleteById(hotelID);
+            return 1;
+        }catch (EmptyResultDataAccessException e){
+            return -1;
+        }
     }
 
     /**
@@ -44,7 +57,12 @@ public class HotelService {
      * @return
      */
     public Hotel queryHotelByID(int hotelID){
-        return hotelDAO.findById(hotelID).get();
+        try {
+            return hotelDAO.findById(hotelID).get();
+        }catch (NoSuchElementException|NullPointerException e){
+            return null;
+        }
+
     }
 
     /**
@@ -54,7 +72,11 @@ public class HotelService {
      * @return
      */
     public Hotel queryHotelByName(String name){
-        return hotelDAO.queryHotelByName(name);
+        try {
+            return hotelDAO.queryHotelByName(name);
+        }catch (NoSuchElementException|NullPointerException e){
+            return null;
+        }
     }
 
     /**
@@ -64,7 +86,11 @@ public class HotelService {
      * @return
      */
     public Hotel queryHotelByPhone(String phone){
-        return hotelDAO.queryHotelByPhone(phone);
+        try {
+            return hotelDAO.queryHotelByPhone(phone);
+        }catch (NoSuchElementException|NullPointerException e){
+            return null;
+        }
     }
 
     /**
@@ -74,7 +100,12 @@ public class HotelService {
      * @return
      */
     public List<Hotel> queryHotelByAddress(String address){
-        return hotelDAO.queryHotelsByAddress(address);
+        list=hotelDAO.queryHotelsByAddress(address);
+        if (list.size()!=0){
+            return list;
+        }else {
+            return null;
+        }
     }
 
     /**
@@ -83,6 +114,31 @@ public class HotelService {
      */
     public List<Hotel> queryHotels(){
         return hotelDAO.findAll();
+    }
+
+    public Hotel queryHotelByEmail(String email){
+        try {
+            return hotelDAO.queryHotelByEmail(email);
+        }catch (NoSuchElementException|NullPointerException e){
+            return null;
+        }
+    }
+
+    public Hotel queryHotelByUsername(String username){
+        try {
+            return hotelDAO.queryHotelByUsername(username);
+        }catch (NoSuchElementException|NullPointerException e){
+            return null;
+        }
+    }
+
+    public List<Hotel> queryHotelsByNameContainingOrAddressContaining(String key){
+        try {
+            return hotelDAO.queryHotelsByNameContainingOrAddressContaining(key,key);
+        }catch (NoSuchElementException|NullPointerException e){
+            return null;
+        }
+
     }
 
     /**
@@ -100,6 +156,11 @@ public class HotelService {
      * @return 一个页面的hotel集合
      */
     public List<Hotel> queryForPageItems(int begin,int pageSize){
-        return hotelDAO.queryForPageItems(begin,pageSize);
+        list=hotelDAO.queryForPageItems(begin,pageSize);
+        if (list.size()!=0){
+            return list;
+        }else {
+            return null;
+        }
     }
 }

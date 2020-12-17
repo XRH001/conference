@@ -7,6 +7,7 @@ import com.example.demo.enumValue.Identity;
 import com.example.demo.enumValue.Sex;
 import com.example.demo.utils.TimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * @author 李嘉旭
@@ -25,6 +27,7 @@ public class UserService {
     @Autowired
     UserDAO userDAO;
     List<User> list=new ArrayList<>();
+    List<UserDO> userDOList;
 
     /**
      * 增加或修改一个user
@@ -34,7 +37,11 @@ public class UserService {
      * @return
      */
     public User saveUser(User user){
-        return toUser(userDAO.save(toUserDO(user)));
+        if (user!=null){
+            return toUser(userDAO.save(toUserDO(user)));
+        }else {
+            return null;
+        }
     }
 
     /**
@@ -42,8 +49,13 @@ public class UserService {
      * 根据ID
      * @param userID
      */
-    public void deleteUser(int userID){
-        userDAO.deleteById(userID);
+    public int deleteUser(int userID){
+        try {
+            userDAO.deleteById(userID);
+            return 1;
+        }catch (EmptyResultDataAccessException e){
+            return -1;
+        }
     }
 
     /**
@@ -53,7 +65,11 @@ public class UserService {
      * @return
      */
     public User queryUserByID(int userID){
-        return toUser(userDAO.findById(userID).get());
+        try {
+            return toUser(userDAO.findById(userID).get());
+        }catch (NoSuchElementException|NullPointerException e){
+            return null;
+        }
     }
 
     /**
@@ -61,11 +77,15 @@ public class UserService {
      * @return
      */
     public List<User> queryUsers(){
-        List<UserDO> userDOList=userDAO.findAll();
-        for(UserDO u:userDOList){
-            list.add(toUser(u));
+        userDOList=userDAO.findAll();
+        if (userDOList.size()!=0){
+            for(UserDO u:userDOList){
+                list.add(toUser(u));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**
@@ -75,7 +95,12 @@ public class UserService {
      * @return
      */
     public User queryUserByUsername(String username){
-        return toUser(userDAO.queryUserDOByUsername(username));
+        try {
+            return toUser(userDAO.queryUserDOByUsername(username));
+        }catch (NoSuchElementException|NullPointerException e){
+            return null;
+        }
+
     }
 
     /**
@@ -85,11 +110,15 @@ public class UserService {
      * @return
      */
     public List<User> queryUsersByName(String name){
-        List<UserDO> userDOList=userDAO.queryUserDOSByName(name);
-        for(UserDO u:userDOList){
-            list.add(toUser(u));
+        userDOList=userDAO.queryUserDOSByName(name);
+        if (userDOList.size()!=0){
+            for(UserDO u:userDOList){
+                list.add(toUser(u));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**
@@ -99,11 +128,15 @@ public class UserService {
      * @return
      */
     public List<User> queryUsersBySex(Sex sex){
-        List<UserDO> userDOList=userDAO.queryUserDOSBySex(sex.getNum());
-        for(UserDO u:userDOList){
-            list.add(toUser(u));
+        userDOList=userDAO.queryUserDOSBySex(sex.getNum());
+        if (userDOList.size()!=0){
+            for(UserDO u:userDOList){
+                list.add(toUser(u));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**
@@ -113,25 +146,15 @@ public class UserService {
      * @return
      */
     public List<User> queryUsersByBirth(LocalDate time){
-        List<UserDO> userDOList=userDAO.queryUserDOSByBirth(TimeUtils.converseTrans(LocalDateTime.of(time, LocalTime.of(0,0,0))));
-        for(UserDO u:userDOList){
-            list.add(toUser(u));
+        userDOList=userDAO.queryUserDOSByBirth(TimeUtils.converseTrans(LocalDateTime.of(time, LocalTime.of(0,0,0))));
+        if (userDOList.size()!=0){
+            for(UserDO u:userDOList){
+                list.add(toUser(u));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
-    }
-
-    /**
-     * 查询user集合
-     * 根据用户身份
-     * @param identity
-     * @return
-     */
-    public List<User> queryUsersByIdentity(Identity identity){
-        List<UserDO> userDOList=userDAO.queryUserDOSByIdentity(identity.getID());
-        for(UserDO u:userDOList){
-            list.add(toUser(u));
-        }
-        return list;
     }
 
     /**
@@ -141,7 +164,11 @@ public class UserService {
      * @return
      */
     public User queryUserByEmail(String email){
-        return toUser(userDAO.queryUserDOByEmail(email));
+        try {
+            return toUser(userDAO.queryUserDOByEmail(email));
+        }catch (NoSuchElementException|NullPointerException e){
+            return null;
+        }
     }
 
     /**
@@ -151,7 +178,23 @@ public class UserService {
      * @return
      */
     public User queryUserByPhone(String phone){
-        return toUser(userDAO.queryUserDOByPhone(phone));
+        try {
+            return toUser(userDAO.queryUserDOByPhone(phone));
+        }catch (NoSuchElementException|NullPointerException e){
+            return null;
+        }
+    }
+
+    public List<User> queryUserDOSByNameContaining(String name){
+        userDOList=userDAO.queryUserDOSByNameContaining(name);
+        if (userDOList.size()!=0){
+            for(UserDO u:userDOList){
+                list.add(toUser(u));
+            }
+            return list;
+        }else {
+            return null;
+        }
     }
 
     /**
@@ -169,11 +212,19 @@ public class UserService {
      * @return 一个页面的user集合
      */
     public List<User> queryForPageItems(int begin,int pageSize){
-        List<UserDO> userDOList=userDAO.queryForPageItems(begin,pageSize);
-        for(UserDO u:userDOList){
-            list.add(toUser(u));
+        try {
+            userDOList=userDAO.queryForPageItems(begin,pageSize);
+            if (userDOList.size()!=0){
+                for(UserDO u:userDOList){
+                    list.add(toUser(u));
+                }
+                return list;
+            }else {
+                return null;
+            }
+        }catch (Exception e){
+            return null;
         }
-        return list;
     }
 
     /**
@@ -191,7 +242,6 @@ public class UserService {
         user.setPassword(userDO.getPassword());
         user.setSex(userDO.getSex()==0?Sex.Male: Sex.Female); ;
         user.setBirth(TimeUtils.transLocalDate(userDO.getBirth())) ;
-        user.setIdentity (Identity.choose(userDO.getIdentity())); ;
         user.setEmail(userDO.getEmail())  ;
         user.setImgPath(userDO.getImgPath());
         user.setPhone(userDO.getPhone());
@@ -214,7 +264,6 @@ public class UserService {
         userDO.setPassword(user.getPassword());
         userDO.setSex(user.getSex().getNum());
         userDO.setBirth(TimeUtils.converseTrans(user.getBirth()));
-        userDO.setIdentity(user.getIdentity().getID());
         userDO.setEmail(user.getEmail());
         userDO.setImgPath(user.getImgPath());
         userDO.setPhone(user.getPhone());

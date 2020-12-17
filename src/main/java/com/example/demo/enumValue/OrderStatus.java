@@ -1,9 +1,12 @@
 package com.example.demo.enumValue;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * @author 李嘉旭
  * 这个枚举类型用来指定订单状态
  */
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum OrderStatus {
     Block("被拒绝",-2),
     Suspend("需要改正",-1),

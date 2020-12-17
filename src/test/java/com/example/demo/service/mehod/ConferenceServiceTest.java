@@ -16,22 +16,22 @@ import java.time.LocalDateTime;
 public class ConferenceServiceTest {
     @Autowired
     ConferenceService conferenceService;
-    Conference conference=new Conference(1,"第三次会议","主教楼", OrderStatus.Running,20, LocalDateTime.now(),LocalDateTime.now(),
+    Conference conference=new Conference("第五次会议","主教楼", OrderStatus.Running,20, LocalDateTime.now(),LocalDateTime.now(),
                                             LocalDateTime.now(),true);
 
     @Test
     public void saveConference() {
-        conferenceService.saveConference(conference);
+        System.out.println(conferenceService.saveConference(conference));
     }
 
     @Test
     public void deleteConference() {
-        conferenceService.deleteConference(4);
+        System.out.println(conferenceService.deleteConference(999));
     }
 
     @Test
     public void queryConferenceByID() {
-        System.out.println(conferenceService.queryConferenceByID(3));
+        System.out.println(conferenceService.queryConferenceByID(1));
     }
 
     @Test
@@ -41,7 +41,7 @@ public class ConferenceServiceTest {
 
     @Test
     public void queryConferencesByName() {
-        System.out.println(conferenceService.queryConferencesByName("第一次会议"));
+        System.out.println(conferenceService.queryConferencesByName("第jiu次会议"));
     }
 
     @Test
@@ -70,5 +70,10 @@ public class ConferenceServiceTest {
     @Test
     public void test(){
         System.out.println(conferenceService.queryForPageItems(0,3));
+    }
+
+    @Test
+    public void queryConferencesByNameLike(){
+        System.out.println(conferenceService.queryConferenceDOSByNameContaining("会议"));
     }
 }

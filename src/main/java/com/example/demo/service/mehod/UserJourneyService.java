@@ -4,10 +4,12 @@ import com.example.demo.dao.UserJourneyDAO;
 import com.example.demo.entity.DO.UserJourneyDO;
 import com.example.demo.entity.DTO.UserJourney;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * @author 李嘉旭
@@ -33,7 +35,11 @@ public class UserJourneyService {
      * @return
      */
     public UserJourney saveUserJourney(UserJourney userJourney){
-        return toUserJourney(userJourneyDAO.save(toUserJourneyDO(userJourney)));
+        if (userJourney!=null){
+            return toUserJourney(userJourneyDAO.save(toUserJourneyDO(userJourney)));
+        }else {
+            return null;
+        }
     }
 
     /**
@@ -41,8 +47,13 @@ public class UserJourneyService {
      * 根据ID
      * @param userJourneyID
      */
-    public void deleteUserJourney(int userJourneyID){
-        userJourneyDAO.deleteById(userJourneyID);
+    public int deleteUserJourney(int userJourneyID){
+        try {
+            userJourneyDAO.deleteById(userJourneyID);
+            return 1;
+        }catch (EmptyResultDataAccessException e){
+            return -1;
+        }
     }
 
     /**
@@ -52,7 +63,11 @@ public class UserJourneyService {
      * @return
      */
     public UserJourney queryUserJourneyByID(int userJourneyID){
-       return toUserJourney(userJourneyDAO.findById(userJourneyID).get());
+        try {
+            return toUserJourney(userJourneyDAO.findById(userJourneyID).get());
+        }catch (NoSuchElementException|NullPointerException e){
+            return null;
+        }
     }
 
     /**
@@ -61,11 +76,15 @@ public class UserJourneyService {
      */
     public List<UserJourney> queryUserJourneys(){
         list.clear();
-        userJourneyDOList.clear();
-        for(UserJourneyDO u:userJourneyDOList){
-            list.add(toUserJourney(u));
+        userJourneyDOList=userJourneyDAO.findAll();
+        if (userJourneyDOList.size()!=0){
+            for(UserJourneyDO u:userJourneyDOList){
+                list.add(toUserJourney(u));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**

@@ -5,12 +5,14 @@ import com.example.demo.entity.DTO.Journey;
 import com.example.demo.entity.DO.JourneyDO;
 import com.example.demo.utils.TimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * @author 李嘉旭
@@ -22,6 +24,7 @@ public class JourneyService {
     @Autowired
     JourneyDAO journeyDAO;
     List<Journey> list=new ArrayList<>();
+    List<JourneyDO> journeyDOList;
 
     /**
      * 增加或修改一个journey
@@ -31,7 +34,12 @@ public class JourneyService {
      * @return
      */
     public Journey saveJourney(Journey journey){
-        return toJourney(journeyDAO.save(toJourneyDO(journey)));
+        if (journey!=null){
+            return toJourney(journeyDAO.save(toJourneyDO(journey)));
+        }else {
+            return null;
+        }
+
     }
 
     /**
@@ -39,8 +47,13 @@ public class JourneyService {
      * 根据ID
      * @param journeyID
      */
-    public void deleteJourney(int journeyID){
-        journeyDAO.deleteById(journeyID);
+    public int deleteJourney(int journeyID){
+        try {
+            journeyDAO.deleteById(journeyID);
+            return 1;
+        }catch (EmptyResultDataAccessException e){
+            return -1;
+        }
     }
 
     /**
@@ -50,7 +63,11 @@ public class JourneyService {
      * @return
      */
     public Journey queryJourneyByID(int journeyID){
-        return toJourney(journeyDAO.findById(journeyID).get());
+        try {
+            return toJourney(journeyDAO.findById(journeyID).get());
+        }catch (NoSuchElementException|NullPointerException e){
+            return null;
+        }
     }
 
     /**
@@ -58,7 +75,7 @@ public class JourneyService {
      * @return
      */
     public List<Journey> queryJourneys(){
-        List<JourneyDO> journeyDOList=journeyDAO.findAll();
+        journeyDOList=journeyDAO.findAll();
         for(JourneyDO j:journeyDOList){
             list.add(toJourney(j));
         }
@@ -73,11 +90,15 @@ public class JourneyService {
      * @return
      */
     public List<Journey> queryJourneysByTimeBetween(LocalDateTime beginTime,LocalDateTime endTime){
-        List<JourneyDO> journeyDOList=journeyDAO.queryJourneyDOSByTimeBetween(TimeUtils.converseTrans(beginTime),TimeUtils.converseTrans(endTime));
-        for(JourneyDO j:journeyDOList){
-            list.add(toJourney(j));
+        journeyDOList=journeyDAO.queryJourneyDOSByTimeBetween(TimeUtils.converseTrans(beginTime),TimeUtils.converseTrans(endTime));
+        if (journeyDOList.size()!=0){
+            for(JourneyDO j:journeyDOList){
+                list.add(toJourney(j));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**
@@ -88,11 +109,15 @@ public class JourneyService {
      * @return
      */
     public List<Journey> queryJourneysByTimeBetween(LocalDate beginTime, LocalDate endTime){
-        List<JourneyDO> journeyDOList=journeyDAO.queryJourneyDOSByTimeBetween(TimeUtils.converseTrans(beginTime),TimeUtils.converseTrans(endTime));
-        for(JourneyDO j:journeyDOList){
-            list.add(toJourney(j));
+        journeyDOList=journeyDAO.queryJourneyDOSByTimeBetween(TimeUtils.converseTrans(beginTime),TimeUtils.converseTrans(endTime));
+        if (journeyDOList.size()!=0){
+            for(JourneyDO j:journeyDOList){
+                list.add(toJourney(j));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**
@@ -102,11 +127,15 @@ public class JourneyService {
      * @return
      */
     public List<Journey> queryJourneysByOrigin(String origin){
-        List<JourneyDO> journeyDOList=journeyDAO.queryJourneyDOSByOrigin(origin);
-        for(JourneyDO j:journeyDOList){
-            list.add(toJourney(j));
+        journeyDOList=journeyDAO.queryJourneyDOSByOrigin(origin);
+        if (journeyDOList.size()!=0){
+            for(JourneyDO j:journeyDOList){
+                list.add(toJourney(j));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**
@@ -116,11 +145,15 @@ public class JourneyService {
      * @return
      */
     public List<Journey> queryJourneysByTarget(String target){
-        List<JourneyDO> journeyDOList=journeyDAO.queryJourneyDOSByTarget(target);
-        for(JourneyDO j:journeyDOList){
-            list.add(toJourney(j));
+        journeyDOList=journeyDAO.queryJourneyDOSByTarget(target);
+        if (journeyDOList.size()!=0){
+            for(JourneyDO j:journeyDOList){
+                list.add(toJourney(j));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**
@@ -131,11 +164,15 @@ public class JourneyService {
      * @return
      */
     public List<Journey> queryJourneysByOriginAndTarget(String origin,String target){
-        List<JourneyDO> journeyDOList=journeyDAO.queryJourneyDOSByOriginAndTarget(origin,target);
-        for(JourneyDO j:journeyDOList){
-            list.add(toJourney(j));
+        journeyDOList=journeyDAO.queryJourneyDOSByOriginAndTarget(origin,target);
+        if (journeyDOList.size()!=0){
+            for(JourneyDO j:journeyDOList){
+                list.add(toJourney(j));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**
@@ -153,11 +190,19 @@ public class JourneyService {
      * @return 一个页面的journey集合
      */
     public List<Journey> queryForPageItems(int begin,int pageSize){
-        List<JourneyDO> journeyDOList=journeyDAO.queryForPageItems(begin,pageSize);
-        for(JourneyDO j:journeyDOList){
-            list.add(toJourney(j));
+        try {
+            journeyDOList=journeyDAO.queryForPageItems(begin,pageSize);
+            if (journeyDOList.size()!=0){
+                for(JourneyDO j:journeyDOList){
+                    list.add(toJourney(j));
+                }
+                return list;
+            }else {
+                return null;
+            }
+        }catch (Exception e){
+            return null;
         }
-        return list;
     }
 
     /**

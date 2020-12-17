@@ -25,6 +25,8 @@ public interface ConferenceDAO extends JpaRepository<ConferenceDO,Integer> {
 
     public List<ConferenceDO> queryConferenceDOSByEndTimeBetween(Date beginTime,Date endTime);
 
+    public List<ConferenceDO> queryConferenceDOSByNameContaining(String name);
+
     @Query(value = "select * from conference limit ?1,?2",nativeQuery = true)
     public List<ConferenceDO> queryForPageItems(int begin, int pageSize);
 }

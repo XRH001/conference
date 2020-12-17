@@ -17,7 +17,7 @@ public interface AdminDAO extends JpaRepository<Admin,Integer> {
     public Admin queryAdminByUsername(String username);
 
     /**
-     *
+     * 分页查询
      * @param begin
      * @param pageSize
      * @return

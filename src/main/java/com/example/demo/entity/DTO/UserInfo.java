@@ -25,6 +25,11 @@ public class UserInfo {
         this.image_path = image_path;
     }
 
+    public UserInfo(User user, String image_path) {
+        this.user = user;
+        this.image_path = image_path;
+    }
+
     public int getID() {
         return ID;
     }

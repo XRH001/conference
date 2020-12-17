@@ -7,6 +7,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * @author 李嘉旭
@@ -26,18 +27,23 @@ public class AdminService{
      * @return null表示失败,否则表示成功
      */
     public Admin saveAdmin(Admin admin){
-        return adminDAO.save(admin);
+        if (admin!=null){
+            return adminDAO.save(admin);
+        }else {
+            return null;
+        }
     }
 
     /**
      * 删除一个admin
      * @param adminID 要删除的adminID
      */
-    public void deleteAdmin(int adminID){
+    public int deleteAdmin(int adminID){
         try {
             adminDAO.deleteById(adminID);
+            return 1;
         }catch (EmptyResultDataAccessException e){
-            System.out.println("找不到可删除的主键");
+            return -1;
         }
     }
 
@@ -55,7 +61,11 @@ public class AdminService{
      * @return null表示失败,否则表示成功
      */
     public Admin queryAdminByID(int adminID){
-        return adminDAO.findById(adminID).get();
+        try {
+            return adminDAO.findById(adminID).get();
+        }catch (NoSuchElementException|NullPointerException e){
+            return null;
+        }
     }
 
     /**
@@ -64,7 +74,11 @@ public class AdminService{
      * @return null表示失败,否则表示成功
      */
     public Admin queryAdminByUsername(String username){
-        return adminDAO.queryAdminByUsername(username);
+        try {
+            return adminDAO.queryAdminByUsername(username);
+        }catch (NoSuchElementException|NullPointerException e){
+            return null;
+        }
     }
 
     /**

@@ -6,6 +6,7 @@ import com.example.demo.enumValue.Identity;
 import com.example.demo.enumValue.Sex;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 
@@ -22,7 +23,6 @@ public class User {
      * @param password 密码
      * @param sex 性别
      * @param birth 出生日期
-     * @param position 职务
      * @param workID 工号
      * @param email 电子邮箱
      * @param phone 电话号码
@@ -35,7 +35,6 @@ public class User {
     private String password;
     private Sex sex;
     private LocalDate birth;
-    private Identity identity;
     private String email;
     private String imgPath;
     private String phone;
@@ -43,26 +42,24 @@ public class User {
     public User() {
     }
 
-    public User(int ID, String name, String username, String password, Sex sex, LocalDate birth, Identity identity, String email, String imgPath, String phone) {
+    public User(int ID, String name, String username, String password, Sex sex, LocalDate birth, String email, String imgPath, String phone) {
         this.ID = ID;
         this.name = name;
         this.username = username;
         this.password = password;
         this.sex = sex;
         this.birth = birth;
-        this.identity=identity;
         this.email = email;
         this.imgPath = imgPath;
         this.phone = phone;
     }
 
-    public User(String name, String username, String password, Sex sex, LocalDate birth, Identity identity, String email, String imgPath, String phone) {
+    public User(String name, String username, String password, Sex sex, LocalDate birth, String email, String imgPath, String phone) {
         this.name = name;
         this.username = username;
         this.password = password;
         this.sex = sex;
         this.birth = birth;
-        this.identity = identity;
         this.email = email;
         this.imgPath = imgPath;
         this.phone = phone;
@@ -131,14 +128,6 @@ public class User {
         this.birth = birth;
     }
 
-    public Identity getIdentity() {
-        return identity;
-    }
-
-    public void setIdentity(Identity identity) {
-        this.identity = identity;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -174,7 +163,6 @@ public class User {
                 Objects.equals(password, user.password) &&
                 sex == user.sex &&
                 Objects.equals(birth, user.birth) &&
-                identity == user.identity &&
                 Objects.equals(email, user.email) &&
                 Objects.equals(imgPath, user.imgPath) &&
                 Objects.equals(phone, user.phone);
@@ -182,22 +170,24 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(ID, name, username, password, sex, birth, identity, email, imgPath, phone);
+        return Objects.hash(ID, name, username, password, sex, birth, email, imgPath, phone);
     }
 
     @Override
     public String toString() {
-        return "User{" +
-                "ID=" + ID +
-                ", name='" + name + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", sex=" + sex +
-                ", birth=" + birth +
-                ", identity=" + identity +
-                ", email='" + email + '\'' +
-                ", imgPath='" + imgPath + '\'' +
-                ", phone='" + phone + '\'' +
-                '}';
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        String Birth = birth.format(formatters);
+        //增加的一个日期格式改造方法 by XRH
+
+        return "{" +
+                "id:" + ID +
+                ", name:'" + name+
+                "', username:'" + username +
+                "', sex:'" + sex +
+                "', birth:'"  + Birth +
+                "', email:'" + email +
+                "', imgPath:'" + imgPath +
+                "', phone:'" + phone +
+                "'}";
     }
 }

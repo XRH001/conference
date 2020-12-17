@@ -34,6 +34,11 @@ public class Journey {
         this.target = target;
     }
 
+    public Journey(LocalDateTime time, String origin, String target) {
+        this.time = time;
+        this.origin = origin;
+        this.target = target;
+    }
 //    public Journey(JourneyDO journeyDO){
 //        this.ID=journeyDO.getID();
 //        this.time= TimeUtils.transLocalDateTime(journeyDO.getTime());

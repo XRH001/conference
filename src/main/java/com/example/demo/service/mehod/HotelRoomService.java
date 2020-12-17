@@ -5,10 +5,12 @@ import com.example.demo.entity.DO.HotelRoomDO;
 import com.example.demo.entity.DTO.HotelRoom;
 import com.example.demo.entity.Hotel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * @author 李嘉旭
@@ -32,7 +34,11 @@ public class HotelRoomService {
      * @return
      */
     public HotelRoom saveHotelRoom(HotelRoom hotelRoom){
-        return toHotelRoom(hotelRoomDAO.save(toHotelRoomDO(hotelRoom)));
+        if (hotelRoom!=null){
+            return toHotelRoom(hotelRoomDAO.save(toHotelRoomDO(hotelRoom)));
+        }else {
+            return null;
+        }
     }
 
     /**
@@ -40,8 +46,13 @@ public class HotelRoomService {
      * 根据ID
      * @param hotelRoomID
      */
-    public void deleteHotelRoom(int hotelRoomID){
-        hotelRoomDAO.deleteById(hotelRoomID);
+    public int deleteHotelRoom(int hotelRoomID){
+        try {
+            hotelRoomDAO.deleteById(hotelRoomID);
+            return 1;
+        }catch (EmptyResultDataAccessException e){
+            return -1;
+        }
     }
 
     /**
@@ -51,7 +62,11 @@ public class HotelRoomService {
      * @return
      */
     public HotelRoom queryHotelRoomByID(int hotelRoomID){
-        return toHotelRoom(hotelRoomDAO.findById(hotelRoomID).get());
+        try {
+            return toHotelRoom(hotelRoomDAO.findById(hotelRoomID).get());
+        }catch (NoSuchElementException|NullPointerException e){
+            return null;
+        }
     }
 
     /**
@@ -60,12 +75,15 @@ public class HotelRoomService {
      */
     public List<HotelRoom> queryHotelRooms(){
         list.clear();
-        hotelRoomDOList.clear();
         hotelRoomDOList=hotelRoomDAO.findAll();
-        for(HotelRoomDO h:hotelRoomDOList){
-            list.add(toHotelRoom(h));
+        if (hotelRoomDOList.size()!=0){
+            for(HotelRoomDO h:hotelRoomDOList){
+                list.add(toHotelRoom(h));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**
@@ -84,12 +102,15 @@ public class HotelRoomService {
      */
     public List<HotelRoom> queryForPageItems(int begin,int pageSize){
         list.clear();
-        hotelRoomDOList.clear();
         hotelRoomDOList=hotelRoomDAO.queryForPageItems(begin, pageSize);
-        for(HotelRoomDO h:hotelRoomDOList){
-            list.add(toHotelRoom(h));
+        if (hotelRoomDOList.size()!=0){
+            for(HotelRoomDO h:hotelRoomDOList){
+                list.add(toHotelRoom(h));
+            }
+            return list;
+        }else {
+            return null;
         }
-        return list;
     }
 
     /**

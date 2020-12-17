@@ -23,6 +23,11 @@ public class UserJourney {
         this.journey = journey;
     }
 
+    public UserJourney(User user, Journey journey) {
+        this.user = user;
+        this.journey = journey;
+    }
+
     public int getID() {
         return ID;
     }

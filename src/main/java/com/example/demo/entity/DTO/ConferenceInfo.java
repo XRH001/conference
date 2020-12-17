@@ -7,7 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Objects;
 
 public class ConferenceInfo {
-
+    /**
+     *会议附加信息,这是一个备用类
+     * @param ID 编号
+     * @param conference 会议
+     * @param info 会议备注
+     */
     private int ID;
     private Conference conference;
     private String info;
@@ -17,6 +22,11 @@ public class ConferenceInfo {
 
     public ConferenceInfo(int ID, Conference conference, String info) {
         this.ID = ID;
+        this.conference = conference;
+        this.info = info;
+    }
+
+    public ConferenceInfo(Conference conference, String info) {
         this.conference = conference;
         this.info = info;
     }
