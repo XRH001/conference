@@ -1,13 +1,8 @@
 package com.example.demo.entity.VO;
 
 import com.example.demo.entity.DTO.Conference;
-import com.example.demo.enumValue.OrderStatus;
-import com.example.demo.service.mehod.ConferenceService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Meeting {
 

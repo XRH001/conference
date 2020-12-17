@@ -4,8 +4,6 @@ import com.example.demo.entity.DTO.Conference;
 import com.example.demo.entity.DTO.ConferenceUser;
 import com.example.demo.entity.DTO.User;
 import com.example.demo.entity.VO.Meeting;
-import com.example.demo.enumValue.OrderStatus;
-import com.example.demo.service.mehod.ConferenceService;
 import com.example.demo.service.mehod.ConferenceUserService;
 import com.example.demo.service.mehod.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -43,13 +41,19 @@ public class LoginController {
         String email = request.getParameter("email");
         String password = request.getParameter("password");//获取邮件和密码
 
-        if(userService.queryUserByEmail(email)==null)
+        if(userService.queryUserByEmail(email) == null)
             return "not user";                              //判断有无该用户
 
         User user1=userService.queryUserByEmail(email);
-        if (userService.queryUserByEmail(email)!=null)
-            if(!Objects.equals(password, user1.getPassword()))
-               return "password error";                     //判断密码是否正确
+        String user=user1.toString();
+        try {
+            if (userService.queryUserByEmail(email) != null)
+                if (!password.equals(user1.getPassword()))
+                    return "password error";                     //判断密码是否正确
+        }catch(Exception e){
+            e.printStackTrace();
+            return "error";
+        }
 
         ArrayList<Conference> joinAll=new ArrayList<>();
         ArrayList<Conference> manageAll=new ArrayList<>();
@@ -136,7 +140,7 @@ public class LoginController {
         meeting.put("manage",manage);
 
         HashMap<String,Object> information=new HashMap<>(2);
-        information.put("user",user1);
+        information.put("user",user);
         information.put("meetings",meeting);
         information.put("creator",createMeeting);
         //进行各级数据打包操作
