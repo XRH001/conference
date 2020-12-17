@@ -67,7 +67,7 @@ public class ConferenceInfoService {
     public ConferenceInfo queryConferenceInfoByID(int conferenceInfoID){
         try {
             return toConferenceInfo(conferenceInfoDAO.findById(conferenceInfoID).get());
-        }catch (NoSuchElementException e){
+        }catch (NoSuchElementException|NullPointerException e){
             return null;
         }
     }

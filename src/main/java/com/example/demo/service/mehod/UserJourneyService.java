@@ -2,6 +2,9 @@ package com.example.demo.service.mehod;
 
 import com.example.demo.dao.UserJourneyDAO;
 import com.example.demo.entity.DO.UserJourneyDO;
+import com.example.demo.entity.DTO.Conference;
+import com.example.demo.entity.DTO.Journey;
+import com.example.demo.entity.DTO.User;
 import com.example.demo.entity.DTO.UserJourney;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -24,6 +27,8 @@ public class UserJourneyService {
     UserService userService;
     @Autowired
     JourneyService journeyService;
+    @Autowired
+    ConferenceService conferenceService;
     List<UserJourney> list=new ArrayList<>();
     List<UserJourneyDO> userJourneyDOList=new ArrayList<>();
 
@@ -65,7 +70,7 @@ public class UserJourneyService {
     public UserJourney queryUserJourneyByID(int userJourneyID){
         try {
             return toUserJourney(userJourneyDAO.findById(userJourneyID).get());
-        }catch (NoSuchElementException e){
+        }catch (NoSuchElementException|NullPointerException e){
             return null;
         }
     }
@@ -87,12 +92,68 @@ public class UserJourneyService {
         }
     }
 
+    public List<UserJourney> queryUserJourneysByUser(User user){
+        list.clear();
+        userJourneyDOList=userJourneyDAO.queryUserJourneyDOSByUserID(user.getID());
+        if (userJourneyDOList.size()!=0){
+            for(UserJourneyDO u:userJourneyDOList){
+                list.add(toUserJourney(u));
+            }
+            return list;
+        }else {
+            return null;
+        }
+    }
+
+    public List<UserJourney> queryUserJourneysByJourney(Journey journey){
+        list.clear();
+        userJourneyDOList=userJourneyDAO.queryUserJourneyDOSByJourneyID(journey.getID());
+        if (userJourneyDOList.size()!=0){
+            for(UserJourneyDO u:userJourneyDOList){
+                list.add(toUserJourney(u));
+            }
+            return list;
+        }else {
+            return null;
+        }
+    }
+
+    public List<UserJourney> queryUserJourneysByConference(Conference conference){
+        list.clear();
+        userJourneyDOList=userJourneyDAO.queryUserJourneyDOSByConferenceID(conference.getID());
+        if (userJourneyDOList.size()!=0){
+            for(UserJourneyDO u:userJourneyDOList){
+                list.add(toUserJourney(u));
+            }
+            return list;
+        }else {
+            return null;
+        }
+    }
+
     /**
      * 查询userJourney记录的总数量
      * @return
      */
     public int queryForCountTotal(){
         return (int) userJourneyDAO.count();
+    }
+
+    public List<UserJourney> queryForPageItems(int beign,int pageSize){
+        try {
+            list.clear();
+            userJourneyDOList=userJourneyDAO.queryForPageItems(beign, pageSize);
+            if (userJourneyDOList.size()!=0){
+                for(UserJourneyDO u:userJourneyDOList){
+                    list.add(toUserJourney(u));
+                }
+                return list;
+            }else {
+                return null;
+            }
+        }catch (Exception e){
+            return null;
+        }
     }
 
     /**
@@ -107,6 +168,7 @@ public class UserJourneyService {
           userJourney.setID(userJourneyDO.getID());
           userJourney.setUser(userService.queryUserByID(userJourneyDO.getUserID()));
           userJourney.setJourney(journeyService.queryJourneyByID(userJourneyDO.getJourneyID()));
+          userJourney.setConference(conferenceService.queryConferenceByID(userJourneyDO.getConferenceID()));
 
           return userJourney;
       }
@@ -123,6 +185,7 @@ public class UserJourneyService {
           userJourneyDO.setID(userJourney.getID());
           userJourneyDO.setJourneyID(userJourney.getJourney().getID());
           userJourneyDO.setUserID(userJourney.getUser().getID());
+          userJourneyDO.setConferenceID(userJourney.getConference().getID());
 
           return userJourneyDO;
       }

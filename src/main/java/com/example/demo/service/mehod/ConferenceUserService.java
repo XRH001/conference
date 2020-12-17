@@ -72,7 +72,7 @@ public class ConferenceUserService {
     public ConferenceUser queryConferenceUserByID(int conferenceUserID){
         try {
             return toConferenceUser(conferenceUserDAO.findById(conferenceUserID).get());
-        }catch (NoSuchElementException e){
+        }catch (NoSuchElementException|NullPointerException e){
             return null;
         }
 

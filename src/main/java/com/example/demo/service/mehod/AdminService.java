@@ -63,7 +63,7 @@ public class AdminService{
     public Admin queryAdminByID(int adminID){
         try {
             return adminDAO.findById(adminID).get();
-        }catch (NoSuchElementException e){
+        }catch (NoSuchElementException|NullPointerException e){
             return null;
         }
     }
@@ -76,7 +76,7 @@ public class AdminService{
     public Admin queryAdminByUsername(String username){
         try {
             return adminDAO.queryAdminByUsername(username);
-        }catch (NoSuchElementException e){
+        }catch (NoSuchElementException|NullPointerException e){
             return null;
         }
     }

@@ -44,7 +44,7 @@ public class ConferenceJourneyService {
     public ConferenceJourney queryConferenceJourneyByID(int conferenceJourneyID){
         try {
             return toConferenceJourney(conferenceJourneyDAO.queryConferenceJourneyDOByID(conferenceJourneyID));
-        }catch (NoSuchElementException e){
+        }catch (NoSuchElementException|NullPointerException e){
             return null;
         }
     }

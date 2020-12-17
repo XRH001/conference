@@ -66,7 +66,7 @@ public class HotelOrderService {
     public HotelOrder queryHotelOrderByID(int hotelOrderID){
         try {
             return toHotelOrder(hotelOrderDAO.findById(hotelOrderID).get());
-        }catch (NoSuchElementException e){
+        }catch (NoSuchElementException|NullPointerException e){
             return null;
         }
     }

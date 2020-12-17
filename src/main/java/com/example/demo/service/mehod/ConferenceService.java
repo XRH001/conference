@@ -25,6 +25,7 @@ public class ConferenceService {
     @Autowired
     ConferenceDAO conferenceDAO;
     List<Conference> list=new ArrayList<>();
+    List<ConferenceDO> conferenceDOList;
 
     /**
      * 增加或修改一个conference
@@ -59,7 +60,7 @@ public class ConferenceService {
     public Conference queryConferenceByID(int conferenceID){
         try {
             return toConference(conferenceDAO.findById(conferenceID).get());
-        }catch (NoSuchElementException e){
+        }catch (NoSuchElementException|NullPointerException e){
             return null;
         }
     }
@@ -70,7 +71,7 @@ public class ConferenceService {
      */
     public List<Conference> queryConferences(){
         list.clear();
-        List<ConferenceDO> conferenceDOList=conferenceDAO.findAll();
+        conferenceDOList=conferenceDAO.findAll();
         if (conferenceDOList.size()!=0){
             for(ConferenceDO c:conferenceDOList){
                 list.add(toConference(c));
@@ -89,7 +90,7 @@ public class ConferenceService {
      */
     public List<Conference> queryConferencesByName(String name){
         list.clear();
-        List<ConferenceDO> conferenceDOList=conferenceDAO.queryConferenceDOSByName(name);
+        conferenceDOList=conferenceDAO.queryConferenceDOSByName(name);
         if (conferenceDOList.size()!=0){
             for(ConferenceDO c:conferenceDOList){
                 list.add(toConference(c));
@@ -108,7 +109,7 @@ public class ConferenceService {
      */
     public List<Conference> queryConferencesByAddress(String address){
         list.clear();
-        List<ConferenceDO> conferenceDOList=conferenceDAO.queryConferenceDOSByAddress(address);
+        conferenceDOList=conferenceDAO.queryConferenceDOSByAddress(address);
         if (conferenceDOList.size()!=0){
             for(ConferenceDO c:conferenceDOList){
                 list.add(toConference(c));
@@ -127,7 +128,7 @@ public class ConferenceService {
      */
     public List<Conference> queryConferencesByOrderStatus(OrderStatus orderStatus){
         list.clear();
-        List<ConferenceDO> conferenceDOList=conferenceDAO.queryConferenceDOSByOrderStatus(orderStatus.getNum());
+        conferenceDOList=conferenceDAO.queryConferenceDOSByOrderStatus(orderStatus.getNum());
         if (conferenceDOList.size()!=0){
             for(ConferenceDO c:conferenceDOList){
                 list.add(toConference(c));
@@ -148,7 +149,7 @@ public class ConferenceService {
      */
     public List<Conference> queryConferencesByCreateTimeBetween(LocalDateTime beginTime, LocalDateTime endTime){
         list.clear();
-        List<ConferenceDO> conferenceDOList=conferenceDAO.queryConferenceDOSByCreateTimeBetween(
+        conferenceDOList=conferenceDAO.queryConferenceDOSByCreateTimeBetween(
                 TimeUtils.converseTrans(beginTime), TimeUtils.converseTrans(endTime));
         if (conferenceDOList.size()!=0){
             for(ConferenceDO c:conferenceDOList){
@@ -170,7 +171,7 @@ public class ConferenceService {
      */
     public List<Conference> queryConferencesByCreateTimeBetween(LocalDate beginTime, LocalDate endTime){
         list.clear();
-        List<ConferenceDO> conferenceDOList=conferenceDAO.queryConferenceDOSByCreateTimeBetween(
+        conferenceDOList=conferenceDAO.queryConferenceDOSByCreateTimeBetween(
                 TimeUtils.converseTrans(beginTime), TimeUtils.converseTrans(endTime));
         if (conferenceDOList.size()!=0){
             for(ConferenceDO c:conferenceDOList){
@@ -192,7 +193,7 @@ public class ConferenceService {
      */
     public List<Conference> queryConferencesByBeginTimeBetween(LocalDateTime beginTime,LocalDateTime endTime){
         list.clear();
-        List<ConferenceDO> conferenceDOList=conferenceDAO.queryConferenceDOSByCreateTimeBetween(
+        conferenceDOList=conferenceDAO.queryConferenceDOSByCreateTimeBetween(
                 TimeUtils.converseTrans(beginTime), TimeUtils.converseTrans(endTime));
         if (conferenceDOList.size()!=0){
             for(ConferenceDO c:conferenceDOList){
@@ -214,7 +215,7 @@ public class ConferenceService {
      */
     public List<Conference> queryConferencesByBeginTimeBetween(LocalDate beginTime,LocalDate endTime){
         list.clear();
-        List<ConferenceDO> conferenceDOList=conferenceDAO.queryConferenceDOSByCreateTimeBetween(
+        conferenceDOList=conferenceDAO.queryConferenceDOSByCreateTimeBetween(
                 TimeUtils.converseTrans(beginTime), TimeUtils.converseTrans(endTime));
         if (conferenceDOList.size()!=0){
             for(ConferenceDO c:conferenceDOList){
@@ -236,7 +237,7 @@ public class ConferenceService {
      */
     public List<Conference> queryConferencesByEndTimeBetween(LocalDateTime beginTime,LocalDateTime endTime){
         list.clear();
-        List<ConferenceDO> conferenceDOList=conferenceDAO.queryConferenceDOSByCreateTimeBetween(
+        conferenceDOList=conferenceDAO.queryConferenceDOSByCreateTimeBetween(
                 TimeUtils.converseTrans(beginTime), TimeUtils.converseTrans(endTime));
         if (conferenceDOList.size()!=0){
             for(ConferenceDO c:conferenceDOList){
@@ -258,7 +259,7 @@ public class ConferenceService {
      */
     public List<Conference> queryConferencesByEndTimeBetween(LocalDate beginTime,LocalDate endTime){
         list.clear();
-        List<ConferenceDO> conferenceDOList=conferenceDAO.queryConferenceDOSByCreateTimeBetween(
+        conferenceDOList=conferenceDAO.queryConferenceDOSByCreateTimeBetween(
                 TimeUtils.converseTrans(beginTime), TimeUtils.converseTrans(endTime));
         if (conferenceDOList.size()!=0){
             for(ConferenceDO c:conferenceDOList){
@@ -272,7 +273,7 @@ public class ConferenceService {
 
     public List<Conference> queryConferenceDOSByNameContaining(String name){
         list.clear();
-        List<ConferenceDO> conferenceDOList=conferenceDAO.queryConferenceDOSByNameContaining(name);
+        conferenceDOList=conferenceDAO.queryConferenceDOSByNameContaining(name);
         if (conferenceDOList.size()!=0){
             for(ConferenceDO c:conferenceDOList){
                 list.add(toConference(c));
@@ -301,7 +302,7 @@ public class ConferenceService {
     public List<Conference> queryForPageItems(int begin,int pageSize){
         try {
             list.clear();
-            List<ConferenceDO> conferenceDOList=conferenceDAO.queryForPageItems(begin,pageSize);
+            conferenceDOList=conferenceDAO.queryForPageItems(begin,pageSize);
             if (conferenceDOList.size()!=0){
                 for(ConferenceDO c:conferenceDOList){
                     list.add(toConference(c));

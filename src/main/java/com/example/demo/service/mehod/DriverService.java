@@ -59,7 +59,7 @@ public class DriverService {
     public Driver queryDriverByID(int driverID){
         try {
             return driverDAO.queryDriverByID(driverID);
-        }catch (NoSuchElementException e){
+        }catch (NoSuchElementException|NullPointerException e){
             return null;
         }
     }
@@ -88,7 +88,7 @@ public class DriverService {
     public Driver queryDriverByCarNum(String carNum){
         try {
             return driverDAO.queryDriverByCarNum(carNum);
-        }catch (NoSuchElementException e){
+        }catch (NoSuchElementException|NullPointerException e){
             return null;
         }
     }
@@ -128,7 +128,7 @@ public class DriverService {
     public Driver queryDriverByEmail(String email){
         try {
             return driverDAO.queryDriverByEmail(email);
-        }catch (NoSuchElementException e){
+        }catch (NoSuchElementException|NullPointerException e){
             return null;
         }
     }
@@ -136,7 +136,7 @@ public class DriverService {
     public Driver queryDriverByUsername(String username){
         try {
             return driverDAO.queryDriverByUsername(username);
-        }catch (NoSuchElementException e){
+        }catch (NoSuchElementException|NullPointerException e){
             return null;
         }
     }
@@ -144,7 +144,7 @@ public class DriverService {
     public Driver queryDriverByPhone(String phone){
         try {
             return driverDAO.queryDriverByPhone(phone);
-        }catch (NoSuchElementException e){
+        }catch (NoSuchElementException|NullPointerException e){
             return null;
         }
     }
