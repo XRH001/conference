@@ -87,8 +87,11 @@
                         this.$emit("getEmailCode",emailCodeM);
                         this.buttonSet();
                     }
-                }).catch(res =>{
-                    alert("ERROR:"+res);
+                }).catch(err =>{
+                    this.$message({
+                        message:"网络请求异常\n"+err,
+                        type:"warning"
+                    });
                     this.disable=false;
                 });
             }

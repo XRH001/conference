@@ -63,11 +63,18 @@
                         管理员名单</h2>
                     <div class="layui-colla-content" :class="{'layui-show':managerShow}">
                         <table class="layui-table">
-                            <thead><tr><th>姓名</th><th>联系方式</th></tr></thead>
+                            <thead><tr><th>姓名</th><th>联系方式</th><td>详细信息</td></tr></thead>
                             <tbody>
-                            <tr><td>金城山</td><td>2312@qq.com</td></tr>
-                            <tr><td>程世峰</td><td>321312@qq.com</td></tr>
-                            <tr><td>关婷楼</td><td>4124112@qq.com</td></tr>
+                            <tr v-for="item in meetingInfo.managerInfo" :key="item.id">
+                                <td>{{item.name}}</td><td>{{item.email}}</td><td>
+                                <el-popover
+                                        placement="right"
+                                        width="400"
+                                        trigger="click">
+                                    <SmallInfo></SmallInfo>
+                                    <el-button slot="reference">click 激活</el-button>
+                                </el-popover>
+                            </td></tr>
                             </tbody>
                         </table></div>
                 </div>
@@ -80,12 +87,7 @@
                         <table class="layui-table">
                             <thead><tr><th>姓名</th><th>联系方式</th></tr></thead>
                             <tbody>
-                            <tr><td>金城山</td><td>2312@qq.com</td></tr>
-                            <tr><td>程世峰</td><td>321312@qq.com</td></tr>
-                            <tr><td>关婷楼</td><td>4124112@qq.com</td></tr>
-                            <tr><td>金城山</td><td>2312@qq.com</td></tr>
-                            <tr><td>程世峰</td><td>321312@qq.com</td></tr>
-                            <tr><td>关婷楼</td><td>4124112@qq.com</td></tr>
+                            <tr v-for="item in meetingInfo.memberInfo" :key="item.id"><td>{{item.name}}</td><td>{{item.email}}</td></tr>
                             </tbody>
                         </table></div>
                 </div>
@@ -98,9 +100,10 @@
 
 <script>
     import RelateToMe from "./Ordinary/RelateToMe";
+    import SmallInfo from "../components/SmallInfo";
     export default {
         name: "detail",
-        components: {RelateToMe},
+        components: {SmallInfo, RelateToMe},
         data(){
             return {
                 memberShow:false,
@@ -108,7 +111,7 @@
                 meetingId:"",
                 notFound:false,
                 meetingInfo:{//这里是会议的全部信息
-                    name:"",
+                    name:"123",
                     id:123,
                     beginTime:"2020年12月6日20:47",
                     endTime:"2020年12月6日20:47",
@@ -116,14 +119,16 @@
                     orderStatus:"未开始",
                     createTime:"2020年12月6日20:48:33",
                     num:321,
-                    managerInfo:[{id:"",name:"", email:""},{}],
-                    memberInfo:[]
+                    managerInfo:[{id:123,name:"嘿嘿", email:"123@qq.com"},{id:123,name:"嘿嘿", email:"123@qq.com"}],
+                    memberInfo:[{id:123,name:"赵日天", email:"12323@qq.com"}]
                 },
                 meetingUser:{
                     ifJoin:false,
-                    info:"备注",
+                    info:"",
                     journey:{
-
+                        time:"2020年12月17日19:11",
+                        origin:"床上",
+                        target:"凳子上"
                     },
                     room:{
 
@@ -154,7 +159,7 @@
                     this.meetingUser=res.data.meetingUser;
             }).catch( err => {
                 console.log(err);
-                this.$message("出错啦！")
+                this.$message("网络请求出错！已为您显示样例信息")
             });
         }
     }

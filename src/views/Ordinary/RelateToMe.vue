@@ -4,31 +4,42 @@
         <tbody>
         <tr>
             <td>备注</td>
+        </tr>
+        <tr>
             <td>
-                <input  type="text" name="leaveTime" v-model.lazy="meetingUser.info" placeholder="会议管理人员会根据您的需求给您安排住宿或接送" autocomplete="off" class="layui-input">
-            </td>
-            <td colspan="2">
+                <textarea  v-model.lazy="infoInput" placeholder="会议管理会根据您的需求安排" autocomplete="off" class="area "></textarea>
+            </td></tr>
+        <tr>
+            <td><button class="layui-btn layui-btn-normal">确认提交</button></td>
+            </tr>
+        <tr>
+            <td colspan="3">
                 <Collapse >
                     <span slot="title">我的行程</span>
                     <div slot="content">
-                        出发时间:
+                        出发时间:{{meetingUser.journey.time}}<br>
+                        出发地点:{{meetingUser.journey.origin}}<br>
+                        目的地:{{meetingUser.journey.target}}
                     </div>
                 </Collapse>
             </td>
         </tr>
-
         </tbody>
     </table>
-        <button class="layui-btn layui-btn-normal">确认提交</button>
+
     </div>
 </template>
 
 <script>
+    import Collapse from "components/Collapse";
     export default {
         name: "RelateToMe",
+        components:{
+            Collapse
+        },
         data(){
             return{
-
+                infoInput:this.meetingUser.info
             }
         },
         props:{
@@ -47,5 +58,8 @@
         font-size: 35px;
         color: #4E5465;
         text-align: center;
+    }
+    .el-textarea{
+        height: 150px;
     }
 </style>

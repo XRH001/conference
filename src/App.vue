@@ -51,6 +51,7 @@ export default {
   .area{
     font-size: 16px;
     padding: 10px;
-    height: 120px!important;
+    height: 120px;
+    width: 96%;
   }
 </style>

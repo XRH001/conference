@@ -20,15 +20,15 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">结束时间</label>
                     <div class="layui-input-block">
-                        <input type="datetime-local" v-model="endTime" @blur="checkTime" name="startTime" required   value="" autocomplete="off" class="layui-input">
+                        <input type="datetime-local" v-model="endTime" @blur="checkEndTime" name="startTime" required   value="" autocomplete="off" class="layui-input">
                         <span class="warming " :class="{'displayNone':show.endTime}">必填，点右边——></span>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">会议地点</label>
                     <div class="layui-input-block">
-                        <textarea name="overTime" v-model="position" @blur="checkPosition" required  placeholder="长度限制100字以内"  class="layui-input area"></textarea>
-                        <span class="warming " :class="{'displayNone':show.position}">不符合要求:长度限制100</span>
+                        <textarea name="overTime" v-model="position" @blur="checkPosition" required  placeholder="长度限制100字以内"  class=" area"></textarea>
+                        <span class="warming " :class="{'displayNone':show.position}">不可为空且长度限制100</span>
                     </div>
                 </div>
                 <EmailCode :email="$store.state.user.email" :sendURL="this.$url.sendCode" @getEmailCode="passwordCode" @getCodeInput="getChildCode"></EmailCode>
@@ -48,7 +48,7 @@
 
 <script>
     import EmailCode from "components/EmailCode";
-    import Popup from "../../components/Popup";
+    import Popup from "components/Popup";
     export default {
         name: "create",
         data(){
@@ -85,8 +85,8 @@
                 else {this.$refs.popup1.showMsg("请输入验证码");return;}
                 if(codeRight){
                     if(this.checkName()&&this.checkTime()&&this.checkPosition()&&this.checkEndTime()){
-                        this.$http("mainServlet?ac=need&apiName=createMeetingSuccess"
-                        /*this.$request(this.$url.create*/,{
+                        /*this.$http("mainServlet?ac=need&apiName=createMeetingSuccess"*/
+                        this.$request(this.$url.create,{
                             params:{
                                 email:this.$store.state.user.email,
                                 name:this.meetingName,
