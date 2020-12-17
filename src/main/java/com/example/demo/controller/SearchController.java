@@ -37,19 +37,19 @@ public class SearchController {
         meeting.put("msg","success");
 
         try {
-            int ID = Integer.parseInt(request.getParameter("id"));       //获取欲查询的会议ID
+            int ID = Integer.parseInt(request.getParameter("search"));       //获取欲查询的会议ID
             Conference conference=conferenceService.queryConferenceByID(ID);//获取查询到的会议对象
 
             if(conference==null)
                 return Null;                                    //返回查询失败，没有该会议
 
             Meeting searchMeeting=new Meeting(conference);
-            meeting.put("searchMeeting",searchMeeting);
+            meeting.put("searchMeetings",searchMeeting);
             String Meeting = mapper.writeValueAsString(meeting);
             return Meeting;
 
         }catch(Exception e){
-            String name=request.getParameter("id");
+            String name=request.getParameter("search");
             List<Conference> conferences=conferenceService.queryConferencesByName(name);
 
             if(conferences==null)
@@ -59,7 +59,7 @@ public class SearchController {
             for(int i=0;i<conferences.size();i++){
                 searchMeeting.add(new Meeting(conferences.get(i)));
             }
-            meeting.put("searchMeeting",searchMeeting);
+            meeting.put("searchMeetings",searchMeeting);
             String Meeting = mapper.writeValueAsString(meeting);
             return Meeting;
         }

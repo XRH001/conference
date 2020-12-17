@@ -41,7 +41,7 @@ public class LoginController {
         String email = request.getParameter("email");
         String password = request.getParameter("password");//获取邮件和密码
 
-        if(userService.queryUserByEmail(email)==null)
+        if(userService.queryUserByEmail(email) == null)
             return "not user";                              //判断有无该用户
 
         User user1=userService.queryUserByEmail(email);
