@@ -166,7 +166,7 @@ public class UserService {
     public User queryUserByEmail(String email){
         try {
             return toUser(userDAO.queryUserDOByEmail(email));
-        }catch (Exception e){
+        }catch (NoSuchElementException|NullPointerException e){
             return null;
         }
     }
