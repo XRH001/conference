@@ -24,6 +24,8 @@ public class UserJourneyService {
     UserService userService;
     @Autowired
     JourneyService journeyService;
+    @Autowired
+    ConferenceService conferenceService;
     List<UserJourney> list=new ArrayList<>();
     List<UserJourneyDO> userJourneyDOList=new ArrayList<>();
 
@@ -95,6 +97,23 @@ public class UserJourneyService {
         return (int) userJourneyDAO.count();
     }
 
+    public List<UserJourney> queryForPageItems(int beign,int pageSize){
+        try {
+            list.clear();
+            userJourneyDOList=userJourneyDAO.queryForPageItems(beign, pageSize);
+            if (userJourneyDOList.size()!=0){
+                for(UserJourneyDO u:userJourneyDOList){
+                    list.add(toUserJourney(u));
+                }
+                return list;
+            }else {
+                return null;
+            }
+        }catch (Exception e){
+            return null;
+        }
+    }
+
     /**
      * 转换方法
      * 将userJourneyDO转换为userJourney
@@ -107,6 +126,7 @@ public class UserJourneyService {
           userJourney.setID(userJourneyDO.getID());
           userJourney.setUser(userService.queryUserByID(userJourneyDO.getUserID()));
           userJourney.setJourney(journeyService.queryJourneyByID(userJourneyDO.getJourneyID()));
+          userJourney.setConference(conferenceService.queryConferenceByID(userJourneyDO.getConferenceID()));
 
           return userJourney;
       }
@@ -123,6 +143,7 @@ public class UserJourneyService {
           userJourneyDO.setID(userJourney.getID());
           userJourneyDO.setJourneyID(userJourney.getJourney().getID());
           userJourneyDO.setUserID(userJourney.getUser().getID());
+          userJourneyDO.setConferenceID(userJourney.getConference().getID());
 
           return userJourneyDO;
       }
