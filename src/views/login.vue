@@ -88,11 +88,11 @@
                         username:"cece",
                         sex:"male",
                         birth:"2000/03/04",
-
                         email:"12312@qq.com",
                         imgPath:"img/head.jpg",
                         phone:"123",
                         id:2});
+                    this.$store.commit("setIdentity","common");
                     this.$router.push("/index");
                     return;
                 }
@@ -110,6 +110,7 @@
                         //console.log(loginJSON.user);
                         //console.log(loginJSON.meetings);
                         this.$store.commit("setUser",loginJSON.user);
+                        this.$store.commit("setIdentity","common");
                         if(loginJSON.meetings)
                             this.$store.commit("setMeetings",loginJSON.meetings);
                         //this.$store.state.user=loginJSON.user; 不建议使用

@@ -37,9 +37,7 @@
                 <tr>
                     <td>真实姓名</td><td>{{$store.state.user.name}}</td>
                 </tr>
-                <tr>
-                    <td colspan="2"><div class="headDiv"><button @click="exitCount" class="layui-btn layui-btn-danger">退出登录</button></div></td>
-                </tr>
+
             </tbody>
         </table>
             <table class="alterTable layui-table" v-show="alterNone">
@@ -78,16 +76,20 @@
             </tbody>
         </table>
         </div>
-        <div v-if="show===1">司机信息</div>
-        <div v-if="show===2">酒店信息</div>
+        <div v-if="show===1"><DriverInfo></DriverInfo></div>
+        <div v-if="show===2"><HotelInfo></HotelInfo></div>
         <div v-if="show===3"><h1>未找到您的信息请<a href="javascript:void(0)" @click="errorInfo()">重新登录</a></h1></div>
+        <div class="headDiv" v-if="show!==3"><button @click="exitCount" class="layui-btn layui-btn-danger">退出登录</button></div>
         <div class="cover" v-show="alterNone^passwordChangeNone"></div>
     </div>
 </template>
 
 <script>
+    import DriverInfo from "../components/DriverInfo";
+    import HotelInfo from "../components/HotelInfo";
     export default {
         name: "personalInfo",
+        components: {HotelInfo, DriverInfo},
         data(){
             return{
                 alterNone:false,

@@ -143,6 +143,7 @@
         },
         created() {
             this.meetingId=this.$route.query.meetingId;
+
         }
     }
 </script>

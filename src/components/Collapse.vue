@@ -2,8 +2,8 @@
     <div class="layui-collapse">
         <div  class="layui-colla-item"  >
             <h2 class="layui-colla-title" @click="show=!show">
-                <span v-show="show" class="layui-icon layui-icon-down"></span>
-                <span v-show="!show" class="layui-icon layui-icon-right"></span>
+                <span v-if="show" class="layui-icon layui-icon-down"></span>
+                <span v-else class="layui-icon layui-icon-right"></span>
                 <slot name="title"></slot>
                 <span class="rightMsg">{{rightMsg}}</span>
             </h2>
@@ -27,9 +27,10 @@
 </script>
 
 <style scoped>
-    .layui-colla-title >span{
+    .layui-colla-title {
         font-size: 18px ;
         font-family: '微软雅黑 Light';
+        padding-left: -10px;
     }
     .rightMsg {
         float:right;

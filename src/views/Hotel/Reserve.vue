@@ -9,11 +9,10 @@
                 <div class="customer">预约人：badGuy<br>
                     联系方式：21312371829@qq.com<br></div>
                 <hr class="layui-bg-orange">
-                <div class="layui-collapse">
-                    <div class="layui-colla-item">
-                        <div class="layui-colla-title">预约房间</div>
-                        <div class="layui-colla-content">
-                            <table class="layui-table">
+                <Collapse>
+                    <span slot="title">预约房间</span>
+                    <div slot="content">
+                        <table class="layui-table">
                                 <colgroup></colgroup>
                                 <thead>
                                 <tr>
@@ -30,8 +29,8 @@
                                 </tr>
                                 </tbody>
                             </table>
-                        </div>
-                    </div></div>
+                    </div>
+                </Collapse>
                 <hr class="layui-bg-orange">
                 <div class="btnDiv layui-row">
                     <div class="layui-col-lg2 layui-col-lg-offset4">
@@ -131,8 +130,10 @@
 </template>
 
 <script>
+    import Collapse from "../../components/Collapse";
     export default {
-        name: "Reserve"
+        name: "Reserve",
+        components: {Collapse}
     }
 </script>
 

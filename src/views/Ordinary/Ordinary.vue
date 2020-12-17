@@ -52,7 +52,7 @@
                     <div :class="{'layui-show':managerDiv.show===1}" class="layui-tab-item">
                         <p class="emptyWarming" v-if="managerDiv.newMeetings.length===0">您的所管理的未结束会议为空，可立即
                             <a href="javascript:void(0)"><i @click="managerDiv.show=3">创建新的会议</i></a></p>
-                        <meeting-list :meetings="managerDiv.newMeetings"></meeting-list>
+                        <meeting-list :meetings="managerDiv.newMeetings" router-to="/manage"></meeting-list>
                     </div>
                     <div :class="{'layui-show':managerDiv.show===2}" class="layui-tab-item">
                         <p class="emptyWarming" v-if="managerDiv.overMeetings.length===0">您的所管理的已结束会议为空，可立即
@@ -137,7 +137,7 @@
             },
             searchClick(){
                 /*this.$http("mainServlet?ac=need&apiName=searchMeetings")*/
-                console.log(this.joinDiv.search);
+                if(this.joinDiv.search==="")return;
                 this.$request(this.$url.searchMeetings,{
                         params:{
                             search:this.joinDiv.search
