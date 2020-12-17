@@ -81,19 +81,24 @@
                 //验证码
                 let codeRight;
                 if(this.codeInput!==""){
-                 codeRight=true;}//this.codeInput.toLowerCase()===this.$decrypt(this.emailCode).toLowerCase();}
+                 codeRight=this.codeInput.toLowerCase()===this.$decrypt(this.emailCode).toLowerCase();}
                 else {this.$refs.popup1.showMsg("请输入验证码");return;}
                 if(codeRight){
                     if(this.checkName()&&this.checkTime()&&this.checkPosition()&&this.checkEndTime()){
                         /*this.$http("mainServlet?ac=need&apiName=createMeetingSuccess"*/
-                        this.$request(this.$url.create,{
+                        let beginTime=this.beginTime.replace('T',' ');
+                        let endTime=this.endTime.replace('T',' ');
+                        console.log(endTime);
+                        this.$request({
+                            url:this.$url.create,
+                            methods: 'post',
                             params:{
                                 email:this.$store.state.user.email,
                                 name:this.meetingName,
-                                beginTime: this.beginTime,
-                                endTime:this.endTime,
+                                beginTime:beginTime,
+                                endTime:endTime,
                                 position:this.position,
-                                userID:this.$store.state.user.ID
+                                /*userID:this.$store.state.user.ID*/
                             }
                         }).then(res =>{
                             console.log(res.data);

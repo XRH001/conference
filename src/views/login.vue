@@ -88,7 +88,7 @@
                         username:"cece",
                         sex:"male",
                         birth:"2000/03/04",
-                        email:"12312@qq.com",
+                        email:"1795490987@qq.com",
                         imgPath:"img/head.jpg",
                         phone:"123",
                         id:2});
@@ -128,6 +128,7 @@
                 }).catch( err =>{
                     this.right=false;
                     this.warming="网络请求异常";
+                    this.$message("网络请求出现错误");
                     console.log(err);
                 });
             },

@@ -7,7 +7,7 @@
         </tr>
         <tr>
             <td>
-                <textarea  v-model.lazy="infoInput" placeholder="会议管理会根据您的需求安排" autocomplete="off" class="area "></textarea>
+                <textarea  v-model.lazy="infoInput" placeholder="会议管理人员会根据您的需求安排酒店和住宿" autocomplete="off" class="area "></textarea>
             </td></tr>
         <tr>
             <td><button class="layui-btn layui-btn-normal">确认提交</button></td>

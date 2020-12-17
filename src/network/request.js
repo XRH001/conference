@@ -22,10 +22,10 @@ const url={
     login:"/UserJudge",
     register:"/register",
     registerCode:"/registerYz",
-    sendCode:"/sas",
-    create:"/create",
+    sendCode:"/createMeetingYz",
+    create:"/createMeeting",
     searchMeetings:"/SearchMeeting",
-    detail:"/detail",
+    detail:"/Details",
     manage:"/manage",
     driverLogin:"/driverLogin",
     hotelLogin:"/hotelLogin"

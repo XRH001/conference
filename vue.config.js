@@ -11,7 +11,7 @@ module.exports = {
     devServer: {
         proxy:{
             '/api':{
-                target:"http://localhost:8080",
+                target:"http://192.168.137.168:8080",
                 changeOrigin:true,
                 ws:true,
                 pathRewrite:{"^/api":""}
@@ -23,7 +23,7 @@ module.exports = {
                 pathRewrite:{"^/test1":""}
             }
         },
-        port: 8088
+        port: 8087
     }
 };
 /*
