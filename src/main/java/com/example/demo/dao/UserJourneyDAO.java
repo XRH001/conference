@@ -10,6 +10,13 @@ import java.util.List;
 
 @Repository
 public interface UserJourneyDAO extends JpaRepository<UserJourneyDO,Integer> {
+
+    public List<UserJourneyDO> queryUserJourneyDOSByUserID(int userID);
+
+    public List<UserJourneyDO> queryUserJourneyDOSByJourneyID(int journeyID);
+
+    public List<UserJourneyDO> queryUserJourneyDOSByConferenceID(int conferenceID);
+
     @Query(value = "select * from userjourney limit ?1,?2",nativeQuery = true)
     public List<UserJourneyDO> queryForPageItems(int begin, int pageSize);
 }

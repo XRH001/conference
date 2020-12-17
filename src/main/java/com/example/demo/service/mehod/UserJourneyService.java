@@ -2,6 +2,9 @@ package com.example.demo.service.mehod;
 
 import com.example.demo.dao.UserJourneyDAO;
 import com.example.demo.entity.DO.UserJourneyDO;
+import com.example.demo.entity.DTO.Conference;
+import com.example.demo.entity.DTO.Journey;
+import com.example.demo.entity.DTO.User;
 import com.example.demo.entity.DTO.UserJourney;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -79,6 +82,45 @@ public class UserJourneyService {
     public List<UserJourney> queryUserJourneys(){
         list.clear();
         userJourneyDOList=userJourneyDAO.findAll();
+        if (userJourneyDOList.size()!=0){
+            for(UserJourneyDO u:userJourneyDOList){
+                list.add(toUserJourney(u));
+            }
+            return list;
+        }else {
+            return null;
+        }
+    }
+
+    public List<UserJourney> queryUserJourneysByUser(User user){
+        list.clear();
+        userJourneyDOList=userJourneyDAO.queryUserJourneyDOSByUserID(user.getID());
+        if (userJourneyDOList.size()!=0){
+            for(UserJourneyDO u:userJourneyDOList){
+                list.add(toUserJourney(u));
+            }
+            return list;
+        }else {
+            return null;
+        }
+    }
+
+    public List<UserJourney> queryUserJourneysByJourney(Journey journey){
+        list.clear();
+        userJourneyDOList=userJourneyDAO.queryUserJourneyDOSByJourneyID(journey.getID());
+        if (userJourneyDOList.size()!=0){
+            for(UserJourneyDO u:userJourneyDOList){
+                list.add(toUserJourney(u));
+            }
+            return list;
+        }else {
+            return null;
+        }
+    }
+
+    public List<UserJourney> queryUserJourneysByConference(Conference conference){
+        list.clear();
+        userJourneyDOList=userJourneyDAO.queryUserJourneyDOSByConferenceID(conference.getID());
         if (userJourneyDOList.size()!=0){
             for(UserJourneyDO u:userJourneyDOList){
                 list.add(toUserJourney(u));
