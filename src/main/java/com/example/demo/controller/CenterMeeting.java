@@ -18,7 +18,26 @@ public class CenterMeeting {
     private String email;
     private String name;
     private String address;
+    private String position;
     private String beginTime;
+    private String endTime;
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
 
     public String getEmail() {
         return email;
@@ -61,4 +80,17 @@ public class CenterMeeting {
     }
 
     private int userID;
+
+    @Override
+    public String toString() {
+        return "CenterMeeting{" +
+                "email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", position='" + position + '\'' +
+                ", beginTime='" + beginTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", userID=" + userID +
+                '}';
+    }
 }

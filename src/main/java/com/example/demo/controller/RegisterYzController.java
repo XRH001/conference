@@ -13,19 +13,15 @@ public class RegisterYzController {
     UserService userService;
     @RequestMapping("/registerYz")
     public String registerYz(String email) {
-        System.out.println(email);
         // 根据邮箱查找
-        try{
-            userService.queryUserByEmail(email);
-        }catch(NullPointerException e){
-            // 如果查询不存在的邮箱将会报错 返回加密后验证码给前端
+        if(userService.queryUserByEmail(email)==null){
             try{
                 String emailCode = MailSendUtil.mail(email);
                 return passwordCode(emailCode);
             }catch(Exception err){
                 return "error";
             }
-        }
+        };
         return "already";
     }
 
