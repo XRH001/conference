@@ -24,14 +24,22 @@ public class UserJourneyDO {
     private int ID;
     private int userID;
     private int journeyID;
+    private int conferenceID;
 
     public UserJourneyDO() {
     }
 
-    public UserJourneyDO(int ID, int userID, int journeyID) {
+    public UserJourneyDO(int userID, int journeyID, int conferenceID) {
+        this.userID = userID;
+        this.journeyID = journeyID;
+        this.conferenceID = conferenceID;
+    }
+
+    public UserJourneyDO(int ID, int userID, int journeyID, int conferenceID) {
         this.ID = ID;
         this.userID = userID;
         this.journeyID = journeyID;
+        this.conferenceID = conferenceID;
     }
 
     public int getID() {
@@ -58,6 +66,14 @@ public class UserJourneyDO {
         this.journeyID = journeyID;
     }
 
+    public int getConferenceID() {
+        return conferenceID;
+    }
+
+    public void setConferenceID(int conferenceID) {
+        this.conferenceID = conferenceID;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -65,12 +81,13 @@ public class UserJourneyDO {
         UserJourneyDO that = (UserJourneyDO) o;
         return ID == that.ID &&
                 userID == that.userID &&
-                journeyID == that.journeyID;
+                journeyID == that.journeyID &&
+                conferenceID == that.conferenceID;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ID, userID, journeyID);
+        return Objects.hash(ID, userID, journeyID, conferenceID);
     }
 
     @Override
@@ -79,6 +96,7 @@ public class UserJourneyDO {
                 "ID=" + ID +
                 ", userID=" + userID +
                 ", journeyID=" + journeyID +
+                ", conferenceID=" + conferenceID +
                 '}';
     }
 }

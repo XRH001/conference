@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 
+import com.example.demo.entity.Admin;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,11 @@ public class AdminDAOTest {
     @Test
     public void test(){
         System.out.println(adminDAO.findAll());
+    }
 
+    @Test
+    public void test1(){
+        System.out.println(adminDAO.save(new Admin("user2","user2")));
     }
 
 }
