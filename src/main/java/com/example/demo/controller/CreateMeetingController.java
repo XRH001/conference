@@ -13,7 +13,7 @@ import com.example.demo.entity.DTO.ConferenceUser;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 @RestController
-public class CreateMeeting {
+public class CreateMeetingController {
     @Autowired
     ConferenceService conferenceService;
     @Autowired
