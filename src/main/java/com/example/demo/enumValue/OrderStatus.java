@@ -1,6 +1,7 @@
 package com.example.demo.enumValue;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * @author 李嘉旭
@@ -37,6 +38,7 @@ public enum OrderStatus {
         }
     }
 
+    @JsonValue
     public String getStatusInfo() {
         return statusInfo;
     }

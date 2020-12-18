@@ -4,6 +4,9 @@ package com.example.demo.entity.DTO;
 
 import com.example.demo.entity.DO.JourneyDO;
 import com.example.demo.utils.TimeUtils;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -20,6 +23,8 @@ public class Journey {
      * @param target 目的地
      */
     private int ID;
+    @JsonSerialize(using= LocalDateTimeSerializer.class)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime time;
     private String origin;
     private String target;
