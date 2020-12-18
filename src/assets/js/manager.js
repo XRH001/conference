@@ -77,7 +77,10 @@ export const methods={
             }
         }).then( res =>{
             if(res.data==="fail"){this.$message("邀请失败");}
-            else if(res.data==="success"){this.$message("邀请新消息已发出");}
+            else if(res.data==="success"){
+                this.$message("邀请新消息已发出");
+
+            }
             else this.$message("服务器异常");
             this.flag.inviteMember=false;
         }).catch(err =>{
@@ -105,7 +108,51 @@ export const methods={
             this.flag.inviteManager=false;
         });
     },
-    deleteMember(memberId,ifManager){
-        if(ifManager)this.$message(memberId.toString());
+    deleteMember(memberId) {
+        this.$request(this.$url.deleteMember, {
+            params: {
+                meetingId: this.meetingInfo.id,
+                memberId: memberId
+            }
+        }).then(res => {
+            if (res.data === "fail") {
+                this.$message("删除失败,该成员可能未加入");
+                return;
+            }
+            if (res.data === "success") this.$message("已删除");
+            else this.$message("服务处理异常");
+        }).catch(err => {
+            console.log(err);
+            this.$message("网络请求异常");
+        })
+    },
+    removeManager(memberId){
+        this.$request(this.$url.removeManager, {
+            params: {
+                meetingId: this.meetingInfo.id,
+                memberId: memberId
+            }
+        }).then(res => {
+            if (res.data === "fail") {
+                this.$message("解除失败,该成员可能已退出会议");
+                return;
+            }
+            if (res.data === "success") this.$message("已解除");
+            else this.$message("服务处理异常");
+        }).catch(err => {
+            console.log(err);
+            this.$message("网络请求异常");
+        })
+    },
+    getByKey(list,key,value){
+        for(let obj of list){
+            if(obj[key]===value)return obj;
+        }
+        return null;
+    },
+    removeByKey(list,key,value){
+        for(let inx in list){
+            if(list[inx][key]===value)list.splice(inx,1);
+        }
     }
 };

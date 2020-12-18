@@ -106,7 +106,7 @@
                     <tr v-for="item in managerInfo" :key="item.id">
                         <td>{{item.name}}</td><td>{{item.email}}</td>
                         <td>{{item.invitationStatus}}
-                            <el-popconfirm v-if="meetingUser.ifCreator" title="确认解除该成员的管理员身份吗?" @confirm="deleteMember(item.id,true)">
+                            <el-popconfirm v-if="meetingUser.ifCreator" title="确认解除该成员的管理员身份吗?" @confirm="removeManager(item.id)">
                                 <el-button  size="small" slot="reference" type="danger">解除</el-button>
                             </el-popconfirm>
                         </td>
@@ -185,7 +185,7 @@
                                     <el-button slot="reference" size="small">安排</el-button>
                                 </el-popover>
                             </td>
-                            <td><el-popconfirm title="真的要删除此成员吗？" @confirm="deleteMember(item.id,false)">
+                            <td><el-popconfirm title="真的要删除此成员吗？" @confirm="deleteMember(item.id)">
                                 <el-button slot="reference" size="small el-icon-delete" type="danger"></el-button></el-popconfirm>
                             </td>
                         </tr>

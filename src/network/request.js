@@ -36,6 +36,8 @@ const url={
     searchMember:"/searchMember",
     searchManager:"searchManager",
     inviteMember:"/inviteMember",
-    inviteManager:"/inviteManager"
+    inviteManager:"/inviteManager",
+    deleteMember:"/deleteMember",
+    removeManager:"/removeManager"
 };
 export {url}
