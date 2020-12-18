@@ -1,6 +1,7 @@
 <template>
     <div class="detailContainer layui-row">
-        <div class="baseInfo layui-col-lg8"><p class="titleP">基本信息</p>
+        <div v-if="!notFound">
+        <div  class="baseInfo layui-col-lg8"><p class="titleP">基本信息</p>
             <table class="layui-table">
                 <tbody>
                 <tr>
@@ -12,7 +13,7 @@
                 <tr>
                     <td>会议编号</td>
                     <td>
-                        <input disabled type="text" name="meetingID" required  lay-verify="required" :value="meetingId" autocomplete="off" class="layui-input">
+                        <input disabled type="text" name="meetingID" required  lay-verify="required" :value="meetingInfo.id" autocomplete="off" class="layui-input">
                     </td>
                 </tr>
                 <tr>
@@ -93,8 +94,12 @@
                 </div>
             </div>
         </div>
-        <RelateToMe :meeting-user="meetingUser"></RelateToMe>
-
+        <RelateToMe :meeting-user="meetingUser" :meetingId="meetingInfo.id" @infoChange="infoChange"
+        v-if="identity"></RelateToMe>
+        </div>
+        <div v-if="notFound" class="baseInfo">
+            <p class="notFound layui-icon layui-icon-404" >未找到此会议信息，会议可能已被取消<router-link to="/index">-回到首页-</router-link></p>
+        </div>
     </div>
 </template>
 
@@ -108,7 +113,6 @@
             return {
                 memberShow:false,
                 managerShow:false,
-                meetingId:"",
                 notFound:false,
                 meetingInfo:{//这里是会议的全部信息
                     name:"123",
@@ -119,8 +123,8 @@
                     orderStatus:"未开始",
                     createTime:"2020年12月6日20:48:33",
                     num:321,
-                    managerInfo:[{id:123,name:"嘿嘿", email:"123@qq.com"},{id:123,name:"嘿嘿", email:"123@qq.com"}],
-                    memberInfo:[{id:123,name:"赵日天", email:"12323@qq.com"}]
+                    managerInfo:[{id:123,name:"嘿嘿", email:"123@qq.com"},{id:125,name:"嘿嘿", email:"123@qq.com"}],
+                    memberInfo:[{id:124,name:"赵日天", email:"12323@qq.com"}]
                 },
                 meetingUser:{
                     ifJoin:false,
@@ -140,26 +144,40 @@
             identity(){
                 return this.$store.state.identity.toLowerCase()==="common";
             }
+        },methods:{
+            infoChange(info){
+                this.meetingUser.info=info;
+            }
         },
         created() {
-            this.meetingId=this.$route.query.meetingId;
+            let meetingId=this.$route.query.meetingId;
             let sendUserId;
             if(!this.identity){//若不是普通用户则不进行关联此id的查找
                 sendUserId=0;
             }else sendUserId=this.$store.state.user.id;
+            const loading = this.$loading({
+                lock: true,
+                text: 'Loading',
+                spinner: 'el-icon-loading',
+                background: 'rgba(0, 0, 0, 0.7)'
+            });
+
             this.$request(this.$url.detail,{
                 params:{
-                    meetingId:this.meetingId,
+                    meetingId:meetingId,
                     userId:sendUserId
                 }
             }).then(res => {
-                if(res.data==="error"){this.notFound=false;this.$message("查询过程出现异常");return;}
+                if(res.data==="error"){this.notFound=true;loading.close();this.$message("查询过程出现异常");return;}
                 this.meetingInfo=res.data.meeting;
                 if(this.identity)
                     this.meetingUser=res.data.meetingUser;
+                loading.close();
             }).catch( err => {
                 console.log(err);
-                this.$message("网络请求出错！已为您显示样例信息")
+                loading.close();
+                this.$message("网络请求出错！已为您显示样例信息");
+
             });
         }
     }
@@ -182,5 +200,10 @@
     }
     .relateMe{
         padding: 15px;
+    }
+    .notFound{
+        text-align: center;
+        font-size: 40px;
+        color: orangered;
     }
 </style>

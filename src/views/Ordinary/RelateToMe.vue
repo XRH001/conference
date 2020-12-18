@@ -1,16 +1,16 @@
 <template>
-    <div class="relateMe layui-col-lg4"><p class="titleP">有关我的</p><table class="layui-table">
-        <!--                    3．填写参会的往返时间、住宿要求及其它情况-->
+    <div class="relateMe layui-col-lg4"><p class="titleP">与我有关</p>
+        <table class="layui-table" v-if="meetingUser.ifJoin">
         <tbody>
         <tr>
             <td>备注</td>
         </tr>
         <tr>
             <td>
-                <textarea  v-model.lazy="infoInput" placeholder="会议管理人员会根据您的需求安排酒店和住宿" autocomplete="off" class="area "></textarea>
+                <textarea  v-model.lazy="infoInput" @blur="emitInput()" placeholder="会议管理人员会根据您的需求安排酒店和住宿" autocomplete="off" class="area "></textarea>
             </td></tr>
         <tr>
-            <td><button class="layui-btn layui-btn-normal">确认提交</button></td>
+            <td><button class="layui-btn layui-btn-normal" @click="commitInfo()">确认提交</button></td>
             </tr>
         <tr>
             <td colspan="3">
@@ -26,7 +26,9 @@
         </tr>
         </tbody>
     </table>
-
+    <div v-else>
+        <el-button @click="apply" type="success">申请加入</el-button>
+    </div>
     </div>
 </template>
 
@@ -43,8 +45,42 @@
             }
         },
         props:{
-            meetingUser:{
-
+            meetingUser:Object,
+            meetingId:Number
+        },
+        methods:{
+            emitInput(){
+                this.$emit("infoChange",this.infoInput);
+            },
+            commitInfo(){
+                if(this.infoInput===""){this.$message("不可为空");return;}
+                this.$request(this.$url.remarks,{
+                    params:{
+                        userId:this.$store.state.user.id,
+                        meetingId:this.meetingId,
+                        remark:this.infoInput
+                    }
+                }).then(res => {
+                    if(res.data==="success")this.$message("修改成功");
+                    else this.$message("修改失败");
+                }).catch(err => {
+                    console.log(err);
+                    this.$message("网络请求出现错误");
+                });
+            },
+            apply(){
+                this.$request(this.$url.applyJoin,{
+                    params:{
+                        userId:this.$store.state.user.id,
+                        meetingId:this.meetingId
+                    }
+                }).then(res => {
+                    if(res.data==="success")this.$message("申请已发送");
+                    else this.$message("申请失败，该会议可能不允许申请");
+                }).catch(err => {
+                    console.log(err);
+                    this.$message("网络请求出现错误");
+                });
             }
         }
     }

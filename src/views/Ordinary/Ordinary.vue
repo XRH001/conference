@@ -127,8 +127,8 @@
             },
             setManageMeetings(){
                 let manage=this.$store.state.meetings.manage;
-                this.managerDiv.newMeetings=manage.newMeetings;
-                this.managerDiv.newMeetings.push( {id:"233",name:'样例会议',orderStatus:"5小时后开始",beginTime:"2020年12月6日12:36",address:"信工楼b区"});
+                //this.managerDiv.newMeetings=manage.newMeetings;
+                this.managerDiv.newMeetings=[ {id:"2369",name:'样例会议',orderStatus:"5小时后开始",beginTime:"2020年12月6日12:36",address:"信工楼b区"}];
                 this.managerDiv.overMeetings=manage.overMeetings;
                 if(manage.newMeetings.length===0)this.managerDiv.show=3;
             },

@@ -28,6 +28,8 @@ const url={
     detail:"/Details",
     manage:"/manage",
     driverLogin:"/driverLogin",
-    hotelLogin:"/hotelLogin"
+    hotelLogin:"/hotelLogin",
+    remarks:"/remarks",
+    applyJoin:"/applyJoin"
 };
 export {url}
