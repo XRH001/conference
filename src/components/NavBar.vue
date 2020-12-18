@@ -22,7 +22,7 @@
         </span>
         </ul>
 
-        <keep-alive exclude="index,detail,create,login,Register,DriverLogin,HotelLogin"><router-view></router-view></keep-alive>
+        <keep-alive exclude="index,detail,Manage,create,login,Register,DriverLogin,HotelLogin"><router-view></router-view></keep-alive>
     </div>
 </template>
 
@@ -59,4 +59,5 @@
     }
     .floatRight{
         float: right;}
+
 </style>

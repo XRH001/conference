@@ -72,7 +72,7 @@
                                         placement="right"
                                         width="400"
                                         trigger="click">
-                                    <SmallInfo></SmallInfo>
+                                    <SmallInfo :id="item.id"></SmallInfo>
                                     <el-button slot="reference">click 激活</el-button>
                                 </el-popover>
                             </td></tr>
@@ -177,7 +177,6 @@
                 console.log(err);
                 loading.close();
                 this.$message("网络请求出错！已为您显示样例信息");
-
             });
         }
     }

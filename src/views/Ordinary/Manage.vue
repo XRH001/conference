@@ -4,7 +4,7 @@
         <div class="baseInfo layui-col-lg8"><p class="titleP">基本信息</p>
             <table class="layui-table">
                 <tbody>
-                <tr><td colspan="2">可修改</td></tr>
+                <tr><td colspan="2" >可修改</td></tr>
                 <tr>
                     <td>会议名</td>
                     <td>
@@ -12,7 +12,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>会议开始时间</td>
+                    <td>会议开始-结束时间</td>
                     <td>
                         <el-date-picker type="datetime"  required v-model.lazy="meetingInfo.beginTime"  ></el-date-picker>
                     </td>
@@ -35,8 +35,8 @@
                         <textarea v-model.lazy="meetingInfo.address" autocomplete="off" class="area"></textarea>
                     </td>
                 </tr>
-                <tr><td colspan="2"><div><button class="layui-btn layui-btn-checked">确认修改</button></div></td></tr>
-                <tr> <td colspan="2">不可修改</td></tr>
+                <tr><td colspan="2" class="align-center"><div><button @click="changeBaseInfo()" class="layui-btn layui-btn-checked">确认修改</button></div></td></tr>
+                <tr> <td colspan="2" >不可修改</td></tr>
                 <tr>
                     <td>会议编号</td>
                     <td>
@@ -70,30 +70,123 @@
             <br>
             <Collapse>
                 <span slot="title">管理员名单</span>
-                <table slot="content" class="layui-table">
-                    <thead><tr><th>姓名</th><th>联系方式</th><td>详细信息</td></tr></thead>
+                <div slot="content" >
+                    <div v-if="meetingUser.ifCreator">
+                        <el-input placeholder="输入邮箱，id或名称进行查找">
+                            <el-button slot="append" icon="el-icon-search"></el-button>
+                        </el-input>
+                        <table class="layui-table">
+                            <thead><tr><td colspan="5" class="align-center">搜索结果</td></tr>
+                            <tr><th>ID</th><th>名称</th><th>邮箱</th><th>详细</th><th>邀请</th></tr></thead>
+                            <tbody>
+                            <tr v-show="searchManager.length===0"><td><p class="align-center">暂无数据</p></td></tr>
+                            <tr v-for="memberItem in searchManager" :key="memberItem.id">
+                                <td>{{memberItem.id}}</td>
+                                <td>{{memberItem.name}}</td>
+                                <td>{{memberItem.email}}</td>
+                                <td>
+                                    <el-popover
+                                            placement="right"
+                                            width="400"
+                                            trigger="click">
+                                        <SmallInfo :id="memberItem.id"></SmallInfo>
+                                        <el-button slot="reference" size="small">查看信息</el-button>
+                                    </el-popover>
+                                </td>
+                                <td><el-button size="small"  plain>邀请</el-button></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <table class="layui-table">
+                    <thead><tr><th>用户名</th><th>联系方式</th><th>接受状态</th><td>详细信息</td><td>安排行程</td></tr></thead>
                     <tbody>
-                    <tr v-for="item in meetingInfo.managerInfo" :key="item.id">
-                        <td>{{item.name}}</td><td>{{item.email}}</td><td>
+                    <tr v-for="item in managerInfo" :key="item.id">
+                        <td>{{item.name}}</td><td>{{item.email}}</td>
+                        <td>{{item.invitationStatus}}
+                            <el-button v-if="meetingUser.ifCreator" size="small">解除</el-button>
+                        </td>
+                        <td>
                         <el-popover
                                 placement="right"
                                 width="400"
                                 trigger="click">
-                            <SmallInfo></SmallInfo>
-                            <el-button slot="reference">click 激活</el-button>
+                            <SmallInfo :id="item.id" ref="personInfo"></SmallInfo>
+                            <el-button slot="reference">查看信息</el-button>
                         </el-popover>
-                    </td></tr>
+                    </td>
+                    <td>
+                        <el-popover
+                                placement="right"
+                                width="400"
+                                trigger="click">
+                            <ArrangeOne ></ArrangeOne>
+                            <el-button slot="reference">安排服务</el-button>
+                        </el-popover>
+                    </td>
+                    </tr>
                     </tbody>
-                </table>
+                </table></div>
             </Collapse>
             <Collapse>
                 <span slot="title">普通成员名单</span>
-                <table slot="content" class="layui-table">
-                    <thead><tr><th>姓名</th><th>联系方式</th></tr></thead>
-                    <tbody>
-                    <tr v-for="item in meetingInfo.memberInfo" :key="item.id"><td>{{item.name}}</td><td>{{item.email}}</td></tr>
+                <div slot="content">
+                    <div>
+                        <el-input placeholder="输入id或名称进行查找">
+                            <el-button slot="append" icon="el-icon-search"></el-button>
+                        </el-input>
+                        <table class="layui-table">
+                            <thead><tr><td colspan="5" class="align-center">搜索结果</td></tr>
+                            <tr><th>ID</th><th>名称</th><th>邮箱</th><th>详细</th><th>邀请</th></tr></thead>
+                            <tbody>
+                                <tr v-for="memberItem in searchMember" :key="memberItem.id">
+                                    <td>{{memberItem.id}}</td>
+                                    <td>{{memberItem.name}}</td>
+                                    <td>{{memberItem.email}}</td>
+                                    <td>
+                                    <el-popover
+                                            placement="right"
+                                            width="400"
+                                            trigger="click">
+                                        <SmallInfo :id="memberItem.id"></SmallInfo>
+                                        <el-button slot="reference" size="small">查看信息</el-button>
+                                    </el-popover>
+                                    </td>
+                                    <td><el-button size="small" @click="showOne()" plain>邀请</el-button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <table  class="layui-table">
+                        <thead><tr><td colspan="6" class="align-center">已添加</td>
+                        </tr><tr><th>姓名</th><th>联系方式</th><th>接受状态</th><th>详细信息</th><th>安排行程</th><th>委婉地踢出</th></tr></thead>
+                        <tbody>
+                        <tr v-for="item in memberInfo" :key="item.id"><td>{{item.name}}</td><td>{{item.email}}</td>
+                            <td>{{item.invitationStatus}}</td>
+                            <td>
+                                <el-popover
+                                        placement="right"
+                                        width="400"
+                                        trigger="click">
+                                    <SmallInfo :id="item.id" ref="personInfo"></SmallInfo>
+                                    <el-button slot="reference" size="small">查看信息</el-button>
+                                </el-popover>
+                            </td>
+                            <td>
+                                <el-popover
+                                        placement="right"
+                                        width="400"
+                                        trigger="click">
+                                    <ArrangeOne ></ArrangeOne>
+                                    <el-button slot="reference" size="small">安排</el-button>
+                                </el-popover>
+                            </td>
+                            <td><el-button size="small el-icon-delete"></el-button></td>
+                        </tr>
+
                     </tbody>
-                </table>
+                    </table>
+                </div>
             </Collapse>
 
             <hr class="layui-bg-orange">
@@ -154,30 +247,9 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
         <RelateToMe :meeting-user="meetingUser"></RelateToMe>
-        <div id="arrangeDiv">
-            <div onclick="clearClick()" class="arrangeShow relateMe layui-col-lg4"><p class="titleP">对该成员的安排</p><table class="layui-table">
-                <!--                    3．填写参会的往返时间、住宿要求及其它情况-->
-                <colgroup>
-                    <col width="30%">
-                    <col width="70%">
-                </colgroup>
-                <tbody>
-                <tr>
-                    <td>接车安排</td>
-                    <td><input  type="text"  required  lay-verify="required" value="" autocomplete="off" class="layui-input"></td>
-                </tr>
-                <tr>
-                    <td>住宿安排</td>
-                    <td><input  type="text" name="stayRequire" required  lay-verify="required" value="单人间" autocomplete="off" class="layui-input"></td>
-                </tr>
-                <tr><td>其他安排</td><td><input  type="text" name="memberCount" required  lay-verify="required" value="" autocomplete="off" class="layui-input"></td></tr>
-                </tbody>
-            </table>
-                <button class="layui-btn layui-btn-normal">确认提交</button></div>
-        </div>
+
         </div>
         <div v-if="notFound" class="baseInfo">
             <p class="notFound layui-icon layui-icon-404" >未找到此会议信息，会议可能已被取消<router-link to="/index">-回到首页-</router-link></p>
@@ -189,9 +261,11 @@
     import RelateToMe from "./RelateToMe";
     import Collapse from "../../components/Collapse";
     import SmallInfo from "../../components/SmallInfo";
+    import ArrangeOne from "./ArrangeOne";
+    import {methods} from "../../assets/js/manager"
     export default {
         name: "Manage",
-        components: {SmallInfo, RelateToMe,Collapse},
+        components: {ArrangeOne, SmallInfo, RelateToMe,Collapse},
         data(){
             return {
                 memberShow:false,
@@ -207,11 +281,13 @@
                     orderStatus:"未开始",
                     createTime:"2020-12-6 20:48:00",
                     num:321,
-                    managerInfo:[{id:124,name:"嘿嘿", email:"123@qq.com"},{id:123,name:"嘿嘿", email:"123@qq.com"}],
-                    memberInfo:[{id:127,name:"赵日天", email:"12323@qq.com"}]
                 },
+                managerInfo:[{id:124,name:"嘿嘿", email:"123@qq.com",invitationStatus:"已接受"},
+                    {id:123,name:"嘿嘿", email:"123@qq.com",invitationStatus:"已接受"}],
+                memberInfo:[{id:127,name:"赵日天", email:"12323@qq.com",invitationStatus:"已接受"},
+                    {id:1221,name:"赵日天", email:"12323@qq.com",invitationStatus:"已接受"}],
                 meetingUser:{
-                    ifJoin:true,
+                    ifCreator:false,
                     info:"",
                     journey:{
                         time:"2020年12月17日19:11",
@@ -219,14 +295,17 @@
                         target:"凳子上"
                     },
                     room:{
-
                     }
-                }
+                },
+                searchMember:[{id:1,name:"123",email:"wq321@qq.com"}],
+                searchManager:[{id:21,name:"123",email:"wq321@qq.com"}]
             }
         },
         computed:{
-
-        },
+            timeList(){
+                return [this.meetingInfo.beginTime,this.meetingInfo.endTime];
+            }
+        },methods:methods,
         created() {
             this.meetingId=this.$route.query.meetingId;
             let sendUserId=this.$store.state.user.id;
@@ -234,9 +313,8 @@
                 lock: true,
                 text: 'Loading',
                 spinner: 'el-icon-loading',
-                background: 'rgba(0, 0, 0, 0.7)'
+                background: 'rgba(32,32,32,0.7)'
             });
-
             this.$request(this.$url.detail,{
                 params:{
                     meetingId:this.meetingId,
@@ -245,6 +323,8 @@
             }).then(res => {
                 if(res.data==="error"){this.notFound=true;loading.close();this.$message("查询过程出现异常");return;}
                 this.meetingInfo=res.data.meeting;
+                this.managerInfo=res.data.meetingInfo;
+                this.memberInfo=res.data.memberInfo;
                 if(this.identity)
                     this.meetingUser=res.data.meetingUser;
                 loading.close();
@@ -314,4 +394,5 @@
     .area{
         height: 100px;
     }
+    .align-center{text-align: center}
 </style>

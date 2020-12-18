@@ -3,7 +3,7 @@ import axios from 'axios'
 export function request(url,config) {
 const instance=axios.create({
     baseURL:"/api",
-    timeout:15000
+    timeout:5000
 });
 return instance(url,config);
 }
@@ -11,7 +11,7 @@ return instance(url,config);
 export function http(url,config) {
     const instance=axios.create({
         baseURL:"/test1",
-        timeout:15000
+        timeout:5000
     });
     return instance(url,config);
 }
@@ -30,6 +30,7 @@ const url={
     driverLogin:"/driverLogin",
     hotelLogin:"/hotelLogin",
     remarks:"/remarks",
-    applyJoin:"/applyJoin"
+    applyJoin:"/applyJoin",
+    personInfo:"/personInfo"
 };
 export {url}
