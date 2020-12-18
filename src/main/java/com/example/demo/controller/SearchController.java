@@ -41,10 +41,12 @@ public class SearchController {
             Conference conference=conferenceService.queryConferenceByID(ID);//获取查询到的会议对象
 
             if(conference==null)
-                return Null;                                    //返回查询失败，没有该会议
+                return Null;           //返回查询失败，没有该会议
 
-            Meeting searchMeeting=new Meeting(conference);
-            meeting.put("searchMeetings",searchMeeting);
+            List<Meeting> IDMeeting=new ArrayList<>();
+            IDMeeting.add(new Meeting(conference));
+
+            meeting.put("searchMeetings",IDMeeting);
             String Meeting = mapper.writeValueAsString(meeting);
             return Meeting;
 
