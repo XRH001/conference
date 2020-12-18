@@ -29,8 +29,13 @@ const url={
     manage:"/manage",
     driverLogin:"/driverLogin",
     hotelLogin:"/hotelLogin",
-    remarks:"/remarks",
-    applyJoin:"/applyJoin",
-    personInfo:"/personInfo"
+    remarks:"/remarks",//用户修改备注
+    applyJoin:"/applyJoin",//非参会人员申请加入请求
+    personInfo:"/personInfo",//查询用户基本信息
+    changeBaseInfo:"changeBaseInfo",//修改会议基本信息
+    searchMember:"/searchMember",
+    searchManager:"searchManager",
+    inviteMember:"/inviteMember",
+    inviteManager:"/inviteManager"
 };
 export {url}

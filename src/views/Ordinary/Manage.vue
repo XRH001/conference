@@ -35,7 +35,8 @@
                         <textarea v-model.lazy="meetingInfo.address" autocomplete="off" class="area"></textarea>
                     </td>
                 </tr>
-                <tr><td colspan="2" class="align-center"><div><button @click="changeBaseInfo()" class="layui-btn layui-btn-checked">确认修改</button></div></td></tr>
+                <tr><td colspan="2" class="align-center"><div>
+                    <button @click="changeBaseInfo()" class="layui-btn layui-btn-checked" :disabled="flag.changeBaseDisabled">确认修改</button></div></td></tr>
                 <tr> <td colspan="2" >不可修改</td></tr>
                 <tr>
                     <td>会议编号</td>
@@ -72,12 +73,12 @@
                 <span slot="title">管理员名单</span>
                 <div slot="content" >
                     <div v-if="meetingUser.ifCreator">
-                        <el-input placeholder="输入邮箱，id或名称进行查找">
-                            <el-button slot="append" icon="el-icon-search"></el-button>
+                        <el-input placeholder="输入邮箱，id或名称进行查找" v-model.lazy="searchManagerInput">
+                            <el-button slot="append" icon="el-icon-search" @click="searchManagerClick()"></el-button>
                         </el-input>
                         <table class="layui-table">
                             <thead><tr><td colspan="5" class="align-center">搜索结果</td></tr>
-                            <tr><th>ID</th><th>名称</th><th>邮箱</th><th>详细</th><th>邀请</th></tr></thead>
+                            <tr><th>ID</th><th>名称</th><th>邮箱</th><th>详细</th><th>邀请成为管理员</th></tr></thead>
                             <tbody>
                             <tr v-show="searchManager.length===0"><td><p class="align-center">暂无数据</p></td></tr>
                             <tr v-for="memberItem in searchManager" :key="memberItem.id">
@@ -93,18 +94,21 @@
                                         <el-button slot="reference" size="small">查看信息</el-button>
                                     </el-popover>
                                 </td>
-                                <td><el-button size="small"  plain>邀请</el-button></td>
+                                <td><el-button size="small"  @click="inviteManager(memberItem.id,memberItem.ifManager)" :disabled="flag.inviteManager" plain>邀请</el-button></td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                     <table class="layui-table">
-                    <thead><tr><th>用户名</th><th>联系方式</th><th>接受状态</th><td>详细信息</td><td>安排行程</td></tr></thead>
+                    <thead><thead><tr><td colspan="6" class="align-center">已添加</td>
+                    <tr><th>用户名</th><th>联系方式</th><th>接受状态</th><td>详细信息</td><td>安排行程</td></tr></thead>
                     <tbody>
                     <tr v-for="item in managerInfo" :key="item.id">
                         <td>{{item.name}}</td><td>{{item.email}}</td>
                         <td>{{item.invitationStatus}}
-                            <el-button v-if="meetingUser.ifCreator" size="small">解除</el-button>
+                            <el-popconfirm v-if="meetingUser.ifCreator" title="确认解除该成员的管理员身份吗?" @confirm="deleteMember(item.id,true)">
+                                <el-button  size="small" slot="reference" type="danger">解除</el-button>
+                            </el-popconfirm>
                         </td>
                         <td>
                         <el-popover
@@ -112,7 +116,7 @@
                                 width="400"
                                 trigger="click">
                             <SmallInfo :id="item.id" ref="personInfo"></SmallInfo>
-                            <el-button slot="reference">查看信息</el-button>
+                            <el-button slot="reference" size="small">查看信息</el-button>
                         </el-popover>
                     </td>
                     <td>
@@ -121,23 +125,23 @@
                                 width="400"
                                 trigger="click">
                             <ArrangeOne ></ArrangeOne>
-                            <el-button slot="reference">安排服务</el-button>
+                            <el-button slot="reference" size="small">安排服务</el-button>
                         </el-popover>
                     </td>
                     </tr>
                     </tbody>
                 </table></div>
             </Collapse>
-            <Collapse>
+            <Collapse                                                                                      >
                 <span slot="title">普通成员名单</span>
                 <div slot="content">
                     <div>
-                        <el-input placeholder="输入id或名称进行查找">
-                            <el-button slot="append" icon="el-icon-search"></el-button>
+                        <el-input v-model="searchMemberInput" placeholder="输入id或名称进行查找">
+                            <el-button slot="append" icon="el-icon-search" @click="searchMemberClick()"></el-button>
                         </el-input>
                         <table class="layui-table">
                             <thead><tr><td colspan="5" class="align-center">搜索结果</td></tr>
-                            <tr><th>ID</th><th>名称</th><th>邮箱</th><th>详细</th><th>邀请</th></tr></thead>
+                            <tr><th>ID</th><th>名称</th><th>邮箱</th><th>详细</th><th>邀请参加会议</th></tr></thead>
                             <tbody>
                                 <tr v-for="memberItem in searchMember" :key="memberItem.id">
                                     <td>{{memberItem.id}}</td>
@@ -152,7 +156,7 @@
                                         <el-button slot="reference" size="small">查看信息</el-button>
                                     </el-popover>
                                     </td>
-                                    <td><el-button size="small" @click="showOne()" plain>邀请</el-button></td>
+                                    <td><el-button size="small" @click="inviteMember(memberItem.id,memberItem.haveJoin)" :disabled="flag.inviteMember" plain>邀请</el-button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -181,7 +185,9 @@
                                     <el-button slot="reference" size="small">安排</el-button>
                                 </el-popover>
                             </td>
-                            <td><el-button size="small el-icon-delete"></el-button></td>
+                            <td><el-popconfirm title="真的要删除此成员吗？" @confirm="deleteMember(item.id,false)">
+                                <el-button slot="reference" size="small el-icon-delete" type="danger"></el-button></el-popconfirm>
+                            </td>
                         </tr>
 
                     </tbody>
@@ -287,7 +293,8 @@
                 memberInfo:[{id:127,name:"赵日天", email:"12323@qq.com",invitationStatus:"已接受"},
                     {id:1221,name:"赵日天", email:"12323@qq.com",invitationStatus:"已接受"}],
                 meetingUser:{
-                    ifCreator:false,
+                    ifCreator:true,
+                    ifJoin:true,
                     info:"",
                     journey:{
                         time:"2020年12月17日19:11",
@@ -297,14 +304,19 @@
                     room:{
                     }
                 },
-                searchMember:[{id:1,name:"123",email:"wq321@qq.com"}],
-                searchManager:[{id:21,name:"123",email:"wq321@qq.com"}]
+                searchMemberInput:"",
+                searchManagerInput:"",
+                searchMember:[{id:11,name:"123",email:"wq321@qq.com",IfManager:false},{id:21,name:"123",email:"wq321@qq.com",IfManager:true}],
+                searchManager:[{id:31,name:"123",email:"wq321@qq.com",IfManager:false},{id:21,name:"123",email:"wq321@qq.com",IfManager:true}],
+                flag:{
+                    changeBaseDisabled:false,
+                    inviteMember:false,
+                    inviteManager:false
+                }
             }
         },
         computed:{
-            timeList(){
-                return [this.meetingInfo.beginTime,this.meetingInfo.endTime];
-            }
+
         },methods:methods,
         created() {
             this.meetingId=this.$route.query.meetingId;
@@ -363,29 +375,8 @@
         margin: 10px;
         font-size: 20px;
     }
-    .createMeeting{
-        width: 60%;
-        margin: auto;
-        padding: 20px;
-    }
-    .beforeCheckBox{
-        height: 30px;
-    }
-    .positionSet{
-        position: relative;
-        max-width: 55px;
-    }
-    #arrangeDiv{
-        display: none;
-    }
-    .arrangeShow{
-        position: absolute;
-        top:-30px;
-        left: 100px;
-        background-color: #e8e8e8;
-        opacity: 90%;
-        width: 400px!important;
-    }
+
+
     .notFound{
         text-align: center;
         font-size: 40px;
