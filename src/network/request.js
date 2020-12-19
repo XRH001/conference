@@ -48,7 +48,7 @@ const url={
     removeManager:"/removeManager",
     acceptMember:"/acceptMember",
     changePassword:"/changePassword",//修改密码
-    forgetPassword:"/",
+    forgetPassword:"/forgetPassword",
     alterInfo:"/alterInfo",//用户修改个人信息
     searchMsg:"/msg",//查找用户新消息
 };

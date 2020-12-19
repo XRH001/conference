@@ -121,6 +121,7 @@
                 /*this.$http("mainServlet?ac=need&apiName=returnSuccess"*/
                 this.$request(this.$url.alterInfo,{
                     params:{
+                        userId:this.$store.state.user.id,
                         alter:this.alterSend
                     }
                 }).then(res => {

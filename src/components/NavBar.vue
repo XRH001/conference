@@ -84,7 +84,7 @@
                     }
                 }).catch(err => {
                     console.log(err);
-                })
+                });
             }
         },
         computed:{

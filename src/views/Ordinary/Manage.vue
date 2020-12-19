@@ -83,7 +83,7 @@
                             <tr v-show="searchManager.length===0"><td><p class="align-center">暂无数据</p></td></tr>
                             <tr v-for="memberItem in searchManager" :key="memberItem.id">
                                 <td>{{memberItem.id}}</td>
-                                <td>{{memberItem.name}}</td>
+                                <td>{{memberItem.username}}</td>
                                 <td>{{memberItem.email}}</td>
                                 <td>
                                     <el-popover
@@ -104,7 +104,7 @@
                     <tr><th>用户名</th><th>联系方式</th><th>接受状态</th><td>详细信息</td><td>安排行程</td></tr></thead>
                     <tbody>
                     <tr v-for="item in managerInfo" :key="item.id">
-                        <td>{{item.name}}</td><td>{{item.email}}</td>
+                        <td>{{item.username}}</td><td>{{item.email}}</td>
                         <td>{{item.invitationStatus}}
                             <el-popconfirm v-if="meetingUser.ifCreator" title="确认解除该成员的管理员身份吗?" @confirm="removeManager(item.id)">
                                 <el-button  size="small" slot="reference" type="danger">解除</el-button>
@@ -145,7 +145,7 @@
                             <tbody>
                                 <tr v-for="memberItem in searchMember" :key="memberItem.id">
                                     <td>{{memberItem.id}}</td>
-                                    <td>{{memberItem.name}}</td>
+                                    <td>{{memberItem.username}}</td>
                                     <td>{{memberItem.email}}</td>
                                     <td>
                                     <el-popover
@@ -165,7 +165,7 @@
                         <thead><tr><td colspan="6" class="align-center">已添加</td>
                         </tr><tr><th>姓名</th><th>联系方式</th><th>接受状态</th><th>详细信息</th><th>安排行程</th><th>删除或拒绝</th></tr></thead>
                         <tbody>
-                        <tr v-for="item in memberInfo" :key="item.id"><td>{{item.name}}</td><td>{{item.email}}</td>
+                        <tr v-for="item in memberInfo" :key="item.id"><td>{{item.username}}</td><td>{{item.email}}</td>
                             <td>{{item.invitationStatus}}
                                 <el-button v-if="item.invitationStatus==='申请中'" @click="acceptMember(item.id)" size="small" type="primary" plain>同意</el-button>
                             </td>
@@ -257,7 +257,6 @@
             </div>
         </div>
         <RelateToMe :meeting-user="meetingUser"></RelateToMe>
-
         </div>
         <div v-if="notFound" class="baseInfo">
             <p class="notFound layui-icon layui-icon-404" >未找到此会议信息，会议可能已被取消<router-link to="/index">-回到首页-</router-link></p>
@@ -290,11 +289,11 @@
                     createTime:"2020-12-6 20:48:00",
                     num:321,
                 },
-                managerInfo:[{id:124,name:"嘿嘿", email:"123@qq.com",invitationStatus:"已接受"},
-                    {id:123,name:"嘿嘿", email:"123@qq.com",invitationStatus:"已接受"}],
-                memberInfo:[{id:127,name:"赵日天", email:"12323@qq.com",invitationStatus:"已接受"},
-                    {id:1221,name:"赵日天", email:"12323@qq.com",invitationStatus:"已接受"},
-                    {id:123211,name:"赵2313", email:"12323@qq.com",invitationStatus:"申请中"}],
+                managerInfo:[{id:124,username:"嘿嘿", email:"123@qq.com",invitationStatus:"已接受"},
+                    {id:123,username:"嘿嘿", email:"123@qq.com",invitationStatus:"已接受"}],
+                memberInfo:[{id:127,username:"赵日天", email:"12323@qq.com",invitationStatus:"已接受"},
+                    {id:1221,username:"赵日天", email:"12323@qq.com",invitationStatus:"已接受"},
+                    {id:123211,username:"赵2313", email:"12323@qq.com",invitationStatus:"申请中"}],
                 meetingUser:{
                     ifCreator:true,
                     ifJoin:true,
@@ -309,8 +308,8 @@
                 },
                 searchMemberInput:"",
                 searchManagerInput:"",
-                searchMember:[{id:11,name:"123",email:"wq321@qq.com",haveJoin:false},{id:21,name:"123",email:"wq321@qq.com",haveJoin:true}],
-                searchManager:[{id:31,name:"123",email:"wq321@qq.com",IfManager:false},{id:21,name:"123",email:"wq321@qq.com",IfManager:true}],
+                searchMember:[{id:11,username:"123",email:"wq321@qq.com",haveJoin:false},{id:21,username:"123",email:"wq321@qq.com",haveJoin:true}],
+                searchManager:[{id:31,username:"123",email:"wq321@qq.com",IfManager:false},{id:21,username:"123",email:"wq321@qq.com",IfManager:true}],
                 flag:{
                     changeBaseDisabled:false,
                     inviteMember:false,
