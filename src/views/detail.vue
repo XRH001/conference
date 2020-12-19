@@ -57,41 +57,73 @@
             <hr class="layui-bg-cyan">
             <div class="layui-collapse">
                 <p class="titleP">人员信息</p><br><br>
-                <div class="layui-colla-item">
-                    <h2 class="layui-colla-title" @click="managerShow=!managerShow">
-                        <span v-if="managerShow" class="layui-icon layui-icon-down"></span>
-                        <span v-else class="layui-icon layui-icon-right"></span>
-                        管理员名单</h2>
-                    <div class="layui-colla-content" :class="{'layui-show':managerShow}">
+                <Collapse>
+                    <span slot="title">管理员名单</span>
+                    <div slot="content" >
+
                         <table class="layui-table">
-                            <thead><tr><th>姓名</th><th>联系方式</th><td>详细信息</td></tr></thead>
+                            <thead><thead><tr><th>用户名</th><th>联系方式</th><th>接受状态</th><td>详细信息</td><td>查看行程</td></tr></thead>
                             <tbody>
-                            <tr v-for="item in meetingInfo.managerInfo" :key="item.id">
-                                <td>{{item.name}}</td><td>{{item.email}}</td><td>
-                                <el-popover
-                                        placement="right"
-                                        width="400"
-                                        trigger="click">
-                                    <SmallInfo :id="item.id"></SmallInfo>
-                                    <el-button slot="reference">click 激活</el-button>
-                                </el-popover>
-                            </td></tr>
+                            <tr v-for="item in managerInfo" :key="item.id">
+                                <td>{{item.name}}</td><td>{{item.email}}</td>
+                                <td>{{item.invitationStatus}}
+                                </td>
+                                <td>
+                                    <el-popover
+                                            placement="right"
+                                            width="400"
+                                            trigger="click">
+                                        <SmallInfo :id="item.id" ref="personInfo"></SmallInfo>
+                                        <el-button slot="reference" size="small">查看信息</el-button>
+                                    </el-popover>
+                                </td>
+                                <td>
+                                    <el-popover
+                                            placement="right"
+                                            width="400"
+                                            trigger="click">
+                                        <ArrangeOne></ArrangeOne>
+                                        <el-button slot="reference" size="small">查看行程</el-button>
+                                    </el-popover>
+                                </td>
+                            </tr>
                             </tbody>
                         </table></div>
-                </div>
-                <div class="layui-colla-item">
-                    <h2 class="layui-colla-title" @click="memberShow=!memberShow">
-                        <span v-if="memberShow" class="layui-icon layui-icon-down"></span>
-                        <span v-else class="layui-icon layui-icon-right"></span>
-                        普通成员名单</h2>
-                    <div class="layui-colla-content" :class="{'layui-show':memberShow}">
-                        <table class="layui-table">
-                            <thead><tr><th>姓名</th><th>联系方式</th></tr></thead>
+                </Collapse>
+                <Collapse>                                                                                      >
+                    <span slot="title">普通成员名单</span>
+                    <div slot="content">
+                        <table  class="layui-table">
+                            <thead><tr><th>姓名</th><th>联系方式</th><th>接受状态</th><th>详细信息</th><th>查看行程</th></tr></thead>
                             <tbody>
-                            <tr v-for="item in meetingInfo.memberInfo" :key="item.id"><td>{{item.name}}</td><td>{{item.email}}</td></tr>
+                            <tr v-for="item in memberInfo" :key="item.id"><td>{{item.name}}</td><td>{{item.email}}</td>
+                                <td>{{item.invitationStatus}}
+                                    </td>
+                                <td>
+                                    <el-popover
+                                            placement="right"
+                                            width="400"
+                                            trigger="click">
+                                        <SmallInfo :id="item.id" ref="personInfo"></SmallInfo>
+                                        <el-button slot="reference" size="small">查看信息</el-button>
+                                    </el-popover>
+                                </td>
+                                <td>
+                                    <el-popover
+                                            placement="right"
+                                            width="400"
+                                            trigger="click">
+                                        <ArrangeOne ></ArrangeOne>
+                                        <el-button slot="reference" size="small">查看行程</el-button>
+                                    </el-popover>
+                                </td>
+
+                            </tr>
+
                             </tbody>
-                        </table></div>
-                </div>
+                        </table>
+                    </div>
+                </Collapse>
             </div>
         </div>
         <RelateToMe :meeting-user="meetingUser" :meetingId="meetingInfo.id" @infoChange="infoChange"
@@ -106,9 +138,11 @@
 <script>
     import RelateToMe from "./Ordinary/RelateToMe";
     import SmallInfo from "../components/SmallInfo";
+    import ArrangeOne from "./Ordinary/ArrangeOne";
+    import Collapse from "../components/Collapse";
     export default {
         name: "detail",
-        components: {SmallInfo, RelateToMe},
+        components: {ArrangeOne, SmallInfo, RelateToMe,Collapse},
         data(){
             return {
                 memberShow:false,
@@ -117,17 +151,21 @@
                 meetingInfo:{//这里是会议的全部信息
                     name:"123",
                     id:123,
-                    beginTime:"2020年12月6日20:47",
-                    endTime:"2020年12月6日20:47",
+                    beginTime:"2020-12-6 20:47",
+                    endTime:"2020-12-6 20:47",
                     address:"信工楼b区303",
                     orderStatus:"未开始",
-                    createTime:"2020年12月6日20:48:33",
+                    createTime:"2020-12-6 20:48:00",
                     num:321,
-                    managerInfo:[{id:123,name:"嘿嘿", email:"123@qq.com"},{id:125,name:"嘿嘿", email:"123@qq.com"}],
-                    memberInfo:[{id:124,name:"赵日天", email:"12323@qq.com"}]
                 },
+                managerInfo:[{id:124,name:"嘿嘿", email:"123@qq.com",invitationStatus:"已接受"},
+                    {id:123,name:"嘿嘿", email:"123@qq.com",invitationStatus:"已接受"}],
+                memberInfo:[{id:127,name:"赵日天", email:"12323@qq.com",invitationStatus:"已接受"},
+                    {id:1221,name:"赵日天", email:"12323@qq.com",invitationStatus:"已接受"},
+                    {id:123211,name:"赵2313", email:"12323@qq.com",invitationStatus:"申请中"}],
                 meetingUser:{
                     ifJoin:false,
+                    ifApplied:true,
                     info:"",
                     journey:{
                         time:"2020年12月17日19:11",

@@ -70,6 +70,7 @@ export const methods={
     inviteMember(memberId,haveJoin){
         if(haveJoin){this.$message("该用户已参加本会议，或已在邀请中，或在申请中");return;}
         this.flag.inviteMember=true;
+        /*this.$http("mainServlet?ac=need&apiName=returnSuccess"*/
         this.$request(this.$url.inviteMember,{
             params:{
                 memberId,
@@ -79,7 +80,11 @@ export const methods={
             if(res.data==="fail"){this.$message("邀请失败");}
             else if(res.data==="success"){
                 this.$message("邀请新消息已发出");
-
+                //添加到成员信息里
+                let invite = this.getByKey(this.searchMember,'id',memberId);
+                invite['invitationStatus']="邀请中";
+                this.memberInfo.push(invite);
+                this.removeByKey(this.searchMember,'id',memberId)
             }
             else this.$message("服务器异常");
             this.flag.inviteMember=false;
@@ -92,6 +97,7 @@ export const methods={
     inviteManager(memberId,ifManager){
         if(ifManager){this.$message("该用户已是管理员，或邀请消息已发出");return;}
         this.flag.inviteManager=true;
+        /*this.$http("mainServlet?ac=need&apiName=returnSuccess"*/
         this.$request(this.$url.inviteManager,{
             params:{
                 memberId,
@@ -99,7 +105,13 @@ export const methods={
             }
         }).then( res =>{
             if(res.data==="fail"){this.$message("邀请失败，该用户可能已是管理员");}
-            else if(res.data==="success"){this.$message("邀请新消息已发出");}
+            else if(res.data==="success"){
+                this.$message("邀请新消息已发出");
+                let invite = this.getByKey(this.searchManager,'id',memberId);
+                invite['invitationStatus']="邀请中";
+                this.managerInfo.push(invite);
+                this.removeByKey(this.searchManager,'id',memberId)
+            }
             else this.$message("服务器异常");
             this.flag.inviteManager=false;
         }).catch(err =>{
@@ -109,6 +121,7 @@ export const methods={
         });
     },
     deleteMember(memberId) {
+        /*this.$http("mainServlet?ac=need&apiName=returnSuccess"*/
         this.$request(this.$url.deleteMember, {
             params: {
                 meetingId: this.meetingInfo.id,
@@ -119,7 +132,10 @@ export const methods={
                 this.$message("删除失败,该成员可能未加入");
                 return;
             }
-            if (res.data === "success") this.$message("已删除");
+            if (res.data === "success"){
+                this.$message("已删除");
+                this.removeByKey(this.memberInfo,'id',memberId);
+            }
             else this.$message("服务处理异常");
         }).catch(err => {
             console.log(err);
@@ -127,6 +143,7 @@ export const methods={
         })
     },
     removeManager(memberId){
+        /*this.$http("mainServlet?ac=need&apiName=returnSuccess"*/
         this.$request(this.$url.removeManager, {
             params: {
                 meetingId: this.meetingInfo.id,
@@ -137,12 +154,39 @@ export const methods={
                 this.$message("解除失败,该成员可能已退出会议");
                 return;
             }
-            if (res.data === "success") this.$message("已解除");
+            if (res.data === "success") {
+                this.$message("已解除");
+                let toMember = this.getByKey(this.managerInfo,'id',memberId);
+                this.removeByKey(this.managerInfo,'id',memberId);
+                this.memberInfo.push(toMember);
+            }
             else this.$message("服务处理异常");
         }).catch(err => {
             console.log(err);
             this.$message("网络请求异常");
         })
+    },
+    acceptMember(memberId){
+        /*this.$http("mainServlet?ac=need&apiName=returnSuccess"*/
+        this.$request(this.$url.acceptMember, {
+            params: {
+                meetingId: this.meetingInfo.id,
+                memberId: memberId
+            }
+        }).then(res => {
+            if (res.data === "fail") {
+                this.$message("添加失败");
+                return;
+            }
+            if (res.data === "success") {
+                this.$message("已同意");
+                this.getByKey(this.memberInfo,'id',memberId).invitationStatus="已接受";
+            }
+            else this.$message("服务处理异常");
+        }).catch(err => {
+            console.log(err);
+            this.$message("网络请求异常");
+        });
     },
     getByKey(list,key,value){
         for(let obj of list){

@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from "./store"
 import {decrypt,format,replaceAll,notFind} from "./assets/js/tools"
-import {request,http,url} from "./network/request";
+import {request,http,url,post} from "./network/request";
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
@@ -22,6 +22,7 @@ new Vue({
 
 Vue.prototype.$request=request;
 Vue.prototype.$http=http;
+Vue.prototype.$post=post;
 Vue.prototype.$decrypt=decrypt;
 //图片未找到
 Vue.prototype.$notFind=notFind;

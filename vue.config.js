@@ -21,6 +21,12 @@ module.exports = {
                 changeOrigin:true,
                 ws:true,
                 pathRewrite:{"^/test1":""}
+            },
+            '/upload':{
+                target:"http://119.3.235.179:8080/",
+                changeOrigin:true,
+                ws:true,
+                pathRewrite:{"^/upLoad":""}
             }
         },
         port: 8087

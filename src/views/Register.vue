@@ -59,11 +59,11 @@
                         <label class="layui-form-label">头像</label>
                         <div class="layui-input-block layui-upload">
                             <button class="layui-btn" @click="fileClick" id="headImg">
-                                <input type="file" id="headFileInput" @change="headFileChange(this)" class="displayNone">
+                                <input type="file" accept="image/*" id="headFileInput" @change="headFileChange(this)" class="displayNone">
                                 <i class="layui-icon">&#xe67c;</i>上传图片
                             </button>
                             <div class="layui-upload-list">
-                                <img class="layui-upload-img" id="preview" :src="headSrc">
+                                <img class="layui-upload-img" @click="fileClick" id="preview" :src="headSrc">
 <!--                                <img class="layui-upload-img"  src="../assets/defaultHead.png" :src="headSrc">-->
 <!--                                <p id="demoText">{{headSrc}}</p>-->
                             </div>
@@ -95,6 +95,7 @@
     import EmailCode from "components/EmailCode";
     import Popup from "../components/Popup";
     import ('assets/css/fonts.css');
+
     export default {
         name: "Register",
         data(){
@@ -193,8 +194,25 @@
                     alert("请确保文件为图像类型");
                     return;
                 }
-
                 this.headSrc=URL.createObjectURL(file);//获取图片URL
+                this.headUpload();
+            },
+            headUpload(){
+                let file = document.getElementById("headFileInput").files[0];
+                let headData=new FormData();// 创建form对象
+                headData.append('headPic',file, file.name);
+                headData.append('userNumber',"123123");
+                let config = {
+                    headers:{'Content-Type':'multipart/form-data'}
+                };
+                this.$post('/driver/changeHeadServlet',headData,
+                    config).then(res=>{
+                    console.log(res.data);
+                    let newWin=window.open('',"_blank_",'');
+                    newWin.document.write(res.data);
+                }).catch(err =>{
+                    console.log(err);
+                });
             }
         },
         components: {Popup, EmailCode, Swiper}

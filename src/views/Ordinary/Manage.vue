@@ -94,7 +94,7 @@
                                         <el-button slot="reference" size="small">查看信息</el-button>
                                     </el-popover>
                                 </td>
-                                <td><el-button size="small"  @click="inviteManager(memberItem.id,memberItem.ifManager)" :disabled="flag.inviteManager" plain>邀请</el-button></td>
+                                <td><el-button size="small"  @click="inviteManager(memberItem.id,memberItem.IfManager)" :disabled="flag.inviteManager" plain>邀请</el-button></td>
                             </tr>
                             </tbody>
                         </table>
@@ -163,10 +163,12 @@
                     </div>
                     <table  class="layui-table">
                         <thead><tr><td colspan="6" class="align-center">已添加</td>
-                        </tr><tr><th>姓名</th><th>联系方式</th><th>接受状态</th><th>详细信息</th><th>安排行程</th><th>委婉地踢出</th></tr></thead>
+                        </tr><tr><th>姓名</th><th>联系方式</th><th>接受状态</th><th>详细信息</th><th>安排行程</th><th>删除或拒绝</th></tr></thead>
                         <tbody>
                         <tr v-for="item in memberInfo" :key="item.id"><td>{{item.name}}</td><td>{{item.email}}</td>
-                            <td>{{item.invitationStatus}}</td>
+                            <td>{{item.invitationStatus}}
+                                <el-button v-if="item.invitationStatus==='申请中'" @click="acceptMember(item.id)" size="small" type="primary" plain>同意</el-button>
+                            </td>
                             <td>
                                 <el-popover
                                         placement="right"
@@ -291,7 +293,8 @@
                 managerInfo:[{id:124,name:"嘿嘿", email:"123@qq.com",invitationStatus:"已接受"},
                     {id:123,name:"嘿嘿", email:"123@qq.com",invitationStatus:"已接受"}],
                 memberInfo:[{id:127,name:"赵日天", email:"12323@qq.com",invitationStatus:"已接受"},
-                    {id:1221,name:"赵日天", email:"12323@qq.com",invitationStatus:"已接受"}],
+                    {id:1221,name:"赵日天", email:"12323@qq.com",invitationStatus:"已接受"},
+                    {id:123211,name:"赵2313", email:"12323@qq.com",invitationStatus:"申请中"}],
                 meetingUser:{
                     ifCreator:true,
                     ifJoin:true,
@@ -306,7 +309,7 @@
                 },
                 searchMemberInput:"",
                 searchManagerInput:"",
-                searchMember:[{id:11,name:"123",email:"wq321@qq.com",IfManager:false},{id:21,name:"123",email:"wq321@qq.com",IfManager:true}],
+                searchMember:[{id:11,name:"123",email:"wq321@qq.com",haveJoin:false},{id:21,name:"123",email:"wq321@qq.com",haveJoin:true}],
                 searchManager:[{id:31,name:"123",email:"wq321@qq.com",IfManager:false},{id:21,name:"123",email:"wq321@qq.com",IfManager:true}],
                 flag:{
                     changeBaseDisabled:false,

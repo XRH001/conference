@@ -7,7 +7,7 @@
                 {{meetingItem.name}}
                 <span class="meetingState">{{meetingItem.orderStatus}}</span></h2>
             <div class="layui-colla-content " :class="{'layui-show':show[inx]}"><!--layui-show-->
-                    <router-link class="layui-btn detailButton" :to="{path:routerTo,query:{meetingId:meetingItem.id}}">
+                    <router-link class="layui-btn layui-btn-normal detailButton" :to="{path:routerTo,query:{meetingId:meetingItem.id}}">
                         <i class="layui-icon layui-icon-align-left"> </i>详细信息</router-link>
                 <br><br>
                 <fieldset class="layui-elem-field ">

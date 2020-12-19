@@ -20,7 +20,7 @@
         </div>
         <div class="center layui-bg-cyan layui-col-lg-offset1 layui-col-md-offset1 layui-col-xs-offset1 layui-col-lg5 layui-col-md6 layui-col-xs10 ">
             <p class="layui-icon layui-icon-read loginTitle">用户登录</p>
-            <a href="" class="layui-icon layui-icon-layer forget">忘记密码？</a>
+            <a href="javascript:void(0)" class="layui-icon layui-icon-layer forget" @click="forget.dialog=true">忘记密码？</a>
             <br><br><br>
             <div class="layui-form ">
                 <div class="layui-form-item">
@@ -48,7 +48,16 @@
                 </div>
             </div>
         </div>
-
+        <el-dialog title="忘记密码" :visible.sync="forget.dialog" class="forgetDialog" :modal-append-to-body='false'>
+            <label>邮箱</label><input type="text" class="layui-input" v-model.lazy="email" autocomplete="off">
+            <label>新密码</label><input type="text" class="layui-input" v-model.lazy="forget.newPassword" autocomplete="off">
+            <label>确认密码</label><input type="text" class="layui-input" v-model="forget.newConfirm" autocomplete="off">
+            <EmailCode :email="email" :sendURL="this.$url.sendCode" @getEmailCode="passwordCode" @getCodeInput="getChildCode"></EmailCode>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="forget.dialog = false">取 消</el-button>
+                <el-button type="primary" @click="forgetClick">确认修改</el-button>
+            </div>
+        </el-dialog>
         <Popup ref="popup1" set-color="#FF832A"></Popup>
     </div>
 </template>
@@ -56,12 +65,14 @@
 <script>
     import Swiper from "components/Swiper";
     import Popup from "components/Popup";
+    import EmailCode from "../components/EmailCode";
     /*
         import SETUSER from "../store/mutations-types"
         import SETMEETINGS from "../store/mutations-types"*/
     export default {
         name: "login",
         components:{
+            EmailCode,
             Popup,
             Swiper
         },data(){
@@ -70,10 +81,44 @@
                 password:"",
                 right:true,
                 warming:"账号或密码错误，请重新输入",
-                tipsShow:false
+                tipsShow:false,
+                forget:{
+                    dialog:false,
+                    newPassword:"",
+                    newConfirm:"",
+                    emailCode:"",
+                    codeInput:""
+                }
             }
         },
         methods:{
+            forgetClick(){
+                let reg=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z\\W]{6,18}$/;
+                if(!reg.test(this.forget.newPassword)){this.$message("新密码格式不正确(6-18位字母数字或特殊符号)");return;}
+                if(this.forget.newPassword!==this.forget.newConfirm){this.$message("两次输入不同");return;}
+                let codeRight;
+                if(this.forget.codeInput!==""){
+                    codeRight=this.forget.codeInput.toLowerCase()===this.$decrypt(this.forget.emailCode).toLowerCase();}
+                else {this.$message("请输入验证码");return;}
+                if(!codeRight){this.$message("验证码错误");return;}
+                /*this.$http("mainServlet?ac=need&apiName=returnSuccess"*/
+                this.$request(this.$url.forgetPassword,{
+                    params:{
+                        email:this.email,
+                        newPassword: this.forget.newPassword
+                    }
+                }).then(res => {
+                    if(res.data==="success"){
+                        this.$message("修改成功");
+                        this.forget.dialog=false;
+                    }
+                    else if(res.data==="fail"){this.$message("修改失败，请检查是否填入不支持的信息");}
+                    else this.$message("发生错误");
+                }).catch(err => {
+                    console.log(err);
+                    this.$message("网络请求失败");
+                });
+            },
             loginClick(){
                 if(!this.email){
                     this.$refs.popup1.showMsg("请输入账号");
@@ -136,6 +181,15 @@
                 this.email="";
                 this.password="";
             }
+            ,//获取邮箱验证码时调用
+            passwordCode(emailCode){
+                this.forget.emailCode=emailCode;
+                //console.log(this.emailCode);
+            },
+            //子组件的input值获取
+            getChildCode(codeInput){
+                this.forget.codeInput=codeInput;
+            }
         },
         created() {
             this.email=this.$route.query.email;
@@ -192,7 +246,16 @@
         border-radius: 6px;
         margin: 20px;
     }
-
+    .forgetDialog{
+        padding: 20px;
+    }
+    .forgetDialog>label{
+        float: left;
+        width: 100px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        display: block;
+    }
     .menuButton{
         display: none;
         margin-left: 9%;

@@ -7,13 +7,13 @@
             <div class="layui-form-item">
                 <label class="layui-form-label ">邮箱/账号</label>
                 <div class="layui-input-block ">
-                    <input type="text" name="email" required v-model.lazy="email"  lay-verify="required" placeholder="请输入邮箱或账号" autocomplete="off" class="layui-input">
+                    <input type="text" name="email" required v-model.lazy="email"  lay-verify="required" placeholder="请输入邮箱或账号"  class="layui-input">
                 </div>
             </div><br><br>
             <div class="layui-form-item">
                 <label class="layui-form-label ">密码</label>
                 <div class="layui-input-block ">
-                    <input type="text" name="password" required v-model.lazy="password" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                    <input type="text" name="password" required v-model.lazy="password" lay-verify="required" placeholder="请输入密码"  class="layui-input">
                 </div>
             </div><br>
             <p class="warming" :class="{'displayNone':right}">{{warming}}</p>
@@ -23,6 +23,7 @@
                     <input type="button" class="layui-btn layui-btn-checked"  @click="loginClick()" value="登录">
                     <button class="layui-btn layui-btn-primary" @click="clearClick()">重置</button>
                     <router-link to="" class="layui-btn layui-btn-checked">应聘</router-link>
+                    <router-link to="/login" class="layui-btn layui-btn-primary">返回</router-link>
 
                 </div>
             </div>
@@ -59,6 +60,7 @@
                     }
                     if(this.email==="dsa"&&this.password==="123456"){//测试
                         this.$store.commit("setIdentity","driver");
+                        console.log(this.$store.state.identity);
                         this.$store.commit("setDriver",{name:"可以啦",email:this.email});
                         this.$store.commit("setLogin");
                         this.$router.push("/index");

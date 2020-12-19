@@ -15,10 +15,17 @@ export function http(url,config) {
     });
     return instance(url,config);
 }
+export function post(url,formData,config) {
+    const instance=axios.create({
+        baseURL:"upload",
+        timeout:5000
+    });
+    return instance.post(url,formData,config);
+}
 
 //配置所有地址
 const url={
-    baseURL:"http://localhost:8080",
+    baseURL:"http://localhost:8080/",
     login:"/UserJudge",
     register:"/register",
     registerCode:"/registerYz",
@@ -38,6 +45,11 @@ const url={
     inviteMember:"/inviteMember",
     inviteManager:"/inviteManager",
     deleteMember:"/deleteMember",
-    removeManager:"/removeManager"
+    removeManager:"/removeManager",
+    acceptMember:"/acceptMember",
+    changePassword:"/changePassword",//修改密码
+    forgetPassword:"/",
+    alterInfo:"/alterInfo",//用户修改个人信息
+    searchMsg:"/msg",//查找用户新消息
 };
 export {url}

@@ -26,9 +26,11 @@
         </tr>
         </tbody>
     </table>
-    <div v-else>
-        <el-button @click="apply" type="success" :disabled="flag.applyDisabled">申请加入</el-button>
+    <div v-if="!meetingUser.ifJoin">
+        <el-button v-show="!meetingUser.ifApplied" @click="apply" type="success" :disabled="flag.applyDisabled">申请加入</el-button>
+        <p v-show="meetingUser.ifApplied" class="message">加入请求已发送，等待管理员同意...</p>
     </div>
+
     </div>
 </template>
 
@@ -108,5 +110,10 @@
     }
     .el-textarea{
         height: 150px;
+    }
+    .message{
+        font-size: 25px;
+        color: #68b468;
+        text-align: center;
     }
 </style>

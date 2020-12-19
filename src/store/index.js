@@ -68,18 +68,23 @@ const store= new Vuex.Store({
             state.url=url;
         },
         addCreateMeetings(state,newMeeting){
-            //{
-            //                 id:newMeeting.id,
-            //                 name:newMeeting.name,
-            //                 address:newMeeting.position,
-            //                 beginTime:newMeeting.beginTime,
-            //                 orderStatus:newMeeting.orderStatus
-            //             }
             state.meetings.manage.newMeetings.push(newMeeting);
             console.log(state.meetings.manage.newMeetings);
         },
         setIdentity(state,identity){
             state.identity=identity;
+        },
+        updateUser(state,update){
+            /*name:"",
+                    phone:"",
+                    sex:"male",
+                    username:"",
+                    birthday:""*/
+            state.user.name=update.name;
+            state.user.phone=update.phone;
+            state.user.sex=update.sex;
+            state.user.username=update.username;
+            state.user.birth=update.birthday;
         }
     },
     actions:{

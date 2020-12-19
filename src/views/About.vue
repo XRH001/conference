@@ -13,6 +13,7 @@
 
     <h1>别人的组件-测试</h1>
     <h2><el-button @click="showMessage()">这是个好按键</el-button></h2>
+    <!--<img :src="this.$url.baseURL+imgPath" class="imgSwipe">-->
   </div>
 </template>
 <script>
@@ -23,7 +24,8 @@
     components: {Popup, Collapse},
     data(){
       return {
-        showMsg:"这里写弹出信息"
+        showMsg:"这里写弹出信息",
+        imgPath:'img/head1.jpg'
       }
     },
     methods:{

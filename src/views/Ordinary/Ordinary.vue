@@ -22,11 +22,11 @@
                         <meeting-list :meetings="joinDiv.overMeetings"></meeting-list>
                     </div>
                     <div :class="{'layui-show':joinDiv.show===3}" class="layui-tab-item layui-row">
-                        <div class="searchInputDiv layui-col-lg10 layui-col-md10 layui-col-xs10">
+                        <div class="searchInputDiv layui-col-lg11 layui-col-md11 layui-col-xs10">
                             <input v-model.lazy="joinDiv.search" class="layui-input" type="text" placeholder="输入会议id或名称进行查找" value="废物">
                         </div>
-                        <div class="searchButtonDiv layui-col-lg2 layui-col-md2 layui-col-xs2">
-                            <button @click="searchClick" class="searchButton layui-btn layui-btn"><span class="layui-icon layui-icon-search"></span></button>
+                        <div class="searchButtonDiv layui-col-lg1 layui-col-md1 layui-col-xs2">
+                            <button @click="searchClick" class="searchButton layui-btn layui-btn-primary"><span class="layui-icon layui-icon-search"></span></button>
                         </div><br><br><br>
                         <p class="emptyWarming" v-if="joinDiv.searchMeetings.length===0">未查找到。。。</p>
                         <meeting-list :meetings="joinDiv.searchMeetings"></meeting-list>
