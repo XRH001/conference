@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class createMeetingYzController {
+public class CreateMeetingYzController {
     @RequestMapping("/createMeetingYz")
     public String createMeetingYz(String email) {
         // 根据邮箱查找
