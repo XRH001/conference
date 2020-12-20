@@ -123,14 +123,12 @@
                 this.joinDiv.newMeetings=join.newMeetings;
                 this.joinDiv.overMeetings=join.overMeetings;
                 this.joinDiv.applyMeetings=join.applyMeetings;
-                if(join.newMeetings.length===0)this.joinDiv.show=3;
             },
             setManageMeetings(){
                 let manage=this.$store.state.meetings.manage;
-                //this.managerDiv.newMeetings=manage.newMeetings;
-                this.managerDiv.newMeetings=[ {id:"2369",name:'样例会议',orderStatus:"5小时后开始",beginTime:"2020年12月6日12:36",address:"信工楼b区"}];
+                this.managerDiv.newMeetings=manage.newMeetings;
+                // this.managerDiv.newMeetings=[ {id:"2369",name:'样例会议',orderStatus:"5小时后开始",beginTime:"2020年12月6日12:36",address:"信工楼b区"}];
                 this.managerDiv.overMeetings=manage.overMeetings;
-                if(manage.newMeetings.length===0)this.managerDiv.show=3;
             },
             searchClick(){
                 /*this.$http("mainServlet?ac=need&apiName=searchMeetings")*/
@@ -156,9 +154,19 @@
         },
         created() {
             if(this.$store.state.meetings){
-            this.setJoinMeetings();
-            this.setManageMeetings();
+                this.setJoinMeetings();
+                this.setManageMeetings();
+                if(this.$store.state.meetings.join.newMeetings.length===0)this.joinDiv.show=3;
+                if(this.$store.state.meetings.manage.newMeetings.length===0)this.managerDiv.show=3;
             }
+            setInterval(()=>{
+                if(this.$store.state.meetings){
+                    this.setJoinMeetings();
+                    this.setManageMeetings();
+                    console.log("更新一次");
+            }},5000);
+
+
         }
     }
 

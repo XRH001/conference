@@ -137,7 +137,7 @@
                 });
             },
             changePasswordClick(){
-                let reg=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z\\W]{6,18}$/
+                let reg=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z\\W]{6,18}$/;
                 if(!reg.test(this.password.newPassword)){this.message("新密码格式不正确(6-18位字母数字或特殊符号)");return;}
                 if(this.password.newPassword!==this.password.newConfirm){this.message("两次输入不同");return;}
                 this.$request(this.$url.changePassword,{

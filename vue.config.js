@@ -29,7 +29,7 @@ module.exports = {
                 pathRewrite:{"^/upLoad":""}
             }
         },
-        port: 8087
+        port: 8089
     }
 };
 /*

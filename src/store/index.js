@@ -85,6 +85,13 @@ const store= new Vuex.Store({
             state.user.sex=update.sex;
             state.user.username=update.username;
             state.user.birth=update.birthday;
+        },
+        addNewMeeting(state,data){
+            let meeting=data.meeting;
+            let ifManager=data.ifManager;
+            console.log(data);
+            if(ifManager)state.meetings.manage.newMeetings.push(meeting);
+            else state.meetings.join.newMeetings.push(meeting);
         }
     },
     actions:{

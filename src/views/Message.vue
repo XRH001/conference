@@ -8,8 +8,10 @@
                 <p>会议:{{meetingItem.name}} --{{meetingItem.message}}</p>
                 <router-link :to="{path:'detail',query:{meetingId:meetingItem.id}}" >会议详情<i class="el-icon-view el-icon--right"></i></router-link>
                 <br><br>
-                <el-button size="small" type="success">同意</el-button>
-                <el-button size="small" type="danger">拒绝</el-button>
+                <el-button size="small" type="success" @click="acceptClick(meetingItem.id)">同意</el-button>
+                <el-popconfirm title="拒绝后将无法看到此会议，确认拒绝？" @confirm="rejectClick(meetingItem.id)">
+                    <el-button slot="reference" size="small" type="danger" >拒绝</el-button>
+                </el-popconfirm>
             </div>
         </div>
     </div>
@@ -24,7 +26,52 @@
         },
         props:{
             meetingMsg:Array
-        }
+        },
+        methods:{
+            acceptClick(meetingId){
+                this.$http("mainServlet?ac=need&apiName=acceptInvite3"
+                /*this.$request(this.$url.acceptInvite*/,{
+                    params:{
+                        meetingId,
+                        memberId:this.$store.state.user.id
+                    }
+                }).then(res => {
+                    let data=res.data;
+                    console.log(data);
+                    if(data.msg==="fail"){
+                        this.$message("请求失败，对方可能已取消邀请");
+                        return ;
+                    }
+                    if(data.msg==="success"){
+                        //将会议添加到主页
+                        this.$store.commit("addNewMeeting",{meeting:data.newMeeting,ifManager:data.ifManager});
+                        this.$message("同意成功，已加入会议");
+                        this.$emit("removeMsg",meetingId);
+                    }
+                    else this.$message("发生错误，对方可能已取消邀请")
+                }).catch(err =>{
+                    console.log(err);
+                    this.$message("网络请求异常");
+                });
+            },
+            rejectClick(meetingId){
+                /*this.$http("mainServlet?ac=need&apiName=returnSuccess"*/
+                this.$request(this.$url.deleteMember,{
+                    params:{
+                        meetingId,
+                        memberId:this.$store.state.user.id
+                    }
+            }).then(res => {
+                    if(res.data==="success"){this.$emit("removeMsg",meetingId);this.$message("已拒绝");}
+                    else if(res.data==="fail")this.$message("拒绝失败，对方可能已取消邀请")
+                    else this.$message("服务器错误");
+                }).catch(err =>{
+                    console.log(err);
+                    this.$message("网络请求异常");
+                });
+            }
+
+    }
     }
 </script>
 

@@ -200,61 +200,8 @@
             <hr class="layui-bg-orange">
             <p class="titleP">后勤服务管理</p>
             <br>
-            <div class="hotelManage layui-row">
-                <p class="smallTitleP">预约酒店房间</p>
-                <div class="layui-col-lg10"><input type="text" placeholder="根据邮箱或id查询酒店：" class="layui-input"></div>
-                <div class="layui-col-lg2"><button class="layui-btn layui-btn-normal"><span class="layui-icon layui-icon-search"></span></button></div>
-                <br><br>
-                <table  class="layui-table">
-                    <colgroup>
-                        <col width="30%">
-                        <col width="50%">
-                        <col width="20%">
-                    </colgroup>
-                    <thead>
-                    <tr>
-                        <th>店名</th>
-                        <th>联系方式</th>
-                        <th>动作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>居家旅馆</td>
-                        <td>4384381@qq.com</td>
-                        <td><button class="layui-btn layui-btn-normal  layui-btn-sm">预约</button></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="hotelManage layui-row">
-                <p class="smallTitleP">预约司机接送</p>
-                <div class="layui-col-lg10"><input type="text" placeholder="根据邮箱或id查询司机：" class="layui-input"></div>
-                <div class="layui-col-lg2"><button class="layui-btn layui-btn-normal"><span class="layui-icon layui-icon-search"></span></button></div>
-                <br><br>
-                <table  class="layui-table">
-                    <colgroup>
-                        <col width="30%">
-                        <col width="50%">
-                        <col width="20%">
-                    </colgroup>
-                    <thead>
-                    <tr>
-                        <th>司机</th>
-                        <th>联系方式</th>
-                        <th>动作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>马大师</td>
-                        <td>4384381@qq.com</td>
-                        <td><button class="layui-btn layui-btn-normal  layui-btn-sm">预约</button></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+            <ReserveDriver :meeting-id="12"></ReserveDriver>
+            <ReserveHotel ></ReserveHotel>
         </div>
         <RelateToMe :meeting-user="meetingUser"></RelateToMe>
         </div>
@@ -270,9 +217,11 @@
     import SmallInfo from "../../components/SmallInfo";
     import ArrangeOne from "./ArrangeOne";
     import {methods} from "../../assets/js/manager"
+    import ReserveDriver from "./ReserveDriver";
+    import ReserveHotel from "./ReserveHotel";
     export default {
         name: "Manage",
-        components: {ArrangeOne, SmallInfo, RelateToMe,Collapse},
+        components: {ReserveHotel, ReserveDriver, ArrangeOne, SmallInfo, RelateToMe,Collapse},
         data(){
             return {
                 memberShow:false,
@@ -320,7 +269,7 @@
         computed:{
 
         },methods:methods,
-        created() {
+        /*created() {
             this.meetingId=this.$route.query.meetingId;
             let sendUserId=this.$store.state.user.id;
             const loading = this.$loading({
@@ -347,7 +296,7 @@
                 this.$message("网络请求出错！已为您显示样例信息");
                 loading.close();
             });
-        }
+        }*/
     }
 </script>
 
@@ -369,14 +318,7 @@
     .relateMe{
         padding: 15px;
     }
-    .hotelManage{
-        margin: auto;
-    }
-    .smallTitleP{
-        text-align: center;
-        margin: 10px;
-        font-size: 20px;
-    }
+
 
 
     .notFound{

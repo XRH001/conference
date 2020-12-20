@@ -17,7 +17,7 @@ export function http(url,config) {
 }
 export function post(url,formData,config) {
     const instance=axios.create({
-        baseURL:"upload",
+        baseURL:"/upload",
         timeout:5000
     });
     return instance.post(url,formData,config);
@@ -51,5 +51,6 @@ const url={
     forgetPassword:"/forgetPassword",
     alterInfo:"/alterInfo",//用户修改个人信息
     searchMsg:"/msg",//查找用户新消息
+    acceptInvite:"/acceptInvite",//用户同意邀请
 };
 export {url}

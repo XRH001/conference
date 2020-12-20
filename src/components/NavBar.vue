@@ -30,7 +30,7 @@
                    direction="rtl" size="30%" :show-close="false"
                    >
             <p slot="title" class="msgTitle">消息列表</p>
-            <Message :meeting-msg="messageList"></Message>
+            <Message :meeting-msg="messageList" @removeMsg="removeMsg"></Message>
         </el-drawer>
     </div>
 </template>
@@ -62,20 +62,23 @@
                 for(let meetingMsg of this.messageList){
                     meetingIdList.push(meetingMsg.id)
                 }
-                this.$request(this.$url.searchMsg,{
+                this.$http( "mainServlet?ac=need&apiName=searchMsg3123",
+                /*this.$request(this.$url.searchMsg,*/{
                     params:{
-                        userId:this.$store.state.user.id,
-                        meetingIdList
+                        userId:this.$store.state.user.id/*,
+                        meetingIdList*/
                     }
                 }).then(res => {
-                    if(res.data.msg==="success"){
-                        let newMsg = res.data.newMsg;
+                    let data=res.data;
+                    if(data.msg==="success"){
+                        let newMsg = data.newMsg;
                         if(newMsg.length>0){
                             this.messageList.push.apply(this.messageList,newMsg);
                             const h = this.$createElement;
                             this.$notify({
                                 title: '新消息提醒',
-                                message: h('i', { style: 'color: teal'}, '新增了 '+newMsg.length.toString()+'条消息')
+                                message: h('i', { style: 'color: teal'}, '新增了 '+newMsg.length.toString()+'条消息'),
+                                offset: 60
                             });
                         }
                     else{
@@ -85,6 +88,14 @@
                 }).catch(err => {
                     console.log(err);
                 });
+            },
+            removeMsg(meetingId){
+                this.removeByKey(this.messageList,'id',meetingId);
+            },
+            removeByKey(list,key,value){
+                for(let inx in list){
+                    if(list[inx][key]===value)list.splice(inx,1);
+                }
             }
         },
         computed:{
@@ -97,7 +108,7 @@
                 if(this.$store.state.haveLogin){
                     this.searchMsg();
                 }
-            },2000)
+            },200000);
         }
     }
 </script>
