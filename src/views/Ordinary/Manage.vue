@@ -200,7 +200,7 @@
             <hr class="layui-bg-orange">
             <p class="titleP">后勤服务管理</p>
             <br>
-            <ReserveDriver :meeting-id="12"></ReserveDriver>
+            <ReserveDriver :meeting-id="meetingInfo.id"></ReserveDriver>
             <ReserveHotel ></ReserveHotel>
         </div>
         <RelateToMe :meeting-user="meetingUser"></RelateToMe>

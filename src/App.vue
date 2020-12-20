@@ -54,4 +54,7 @@ export default {
     height: 120px;
     width: 96%;
   }
+  .align-center{
+    text-align: center;
+  }
 </style>

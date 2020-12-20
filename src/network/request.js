@@ -52,6 +52,8 @@ const url={
     alterInfo:"/alterInfo",//用户修改个人信息
     searchMsg:"/msg",//查找用户新消息
     acceptInvite:"/acceptInvite",//用户同意邀请
-    sendDriverPage:"/sendDriverPage"//加载司机页
+    sendDriverPage:"/sendDriverPage",//加载司机页
+    searchDriver:"/searchDriver",
+    reserveDriver:"/reserveDriver",//预约司机
 };
 export {url}
