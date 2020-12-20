@@ -163,10 +163,8 @@
                 if(this.$store.state.meetings){
                     this.setJoinMeetings();
                     this.setManageMeetings();
-                    console.log("更新一次");
+                    //console.log("更新一次");
             }},5000);
-
-
         }
     }
 
@@ -193,7 +191,6 @@
     .layui-elem-field{
         border-radius: 5px;
     }
-
     .searchButtonDiv{
         width: 19%;
     }

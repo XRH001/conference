@@ -89,7 +89,7 @@ const store= new Vuex.Store({
         addNewMeeting(state,data){
             let meeting=data.meeting;
             let ifManager=data.ifManager;
-            console.log(data);
+            //console.log(data);
             if(ifManager)state.meetings.manage.newMeetings.push(meeting);
             else state.meetings.join.newMeetings.push(meeting);
         }

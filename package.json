@@ -12,11 +12,9 @@
     "core-js": "^3.6.5",
     "element-ui": "^2.14.1",
     "eslint": "^7.15.0",
-    "js-md5": "^0.7.3",
     "layui-src": "^2.5.7",
     "vue": "^2.6.11",
     "vue-concise-slider": "^3.4.4",
-    "vue-layer": "^1.2.1",
     "vue-router": "^3.2.0",
     "vuex": "^3.6.0"
   },

@@ -29,7 +29,7 @@
         },
         methods:{
             acceptClick(meetingId){
-                this.$http("mainServlet?ac=need&apiName=acceptInvite3"
+                this.$http("mainServlet?ac=need&apiName=acceptInvite2"
                 /*this.$request(this.$url.acceptInvite*/,{
                     params:{
                         meetingId,
@@ -37,7 +37,7 @@
                     }
                 }).then(res => {
                     let data=res.data;
-                    console.log(data);
+                    //console.log(data);
                     if(data.msg==="fail"){
                         this.$message("请求失败，对方可能已取消邀请");
                         return ;
@@ -70,7 +70,6 @@
                     this.$message("网络请求异常");
                 });
             }
-
     }
     }
 </script>
