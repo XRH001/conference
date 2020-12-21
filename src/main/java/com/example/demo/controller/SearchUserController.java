@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 
 @Controller
-public class SearchUser {
+public class SearchUserController {
 
     @Autowired
     UserService userService;
