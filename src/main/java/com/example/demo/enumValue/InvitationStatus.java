@@ -6,7 +6,7 @@ public enum InvitationStatus {
      * 这个枚举类型用来说明邀请是否被拒绝
      */
     Refused("被拒绝",-1),
-    Checking("审核中",0),
+    Checking("未接受",0),
     Accepted("已接受",1),
     NoStatus("无状态",2);
 
