@@ -28,7 +28,7 @@ public class AlterMeeting {
     @RequestMapping("/AlterMeeting")
     public String AlterMeeting(MeetingBase meetingBase){
         Conference conference=conferenceService.queryConferenceByID(meetingBase.getId());
-        ConferenceInfo conferenceInfo=conferenceInfoService.queryConferenceInfoByID(meetingBase.getId());
+        ConferenceInfo conferenceInfo=conferenceInfoService.queryConferenceInfoByConference(conference);
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         try{
             conference.setName(meetingBase.getName());
