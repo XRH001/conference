@@ -1,6 +1,7 @@
 package com.example.demo.service.mehod;
 
 import com.example.demo.entity.DO.ConferenceInfoDO;
+import com.example.demo.entity.DTO.Conference;
 import com.example.demo.entity.DTO.ConferenceInfo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +16,8 @@ import static org.junit.Assert.*;
 public class ConferenceInfoServiceTest {
     @Autowired
     ConferenceInfoService conferenceInfoService;
+    @Autowired
+    ConferenceService conferenceService;
     ConferenceInfoDO conferenceInfoDO=new ConferenceInfoDO(5,1,"这是一个无情的备注");
 
     @Test
@@ -45,6 +48,12 @@ public class ConferenceInfoServiceTest {
     @Test
     public void queryPageItems() {
         System.out.println(conferenceInfoService.queryPageItems(0,3));
+    }
+
+    @Test
+    public void queryConferenceInfoByConference(){
+        Conference conference=conferenceService.queryConferenceByID(2);
+        System.out.println(conferenceInfoService.queryConferenceInfoByConference(conference));
     }
 
     @Test
