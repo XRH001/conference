@@ -55,5 +55,7 @@ const url={
     sendDriverPage:"/sendDriverPage",//加载司机页
     searchDriver:"/searchDriver",
     reserveDriver:"/reserveDriver",//预约司机
+    findDriverJourney:"/DriverJourney",//查找司机行程
+
 };
 export {url}

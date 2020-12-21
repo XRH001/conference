@@ -24,7 +24,7 @@
                             placement="right"
                             width="400"
                             trigger="click">
-                        <reserve-driver-form :meeting-id="meetingId" :driver-id="driverItem.id"></reserve-driver-form>
+                        <reserve-driver-form :meeting-id="meetingId" :driver-id="driverItem.id" :action="1"></reserve-driver-form>
                         <el-button slot="reference" size="small">预约</el-button>
                     </el-popover>
                 </td>
@@ -54,7 +54,7 @@
                             placement="right"
                             width="400"
                             trigger="click">
-                        <reserve-driver-form :meeting-id="meetingId" :driver-id="driverItem.id"></reserve-driver-form>
+                        <reserve-driver-form :meeting-id="meetingId" :driver-id="driverItem.id" :action="1"></reserve-driver-form>
                         <el-button slot="reference" size="small">预约</el-button>
                     </el-popover>
                 </td>
@@ -69,6 +69,36 @@
                 :total="pageTotal" @current-change="getOnePage">
             </el-pagination>
         </div>
+        <br>
+        <table  class="layui-table">
+            <thead><tr><td colspan="6" class="align-center">已预约</td></tr>
+            <tr>
+                <th>司机</th>
+                <th>联系方式</th>
+                <th>车型</th>
+                <th>核载人数</th>
+                <th>车牌号</th>
+                <th>预约</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="driverItem in haveDriverList" :key="driverItem.id"><td>{{driverItem.name}}</td><td>{{driverItem.phone}}</td>
+                <td>{{driverItem.type}}</td><td>{{driverItem.maxNum}}</td>
+                <td>{{driverItem.carNum}}</td>
+                <td>
+                    <el-popover
+                            placement="right"
+                            width="400"
+                            trigger="click">
+                        <reserve-driver-form :meeting-id="meetingId" :driver-id="driverItem.id" :action="3"></reserve-driver-form>
+                        <el-button slot="reference" size="small">查看</el-button>
+                    </el-popover>
+                </td>
+            </tr>
+            <tr v-show="getting===1"><td colspan="6"><p class="warnMessage">正在查询...</p></td></tr>
+            <tr v-show="getting===2"><td colspan="6"><p class="warnMessage">已无更多。</p></td></tr>
+            </tbody>
+        </table>
     </div>
 </template>
 
@@ -97,10 +127,13 @@
                     ],
                 driverList:[],
                 searchDriverList:[],
-                haveDriverList:[],
+                haveDriverList:[{id:11322,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"},
+                    {id:11323,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"},
+                    {id:11324,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"}],
                 pageTotal:70,
                 finding:0,
-                searching:0
+                searching:0,
+                getting:0
             }
         },
         props:{
@@ -168,6 +201,7 @@
                     let data=res.data;
                     if(data.msg==="success"){
                         this.haveDriverList=data.driverList;
+                        this.$emit("haveReservedDriver",data.driverList);
                     }
                     else {
                         console.log("搜索失败");
@@ -191,15 +225,14 @@
         border:1px solid #4e5465;
         border-radius: 2px;
         padding: 10px;
+        background-color: #f0f4ff;
     }
     .smallTitleP{
         text-align: center;
         margin: 10px;
         font-size: 20px;
     }
-    .align-center{
-        text-align: center;
-    }
+
     .warnMessage{
         text-align: center;
         font-size: 20px;

@@ -18,9 +18,7 @@ export const methods={
         if(sendValue.name===""){this.$message("会议名称不可为空");return;}
         this.flag.changeBaseDisabled=true;
         this.$request(this.$url.changeBaseInfo,{
-            params:{
-                meetingBase:sendValue
-            }
+            params:sendValue
         }).then(res => {
             let state=res.data;
             if(state==="success")this.$message("修改成功");
@@ -187,6 +185,8 @@ export const methods={
             console.log(err);
             this.$message("网络请求异常");
         });
+    },haveReservedDriver(haveDriverList){
+        this.haveDriverList=haveDriverList;
     },
     getByKey(list,key,value){
         for(let obj of list){
@@ -198,5 +198,8 @@ export const methods={
         for(let inx in list){
             if(list[inx][key]===value)list.splice(inx,1);
         }
+    },
+    printTime(){
+        console.log(this.meetingInfo.beginTime)
     }
 };

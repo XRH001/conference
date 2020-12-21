@@ -12,15 +12,15 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>会议开始-结束时间</td>
+                    <td>会议开始时间</td>
                     <td>
-                        <el-date-picker type="datetime"  required v-model.lazy="meetingInfo.beginTime"  ></el-date-picker>
+                        <el-date-picker type="datetime"  required v-model.lazy="meetingInfo.beginTime" @change="printTime" :value-format="'yyyy-MM-dd HH:mm:ss'"></el-date-picker>
                     </td>
                 </tr>
                 <tr>
                     <td>会议结束时间</td>
                     <td>
-                        <el-date-picker type="datetime"  required v-model.lazy="meetingInfo.endTime"  ></el-date-picker>
+                        <el-date-picker type="datetime"  required v-model.lazy="meetingInfo.endTime" :value-format="'yyyy-MM-dd HH:mm:ss'" ></el-date-picker>
                     </td>
                 </tr>
                 <tr>
@@ -183,8 +183,8 @@
                                         placement="right"
                                         width="400"
                                         trigger="click">
-                                    <ArrangeOne ></ArrangeOne>
-                                    <el-button slot="reference" size="small">安排</el-button>
+                                    <ArrangeOne :have-driver-list="haveDriverList"></ArrangeOne>
+                                    <el-button slot="reference" size="small" >安排</el-button>
                                 </el-popover>
                             </td>
                             <td><el-popconfirm title="真的要删除此成员吗？" @confirm="deleteMember(item.id)">
@@ -200,7 +200,8 @@
             <hr class="layui-bg-orange">
             <p class="titleP">后勤服务管理</p>
             <br>
-            <ReserveDriver :meeting-id="meetingInfo.id"></ReserveDriver>
+            <ReserveDriver :meeting-id="meetingInfo.id" @haveReservedDriver="haveReservedDriver"></ReserveDriver>
+            <br>
             <ReserveHotel ></ReserveHotel>
         </div>
         <RelateToMe :meeting-user="meetingUser"></RelateToMe>
@@ -231,8 +232,8 @@
                 meetingInfo:{//这里是会议的全部信息
                     name:"123",
                     id:123,
-                    beginTime:"2020-12-6 20:47",
-                    endTime:"2020-12-6 20:47",
+                    beginTime:"2020-12-6 20:47:00",
+                    endTime:"2020-12-6 20:47:00",
                     address:"信工楼b区303",
                     orderStatus:"未开始",
                     createTime:"2020-12-6 20:48:00",
@@ -263,7 +264,10 @@
                     changeBaseDisabled:false,
                     inviteMember:false,
                     inviteManager:false
-                }
+                },
+                haveDriverList:[{id:11322,name:"黎师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"赣·231231"},
+                    {id:11323,name:"许师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"赣·241231"},
+                    {id:11324,name:"李师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"赣·2e3231"}],
             }
         },
         computed:{
