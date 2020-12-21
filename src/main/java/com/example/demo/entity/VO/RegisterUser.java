@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.entity.VO;
 
 
 
@@ -55,19 +55,6 @@ public class RegisterUser {
         this.phone = phone;
     }
 
-//    public User(UserDO userDo){
-//        this.ID = userDo.getID();
-//        this.name = userDo.getName();
-//        this.username = userDo.getUsername();
-//        this.password = userDo.getPassword();
-//        this.sex = userDo.getSex()==0?Sex.Male: Sex.Female;
-//        this.birth = TimeUtils.transLocalDate(userDo.getBirth());
-//        this.position = userDo.getPosition();
-//        this.workID = userDo.getWorkID();
-//        this.email = userDo.getEmail();
-//        this.imgPath=userDo.getImgPath();
-//        this.phone=userDo.getPhone();
-//    }
 
     public int getID() {
         return ID;
