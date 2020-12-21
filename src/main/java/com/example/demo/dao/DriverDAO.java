@@ -50,7 +50,7 @@ public interface DriverDAO extends JpaRepository<Driver,Integer> {
 
     public Driver queryDriverByPhone(String phone);
 
-    public List<Driver> queryDriverByNameContainingOrCarNumContaining(String name,String carNum);
+    public List<Driver> queryDriversByNameContainingOrCarNumContainingOrPhoneContainingOrEmailContaining(String name,String carNum,String phone,String email);
 
     /**
      * 查询从begin开始,长度为pageSize的司机列表
