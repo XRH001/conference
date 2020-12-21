@@ -26,7 +26,7 @@ public class ConferenceServiceTest {
 
     @Test
     public void deleteConference() {
-        System.out.println(conferenceService.deleteConference(999));
+        System.out.println(conferenceService.deleteConference(22));
     }
 
     @Test
