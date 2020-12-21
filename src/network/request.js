@@ -54,8 +54,12 @@ const url={
     acceptInvite:"/acceptInvite",//用户同意邀请
     sendDriverPage:"/sendDriverPage",//加载司机页
     searchDriver:"/searchDriver",
+    searchDriverByMeetingId:"/searchDriverByMeetingId",
     reserveDriver:"/reserveDriver",//预约司机
     findDriverJourney:"/DriverJourney",//查找司机行程
+    sendHotelPage:"/sendHotelPage",//加载酒店页
+    searchHotel:"/searchHotel",
+    searchHotelByMeetingId:"/searchHotelByMeetingId"
 
 };
 export {url}

@@ -2,30 +2,26 @@
     <div class="hotelManage layui-row">
         <p class="smallTitleP">预约酒店房间</p>
         <el-input v-model="hotelInput" placeholder="输入id、邮箱或名称进行查找">
-            <el-button slot="append" icon="el-icon-search" ></el-button>
+            <el-button slot="append" icon="el-icon-search" @click="searchHotelClick"></el-button>
         </el-input>
         <br>
         <table  class="layui-table">
             <thead><tr><td colspan="6" class="align-center">搜索结果</td></tr>
             <tr>
-                <th>司机</th>
+                <th>酒店名</th>
                 <th>联系方式</th>
-                <th>车型</th>
-                <th>核载人数</th>
-                <th>车牌号</th>
+                <th>详细地址</th>
                 <th>预约</th>
             </tr>
             </thead>
             <tbody>
-            <tr v-for="driverItem in searchDriverList" :key="driverItem.id"><td>{{driverItem.name}}</td><td>{{driverItem.phone}}</td>
-                <td>{{driverItem.type}}</td><td>{{driverItem.maxNum}}</td>
-                <td>{{driverItem.carNum}}</td>
+            <tr v-for="hotelItem in searchHotelList" :key="hotelItem.id"><td>{{hotelItem.name}}</td><td>{{hotelItem.phone}}</td>
+                <td>{{hotelItem.address}}</td>
                 <td>
                     <el-popover
                             placement="right"
-                            width="400"
+                            width="800"
                             trigger="click">
-                        <reserve-driver-form :meeting-id="meetingId" :driver-id="driverItem.id" :action="1"></reserve-driver-form>
                         <el-button slot="reference" size="small">预约</el-button>
                     </el-popover>
                 </td>
@@ -36,32 +32,28 @@
         </table>
         <br><br>
         <table  class="layui-table">
-            <thead><tr><td colspan="6" class="align-center">全部司机</td></tr>
+            <thead><tr><td colspan="6" class="align-center">全部酒店</td></tr>
             <tr>
-                <th>司机</th>
+                <th>酒店名</th>
                 <th>联系方式</th>
-                <th>车型</th>
-                <th>核载人数</th>
-                <th>车牌号</th>
+                <th>详细地址</th>
                 <th>预约</th>
             </tr>
             </thead>
             <tbody>
-            <tr v-for="driverItem in driverList" :key="driverItem.id"><td>{{driverItem.name}}</td><td>{{driverItem.phone}}</td>
-                <td>{{driverItem.type}}</td><td>{{driverItem.maxNum}}</td>
-                <td>{{driverItem.carNum}}</td>
+            <tr v-for="hotelItem in hotelList" :key="hotelItem.id"><td>{{hotelItem.name}}</td><td>{{hotelItem.phone}}</td>
+                <td>{{hotelItem.address}}</td>
                 <td>
                     <el-popover
                             placement="right"
                             width="400"
                             trigger="click">
-                        <reserve-driver-form :meeting-id="meetingId" :driver-id="driverItem.id" :action="1"></reserve-driver-form>
                         <el-button slot="reference" size="small">预约</el-button>
                     </el-popover>
                 </td>
             </tr>
             <tr v-show="finding===1"><td colspan="6"><p class="warnMessage">正在查询...</p></td></tr>
-            <tr v-show="finding===2"><td colspan="6"><p class="warnMessage">已无更多。</p></td></tr>
+            <tr v-show="finding===2"><td colspan="6"><p class="warnMessage">未查询到。</p></td></tr>
             </tbody>
         </table>
         <div class="align-center">
@@ -74,64 +66,55 @@
         <table  class="layui-table">
             <thead><tr><td colspan="6" class="align-center">已预约</td></tr>
             <tr>
-                <th>司机</th>
+                <th>酒店名</th>
                 <th>联系方式</th>
-                <th>车型</th>
-                <th>核载人数</th>
-                <th>车牌号</th>
+                <th>详细地址</th>
                 <th>预约</th>
             </tr>
             </thead>
             <tbody>
-            <tr v-for="driverItem in haveDriverList" :key="driverItem.id"><td>{{driverItem.name}}</td><td>{{driverItem.phone}}</td>
-                <td>{{driverItem.type}}</td><td>{{driverItem.maxNum}}</td>
-                <td>{{driverItem.carNum}}</td>
+            <tr v-for="hotelItem in haveHotelList" :key="hotelItem.id"><td>{{hotelItem.name}}</td><td>{{hotelItem.phone}}</td>
+                <td>{{hotelItem.address}}</td>
                 <td>
                     <el-popover
                             placement="right"
-                            width="400"
+                            width="800"
                             trigger="click">
-                        <reserve-driver-form :meeting-id="meetingId" :driver-id="driverItem.id" :action="3"></reserve-driver-form>
-                        <el-button slot="reference" size="small">查看</el-button>
+                        <reserve-hotel-form :meeting-id="meetingId" :driver-id="hotelItem.id"></reserve-hotel-form>
+                        <el-button slot="reference" size="small">预约</el-button>
                     </el-popover>
                 </td>
             </tr>
             <tr v-show="getting===1"><td colspan="6"><p class="warnMessage">正在查询...</p></td></tr>
-            <tr v-show="getting===2"><td colspan="6"><p class="warnMessage">已无更多。</p></td></tr>
+            <tr v-show="getting===2"><td colspan="6"><p class="warnMessage">未查询到。</p></td></tr>
             </tbody>
         </table>
     </div>
 </template>
 
 <script>
-    import ReserveDriverForm from "../../components/reserveDriverForm";
 
+    import ReserveHotelForm from "../../components/reserveHotelForm";
     export default {
         name: "ReserveHotel",
-        components: {ReserveDriverForm},
+        components: {ReserveHotelForm},
+        /*components: {ReserveDriverForm},*/
         data(){
             return{
-                driverInput:"",
-                driverAll:[
-                    [
-                        {id:11322,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"},
-                        {id:11323,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"},
-                        {id:11324,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"}],
-                    [{id:1232,name:"洪师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"},
-                        {id:1132,name:"洪师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"},
-                        {id:11322,name:"洪师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"}],
-                    [{id:1232,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"},
-                        {id:1132,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"},
-                        {id:11322,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"}],
-                    [{id:1232,name:"黎师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"},
-                        {id:1132,name:"黎师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"},
-                        {id:11322,name:"黎师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"}]
+                hotelInput:"",
+                hotelAll:[
+                    [{id:11322,name:"前湖迎宾馆",phone:"12438438132",address:"南昌大学对面"},
+                        {id:113122,name:"前湖迎滨馆",phone:"12438438132",address:"南昌大学对面"},
+                        {id:1412322,name:"前湖迎殡馆",phone:"12438438132",address:"南昌大学对面"}],
+                    [{id:11322,name:"前湖迎宾馆",phone:"12438438132",address:"南昌大学对面"},
+                        {id:113122,name:"前湖迎滨馆",phone:"12438438132",address:"南昌大学对面"},
+                        {id:1412322,name:"前湖迎殡馆",phone:"12438438132",address:"南昌大学对面"}],
                 ],
-                driverList:[],
-                searchDriverList:[],
-                haveDriverList:[{id:11322,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"},
-                    {id:11323,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"},
-                    {id:11324,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"}],
+                hotelList:[],
+                searchHotelList:[],
+                haveHotelList:[{id:11322,name:"前湖迎宾馆",phone:"12438438132",address:"南昌大学对面"},
+                    {id:113122,name:"前湖迎滨馆",phone:"12438438132",address:"南昌大学对面"},
+                    {id:1412322,name:"前湖迎殡馆",phone:"12438438132",address:"南昌大学对面"}],
                 pageTotal:70,
                 finding:0,
                 searching:0,
@@ -144,32 +127,32 @@
             getOnePage(pageNum,lineNum){
                 let lineNumber=3;
                 if(lineNum)lineNumber=lineNum;
-                if(pageNum>this.driverAll.length){
-                    this.sendDriverPage(pageNum,lineNumber);
+                if(pageNum>this.hotelAll.length){
+                    this.sendHotelPage(pageNum,lineNumber);
                     return;
                 }
-                let driverAllElement = this.driverAll[pageNum-1];
-                this.driverList= driverAllElement;
-                if(!driverAllElement)this.finding=2;
+                let hotelAllElement = this.hotelAll[pageNum-1];
+                this.hotelList= hotelAllElement;
+                if(!hotelAllElement)this.finding=2;
                 else {
-                    if(driverAllElement.length<lineNumber){
+                    if(hotelAllElement.length<lineNumber){
                         this.finding=2;
                     }else this.finding=0;}
             },
-            sendDriverPage(pageNum,lineNum){
+            sendHotelPage(pageNum,lineNum){
                 this.finding=1;
-                this.driverList=[];
-                this.$request(this.$url.sendDriverPage,{
+                this.hotelList=[];
+                this.$request(this.$url.sendHotelPage,{
                     params:{
                         pageNum,lineNum
                     }
                 }).then(res =>{
                     let data=res.data;
                     if(data.msg==="success"){
-                        this.driverAll.push(data.newDriverList);
+                        this.hotelAll.push(data.newHotelList);
                         this.pageTotal=data.pageTotal*10;
                         this.finding=0;
-                        this.driverList=this.driverAll[pageNum-1];
+                        this.hotelList=this.hotelAll[pageNum-1];
                     }
                     else {this.$message("加载失败，可能已无更多数据。");this.finding=2;}
                 }).catch(err =>{
@@ -178,15 +161,15 @@
                     this.finding=2;
                 });
             },
-            searchDriverClick(){
-                if(this.driverInput.length===0)return;
+            searchHotelClick(){
+                if(this.hotelInput.length===0)return;
                 this.searching=1;
-                this.$request(this.$url.searchDriver,{
+                this.$request(this.$url.searchHotel,{
                     params:{input:this.driverInput}
                 }).then(res =>{
                     let data=res.data;
                     if(data.msg==="success"){
-                        this.searchDriverList=data.driverList;
+                        this.searchHotelList=data.hotelList;
                         this.searching=0;
                     }
                     else this.searching=2;
@@ -196,27 +179,27 @@
                     this.searching=2;
                 });
             },
-            searchDriverByMeetingId(){
-                this.$request(this.$url.searchDriver,{
+            searchHotelByMeetingId(){
+                this.$request(this.$url.searchHotelByMeetingId,{
                     params:{meetingId:this.meetingId}
                 }).then(res =>{
                     let data=res.data;
                     if(data.msg==="success"){
-                        this.haveDriverList=data.driverList;
-                        this.$emit("haveReservedDriver",data.driverList);
+                        this.haveHotelList=data.hotelList;
+                        this.$emit("haveReservedHotel",data.hotelList);
                     }
                     else {
                         console.log("搜索失败");
                     }
                 }).catch(err =>{
                     console.log(err);
-                    this.$message("查找司机出现错误");
+                    this.$message("查找酒店出现错误");
                 });
             }
         },
         created() {
             this.getOnePage(1);
-            this.searchDriverByMeetingId();
+            this.searchHotelByMeetingId();
         }
 
     }

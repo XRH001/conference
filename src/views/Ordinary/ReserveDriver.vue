@@ -195,7 +195,7 @@
                 });
             },
             searchDriverByMeetingId(){
-                this.$request(this.$url.searchDriver,{
+                this.$request(this.$url.searchDriverByMeetingId,{
                     params:{meetingId:this.meetingId}
                 }).then(res =>{
                     let data=res.data;
