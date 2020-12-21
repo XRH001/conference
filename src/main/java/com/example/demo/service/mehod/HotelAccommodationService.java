@@ -72,6 +72,15 @@ public class HotelAccommodationService {
         }
     }
 
+    public List<HotelAccommodation> queryHotelAccommodationSByHotelOrder(HotelOrder hotelOrder){
+        list.clear();
+        hotelAccommodationDOList=hotelAccommodationDAO.queryHotelAccommodationDOSByHotelOrderID(hotelOrder.getID());
+        for(HotelAccommodationDO h:hotelAccommodationDOList){
+            list.add(toHotelAccommodation(h));
+        }
+        return list;
+    }
+
     /**
      * 查询所有的hotelAccommodation记录
      * @return

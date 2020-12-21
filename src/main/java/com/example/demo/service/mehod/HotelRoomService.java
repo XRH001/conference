@@ -70,6 +70,19 @@ public class HotelRoomService {
         }
     }
 
+    public List<HotelRoom> queryHotelRoomSByHotel(Hotel hotel){
+        list.clear();
+        hotelRoomDOList=hotelRoomDAO.queryHotelRoomDOSByHotelID(hotel.getID());
+        if (hotelRoomDOList.size()!=0){
+            for(HotelRoomDO h:hotelRoomDOList){
+                list.add(toHotelRoom(h));
+            }
+            return list;
+        }else {
+            return null;
+        }
+    }
+
     /**
      * 查询所有的hotelRoom
      * @return

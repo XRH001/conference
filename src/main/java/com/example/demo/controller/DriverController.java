@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Controller
@@ -53,24 +54,45 @@ public class DriverController {
         }
         return msg;
     }
-//    @ResponseBody
-//    @RequestMapping("/queryDriversByConference")
-//    public Map queryDriversByConference(HttpServletRequest request){
-//        Map<String,Object> msg=new HashMap<>(2);
-//        try {
-//            int meetingId=Integer.valueOf(request.getParameter("meetingId"));
-//            List<UserJourney> userJourneyList=userJourneyService.queryUserJourneysByConference(conferenceService.queryConferenceByID(meetingId));
-//            List<DriverPickUp> driverPickUpList=new ArrayList<>();
-//            for(UserJourney userJourney:userJourneyList){
-//
-//            }
-//            List<Driver> list=driverService.queryDriversByNameContainingOrCarNumContainingOrPhoneContainingOrEmailContaining(input);
-//            msg.put("msg","success");
-//            msg.put("driverList",list);
-//        }catch (NullPointerException|NumberFormatException e){
-//            msg.put("msg","fail");
-//        }
-//        return msg;
-//    }
+    @ResponseBody
+    @RequestMapping("/queryDriversByConference")
+    public Map queryDriversByConference(HttpServletRequest request){
+        Map<String,Object> msg=new HashMap<>(2);
+        try {
+            int meetingId=Integer.valueOf(request.getParameter("meetingId"));
+            List<UserJourney> userJourneyList=userJourneyService.queryUserJourneysByConference(conferenceService.queryConferenceByID(meetingId));
+            List<Driver> list=new ArrayList<>();
+            for(UserJourney userJourney:userJourneyList){
+                list.add(driverPickUpService.queryDriverPickUpByUserJourney(userJourney).getDriver());
+            }
+            msg.put("msg","success");
+            msg.put("driverList",list);
+        }catch (NullPointerException|NumberFormatException e){
+            msg.put("msg","fail");
+        }
+        return msg;
+    }
+    @ResponseBody
+    @RequestMapping("/orderDriver")
+    public Map orderDriver(HttpServletRequest request){
+        Map<String,Object> msg=new HashMap<>(1);
+        try {
+            int meetingId=Integer.valueOf(request.getParameter("meetingId"));
+            int driverId=Integer.valueOf(request.getParameter("driverId"));
+            String origin=request.getParameter("origin");
+            String target=request.getParameter("target");
+            //LocalDateTime time=LocalDateTime.of(request.getParameter("time"))
+            List<UserJourney> userJourneyList=userJourneyService.queryUserJourneysByConference(conferenceService.queryConferenceByID(meetingId));
+            List<Driver> list=new ArrayList<>();
+            for(UserJourney userJourney:userJourneyList){
+                list.add(driverPickUpService.queryDriverPickUpByUserJourney(userJourney).getDriver());
+            }
+            msg.put("msg","success");
+            msg.put("driverList",list);
+        }catch (NullPointerException|NumberFormatException e){
+            msg.put("msg","fail");
+        }
+        return msg;
+    }
 
 }
