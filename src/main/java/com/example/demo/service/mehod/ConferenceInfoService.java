@@ -72,6 +72,19 @@ public class ConferenceInfoService {
         }
     }
 
+    public List<ConferenceInfo> queryConferenceInfosByConference(Conference conference){
+        list.clear();
+        conferenceInfoDOList=conferenceInfoDAO.queryConferenceInfoDOSByConferenceID(conference.getID());
+        if (conferenceInfoDOList.size()!=0){
+            for (ConferenceInfoDO c:conferenceInfoDOList){
+                list.add(toConferenceInfo(c));
+            }
+            return list;
+        }else {
+            return null;
+        }
+    }
+
     /**
      * 查询所有的conferenceInfo
      * @return null表示失败,否则表示查询结果
