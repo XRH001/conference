@@ -17,9 +17,9 @@
                 <td><el-button class="el-icon-remove-outline" @click="removeThisLine(index)" size="small"></el-button></td>
             </tr>
             <tr ><td colspan="5" class="align-center"><el-button @click="addRoomList" size="small" class="el-icon-circle-plus-outline"></el-button></td></tr>
-            <tr v-if="action===1"><td colspan="5" class="align-center"><el-button size="small" @click="reserveDriverClick">确认预约</el-button> </td></tr>
+            <tr v-if="action===1"><td colspan="5" class="align-center"><el-button size="small" @click="reserveHotelClick">确认预约</el-button> </td></tr>
             <tr v-if="action===3"><td colspan="5" class="align-center">
-                <el-button size="small" @click="reserveDriverClick">修改</el-button>
+                <el-button size="small" @click="reserveHotelClick">修改</el-button>
                 <el-button size="small" @click="cancelReserveClick" type="danger">取消预约</el-button>
             </td></tr>
             </tbody>
@@ -48,10 +48,10 @@
             driverId:Number,
             action:{
                 type:Number,
-                default:1//1表示预约司机，给司机安排行程
-                //2表示给成员安排行程
-                //3表示查看，修改司机行程
-            }
+                default:1//1表示预约酒店，开始预定酒店房间
+                //2表示给成员选择房间
+                //3表示查看，修改预定房间
+                }
         },
         methods:{
             removeThisLine(index){
@@ -65,15 +65,13 @@
                     endTime:""
                 });
             },
-            reserveDriverClick(){
-                // console.log("预约司机")
-                this.$request(this.$url.reserveDriver,{
+            reserveHotelClick(){
+
+                this.$request(this.$url.reserveHotel,{
                     params:{
                         meetingId:this.meetingId,
-                        driverId:this.driverId,
-                        origin:this.origin,
-                        target:this.target,
-                        time:this.time
+                        hotelId:this.hotelId,
+                        bookRoom:this.bookRoom
                     }
                 }).then(res =>{
                     let data=res.data;
@@ -84,25 +82,23 @@
                     else this.$message("预约失败");
                 })
             },
-            findDriverJourney(){
-                this.$request(this.$url.findDriverJourney,{
+            findHotelRoom(){
+                this.$request(this.$url.findHotelRoom,{
                     params:{
                         meetingId:this.meetingId,
-                        driverId:this.driverId
+                        hotelId:this.hotelId
                     }
                 }).then(res =>{
                     let data=res.data;
                     if(data.msg==="success"){
-                        this.origin=data.origin;
-                        this.target=data.target;
-                        this.time=data.time;
+                        this.bookRoom=data.bookRoom
                     }
                     else/* if(data.msg==="fail")*/{
-                        this.$message("查找司机行程失败")
+                        this.$message("查找已预订房间失败")
                     }
                 }).catch(err =>{
                     console.log(err);
-                    console.log("司机行程网络请求错误");
+                    console.log("查询酒店网络请求错误");
                 });
             },
             cancelReserveClick(){

@@ -30,16 +30,20 @@
                    direction="rtl" size="30%" :show-close="false"
                    >
             <p slot="title" class="msgTitle">消息列表</p>
-            <Message :meeting-msg="messageList" @removeMsg="removeMsg"></Message>
+            <Message v-if="$store.state.identity.toLowerCase()==='common'" :meeting-msg="messageList" @removeMsg="removeMsg"></Message>
+            <HotelMessage v-if="$store.state.identity.toLowerCase()==='hotel'" ></HotelMessage>
+            <DriverMessage v-if="$store.state.identity.toLowerCase()==='driver'" ></DriverMessage>
         </el-drawer>
     </div>
 </template>
 
 <script>
     import Message from "../views/Message";
+    import HotelMessage from "../views/Hotel/HotelMessage";
+    import DriverMessage from "../views/Driver/DriverMessage";
     export default {
         name: "NavBar",
-        components: {Message},
+        components: {DriverMessage, HotelMessage, Message},
         data(){
             return {
                 show:true,
@@ -62,11 +66,11 @@
                 for(let meetingMsg of this.messageList){
                     meetingIdList.push(meetingMsg.id)
                 }
-                this.$http( "mainServlet?ac=need&apiName=searchMsg3123",
-                /*this.$request(this.$url.searchMsg,*/{
+                /*this.$http( "mainServlet?ac=need&apiName=searchMsg3123",*/
+                this.$request(this.$url.searchMsg,{
                     params:{
-                        userId:this.$store.state.user.id/*,
-                        meetingIdList*/
+                        userId:this.$store.state.user.id,
+                        meetingIdList
                     }
                 }).then(res => {
                     let data=res.data;
@@ -105,7 +109,7 @@
         },
         created() {
             setInterval(()=>{
-                if(this.$store.state.haveLogin){
+                if(this.$store.state.haveLogin && this.$store.state.identity.toLowerCase()==="common"){
                     this.searchMsg();
                 }
             },200000);

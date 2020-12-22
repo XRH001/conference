@@ -4,7 +4,7 @@
         <div class="layui-input-inline">
             <slot name="codeInput">
                 <input type="text" lay-filter="formDemo" placeholder="不区分大小写" v-model.lazy="codeInput"
-                       @blur="$emit('getCodeInput',codeInput)" required  class="layui-input checkCodeInput">
+                       @change="$emit('getCodeInput',codeInput)" required  class="layui-input checkCodeInput">
             </slot>
         </div>
         <div class=" layui-input-inline"><div class="layui-icon layui-icon-refresh-1 rotateSpan" :class="{'displayNone':!disable}"></div>

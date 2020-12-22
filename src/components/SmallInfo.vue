@@ -72,7 +72,7 @@
                     }).then(res => {
                         console.log(res.data);
                         if(res.data==="fail"){this.find=2;}
-                        this.person=res.data;
+                        this.person=res.data.person;
                         this.find=1;
                     }).catch(err =>{
                         this.$message("网络请求异常");

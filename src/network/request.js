@@ -38,28 +38,31 @@ const url={
     hotelLogin:"/hotelLogin",
     remarks:"/remarks",//用户修改备注
     applyJoin:"/applyJoin",//非参会人员申请加入请求
-    personInfo:"/personInfo",//查询用户基本信息
+    personInfo:"/SearchUser",//查询用户基本信息
     changeBaseInfo:"changeBaseInfo",//修改会议基本信息
-    searchMember:"/searchMember",
+    searchMember:"/SearchJoiner",
     searchManager:"searchManager",
-    inviteMember:"/inviteMember",
-    inviteManager:"/inviteManager",
+    inviteMember:"/inviteNewMember",
+    inviteManager:"/inviteAdmin",
     deleteMember:"/deleteMember",
     removeManager:"/removeManager",
     acceptMember:"/acceptMember",
     changePassword:"/changePassword",//修改密码
     forgetPassword:"/forgetPassword",
     alterInfo:"/alterInfo",//用户修改个人信息
-    searchMsg:"/msg",//查找用户新消息
+    searchMsg:"/findUserMessage",//查找用户新消息
     acceptInvite:"/acceptInvite",//用户同意邀请
-    sendDriverPage:"/sendDriverPage",//加载司机页
-    searchDriver:"/searchDriver",
+    sendDriverPage:"/loadDrivers",//加载司机页
+    searchDriver:"/queryDrivers",
     searchDriverByMeetingId:"/searchDriverByMeetingId",
     reserveDriver:"/reserveDriver",//预约司机
     findDriverJourney:"/DriverJourney",//查找司机行程
     sendHotelPage:"/sendHotelPage",//加载酒店页
     searchHotel:"/searchHotel",
-    searchHotelByMeetingId:"/searchHotelByMeetingId"
+    searchHotelByMeetingId:"/searchHotelByMeetingId",//通过会议查找已定酒店
+    reserveHotel:"/reserveHotel",//预约酒店
+    findHotelRoom:"/findHotelRoom",//查找已预定酒店房间
+    confirmArrange:"/confirmArrange",//给成员安排行程和住宿
 
 };
 export {url}

@@ -71,20 +71,21 @@
         </div>
         <br>
         <table  class="layui-table">
-            <thead><tr><td colspan="6" class="align-center">已预约</td></tr>
+            <thead><tr><td colspan="7" class="align-center">已预约</td></tr>
             <tr>
                 <th>司机</th>
                 <th>联系方式</th>
                 <th>车型</th>
                 <th>核载人数</th>
                 <th>车牌号</th>
-                <th>预约</th>
+                <th>接受状态</th>
+                <th>查看</th>
             </tr>
             </thead>
             <tbody>
             <tr v-for="driverItem in haveDriverList" :key="driverItem.id"><td>{{driverItem.name}}</td><td>{{driverItem.phone}}</td>
                 <td>{{driverItem.type}}</td><td>{{driverItem.maxNum}}</td>
-                <td>{{driverItem.carNum}}</td>
+                <td>{{driverItem.carNum}}</td><td>{{driverItem.state}}</td>
                 <td>
                     <el-popover
                             placement="right"
@@ -111,7 +112,7 @@
             return{
                 driverInput:"",
                 driverAll:[
-                    [
+                    /*[
                     {id:11322,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"},
                     {id:11323,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"},
                     {id:11324,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"}],
@@ -123,13 +124,13 @@
                         {id:11322,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"}],
                     [{id:1232,name:"黎师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"},
                         {id:1132,name:"黎师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"},
-                        {id:11322,name:"黎师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"}]
+                        {id:11322,name:"黎师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"}]*/
                     ],
                 driverList:[],
                 searchDriverList:[],
-                haveDriverList:[{id:11322,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"},
-                    {id:11323,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"},
-                    {id:11324,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"}],
+                haveDriverList:[{id:11322,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231",state:"已接受"},
+                    {id:11323,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231",state:"未接受"},
+                    {id:11324,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231",state:"被拒绝"}],
                 pageTotal:70,
                 finding:0,
                 searching:0,

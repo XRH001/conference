@@ -22,6 +22,7 @@
                             placement="right"
                             width="800"
                             trigger="click">
+                        <reserve-hotel-form :meeting-id="meetingId" :driver-id="hotelItem.id"></reserve-hotel-form>
                         <el-button slot="reference" size="small">预约</el-button>
                     </el-popover>
                 </td>
@@ -48,6 +49,7 @@
                             placement="right"
                             width="400"
                             trigger="click">
+                        <reserve-hotel-form :meeting-id="meetingId" :driver-id="hotelItem.id"></reserve-hotel-form>
                         <el-button slot="reference" size="small">预约</el-button>
                     </el-popover>
                 </td>
@@ -59,6 +61,7 @@
         <div class="align-center">
             <el-pagination
                     layout="prev, pager, next"
+
                     :total="pageTotal" @current-change="getOnePage">
             </el-pagination>
         </div>
@@ -69,19 +72,20 @@
                 <th>酒店名</th>
                 <th>联系方式</th>
                 <th>详细地址</th>
+                <th>接受状态</th>
                 <th>预约</th>
             </tr>
             </thead>
             <tbody>
             <tr v-for="hotelItem in haveHotelList" :key="hotelItem.id"><td>{{hotelItem.name}}</td><td>{{hotelItem.phone}}</td>
-                <td>{{hotelItem.address}}</td>
+                <td>{{hotelItem.address}}</td><td>{{hotelItem.state}}</td>
                 <td>
                     <el-popover
                             placement="right"
                             width="800"
                             trigger="click">
                         <reserve-hotel-form :meeting-id="meetingId" :driver-id="hotelItem.id"></reserve-hotel-form>
-                        <el-button slot="reference" size="small">预约</el-button>
+                        <el-button slot="reference" size="small">查看</el-button>
                     </el-popover>
                 </td>
             </tr>
@@ -112,9 +116,9 @@
                 ],
                 hotelList:[],
                 searchHotelList:[],
-                haveHotelList:[{id:11322,name:"前湖迎宾馆",phone:"12438438132",address:"南昌大学对面"},
-                    {id:113122,name:"前湖迎滨馆",phone:"12438438132",address:"南昌大学对面"},
-                    {id:1412322,name:"前湖迎殡馆",phone:"12438438132",address:"南昌大学对面"}],
+                haveHotelList:[{id:11322,name:"前湖迎宾馆",phone:"12438438132",address:"南昌大学对面",state:"已接受"},
+                    {id:113122,name:"前湖迎滨馆",phone:"12438438132",address:"南昌大学对面",state:"未接受"},
+                    {id:1412322,name:"前湖迎殡馆",phone:"12438438132",address:"南昌大学对面",state: "被拒绝"}],
                 pageTotal:70,
                 finding:0,
                 searching:0,
@@ -165,7 +169,7 @@
                 if(this.hotelInput.length===0)return;
                 this.searching=1;
                 this.$request(this.$url.searchHotel,{
-                    params:{input:this.driverInput}
+                    params:{input:this.hotelInput}
                 }).then(res =>{
                     let data=res.data;
                     if(data.msg==="success"){

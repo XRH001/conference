@@ -183,7 +183,8 @@
                                         placement="right"
                                         width="400"
                                         trigger="click">
-                                    <ArrangeOne :have-driver-list="haveDriverList"></ArrangeOne>
+                                    <ArrangeOne :have-driver-list="haveDriverList" :have-hotel-list="haveHotelList"
+                                                :meeting-id="meetingInfo.id" :user-id="item.id"></ArrangeOne>
                                     <el-button slot="reference" size="small" >安排</el-button>
                                 </el-popover>
                             </td>
@@ -202,7 +203,7 @@
             <br>
             <ReserveDriver :meeting-id="meetingInfo.id" @haveReservedDriver="haveReservedDriver"></ReserveDriver>
             <br>
-            <ReserveHotel ></ReserveHotel>
+            <ReserveHotel :meeting-id="meetingInfo.id"></ReserveHotel>
         </div>
         <RelateToMe :meeting-user="meetingUser"></RelateToMe>
         </div>
@@ -231,7 +232,7 @@
                 notFound:false,
                 meetingInfo:{//这里是会议的全部信息
                     name:"123",
-                    id:123,
+                    id:1,
                     beginTime:"2020-12-6 20:47:00",
                     endTime:"2020-12-6 20:47:00",
                     address:"信工楼b区303",
@@ -259,22 +260,26 @@
                 searchMemberInput:"",
                 searchManagerInput:"",
                 searchMember:[{id:11,username:"123",email:"wq321@qq.com",haveJoin:false},{id:21,username:"123",email:"wq321@qq.com",haveJoin:true}],
-                searchManager:[{id:31,username:"123",email:"wq321@qq.com",IfManager:false},{id:21,username:"123",email:"wq321@qq.com",IfManager:true}],
+                searchManager:[{id:5,username:"123",email:"wq321@qq.com",IfManager:false},{id:6,username:"123",email:"wq321@qq.com",IfManager:false}],
                 flag:{
                     changeBaseDisabled:false,
                     inviteMember:false,
                     inviteManager:false
                 },
-                haveDriverList:[{id:11322,name:"黎师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"赣·231231"},
-                    {id:11323,name:"许师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"赣·241231"},
-                    {id:11324,name:"李师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"赣·2e3231"}],
+                haveDriverList:[{id:11322,name:"黎师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"赣·231231",state:"已接受"},
+                    {id:11323,name:"许师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"赣·241231",state:"未接受"},
+                    {id:11324,name:"李师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"赣·2e3231",state:"已拒绝"}],
+                haveHotelList:[{id:11322,name:"前湖迎宾馆",phone:"12438438132",address:"南昌大学对面",state:"已接受"},
+                    {id:113122,name:"前湖迎滨馆",phone:"12438438132",address:"南昌大学对面",state:"未接受"},
+                    {id:1412322,name:"前湖迎殡馆",phone:"12438438132",address:"南昌大学对面",state: "被拒绝"}]
             }
         },
         computed:{
 
         },methods:methods,
-        /*created() {
+        created() {
             this.meetingId=this.$route.query.meetingId;
+            //console.log(this.meetingId);
             let sendUserId=this.$store.state.user.id;
             const loading = this.$loading({
                 lock: true,
@@ -300,7 +305,7 @@
                 this.$message("网络请求出错！已为您显示样例信息");
                 loading.close();
             });
-        }*/
+        }
     }
 </script>
 

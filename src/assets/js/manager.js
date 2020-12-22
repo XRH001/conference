@@ -9,7 +9,7 @@ export const methods={
             address:this.meetingInfo.address,
             remark:this.meetingInfo.remark
         };
-        console.log(sendValue);
+        //console.log(sendValue);
         if(new Date(sendValue.beginTime).getTime()-new Date(sendValue.endTime).getTime()>0 ||
             new Date(sendValue.beginTime).getTime()-new Date().getTime()<0
         ){
@@ -34,6 +34,8 @@ export const methods={
     },searchMemberClick(){
         let searchMemberInput = this.searchMemberInput;
         if(searchMemberInput===""){this.$message("搜索值不能为空");return;}
+        console.log(this.meetingInfo.id);
+        console.log(searchMemberInput);
         this.$request(this.$url.searchMember,{
             params:{
                 search:searchMemberInput,
@@ -102,6 +104,7 @@ export const methods={
                 meetingId:this.meetingInfo.id
             }
         }).then( res =>{
+            console.log(res.data);
             if(res.data==="fail"){this.$message("邀请失败，该用户可能已是管理员");}
             else if(res.data==="success"){
                 this.$message("邀请新消息已发出");
@@ -187,6 +190,9 @@ export const methods={
         });
     },haveReservedDriver(haveDriverList){
         this.haveDriverList=haveDriverList;
+    },
+    haveReservedHotel(haveHotelList){
+        this.haveHotelList=haveHotelList;
     },
     getByKey(list,key,value){
         for(let obj of list){

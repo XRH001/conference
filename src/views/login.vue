@@ -128,7 +128,7 @@
                     this.$refs.popup1.showMsg("请输入密码");
                     return;
                 }
-                if(this.password==="123456"){//测试
+                if(this.password==="123456"&&this.email==="dsa"){//测试
                     this.$store.commit("setUser",{name:"测试",
                         username:"cece",
                         sex:"male",
@@ -147,6 +147,7 @@
                         password:this.password
                     }
                 }).then(res => {
+                    console.log(res.data);
                     if(res.data.toString()==="password error")this.right=false;
                     else if(res.data.toString()==="error"){this.$refs.popup1.showMsg("发生错误");}
                     else{
