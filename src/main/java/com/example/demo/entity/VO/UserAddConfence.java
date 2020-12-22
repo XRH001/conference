@@ -8,18 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserAddConfence {
     private ArrayList<Integer> meetingIdList;
 
-
-    public ArrayList<Integer> getMeetingIdList() {
-        return meetingIdList;
-    }
-
-    public void setMeetingIdList(ArrayList<Integer> meetingIdList) {
-        this.meetingIdList = meetingIdList;
-    }
-
-    private String userId;
-    private String meetingId;
-
     @Override
     public String toString() {
         return "UserAddConfence{" +
@@ -31,6 +19,17 @@ public class UserAddConfence {
                 ", alter=" + alter +
                 '}';
     }
+
+    public ArrayList<Integer> getMeetingIdList() {
+        return meetingIdList;
+    }
+
+    public void setMeetingIdList(ArrayList<Integer> meetingIdList) {
+        this.meetingIdList = meetingIdList;
+    }
+
+    private String userId;
+    private String meetingId;
 
     private String remark;
     private String memberId;
