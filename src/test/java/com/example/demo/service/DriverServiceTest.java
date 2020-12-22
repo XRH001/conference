@@ -13,10 +13,21 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class DriverServiceTest {
     @Autowired
     DriverService driverService;
-    Driver driver=new Driver(1,"周五","123456789","中巴",20,"a415151","driver1","driver1","driver1@qq.com","driver1imgPath");
+    Driver driver=new Driver("周五","123456789","中巴",20,"a415151","driver1","driver1","driver1@qq.com","driver1imgPath");
     @Test
     public void saveDriver() {
-        driverService.saveDriver(driver);
+        for (int i=1;i<21;i++){
+            driver.setID(i);
+            driver.setName("user"+i);
+            driver.setPhone(i+1000+"");
+            driver.setCarNum(i+1000+"");
+            driver.setUsername("user"+i);
+            driver.setPassword("user"+i);
+            driver.setEmail("user"+i+"@qq.com");
+            driver.setImgPath("user"+i+"imgPath");
+            driverService.saveDriver(driver);
+        }
+
     }
 
     @Test
@@ -60,6 +71,6 @@ public class DriverServiceTest {
     }
 
     @Test public void queryDriverByNameContainingOrCarNumContaining(){
-        System.out.println(driverService.queryDriverByNameContainingOrCarNumContaining("415"));
+        System.out.println(driverService.queryDriversByNameContainingOrCarNumContainingOrPhoneContainingOrEmailContaining("415"));
     }
 }

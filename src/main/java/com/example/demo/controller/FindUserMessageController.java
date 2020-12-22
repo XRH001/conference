@@ -16,6 +16,7 @@ import com.example.demo.enumValue.Sex;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.entity.VO.UserAddConfence;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,7 +26,7 @@ public class FindUserMessageController {
     @Autowired
     ConferenceUserService conferenceUserService;
     @RequestMapping("/findUserMessage")
-    public String FindUserMessageSelvet(UserAddConfence userAddConfence){
+    public String FindUserMessageSelvet(@RequestBody UserAddConfence userAddConfence){
         if(userService.queryUserByID(Integer.valueOf(userAddConfence.getUserId()))==null){
             return "{\"msg\":\"fail\"}";
         }
@@ -33,7 +34,7 @@ public class FindUserMessageController {
         if(conferenceUserService.queryConferenceUsersByUser(user)==null){
             return "{\"msg\":\"fail\"}";
         }
-        if(userAddConfence.getMeetingIdList()==null){
+        if(userAddConfence.getMeetingIdList().size()==0){
             List<ConferenceUser> conferenceUsers = conferenceUserService.queryConferenceUsersByUser(user);
             // 遍历用户ID
             String firstStr = "{\"msg\":\"success\",\"newMsg\":[";

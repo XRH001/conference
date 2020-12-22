@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface ConferenceInfoDAO extends JpaRepository<ConferenceInfoDO,Integer> {
-    public List<ConferenceInfoDO> queryConferenceInfoDOSByConferenceID(int conferenceID);
+    public ConferenceInfoDO queryConferenceInfoDOByConferenceID(int conferenceID);
 
     @Query(value = "select * from conferenceinfo limit ?1,?2",nativeQuery = true)
     public List<ConferenceInfoDO> queryForPageItems(int begin, int pageSize);

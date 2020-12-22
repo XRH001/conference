@@ -10,6 +10,9 @@ import java.util.List;
 
 @Repository
 public interface HotelRoomDAO extends JpaRepository<HotelRoomDO,Integer> {
+
+    public List<HotelRoomDO> queryHotelRoomDOSByHotelID(int hotelID);
+
     @Query(value = "select * from hotelroom limit ?1,?2",nativeQuery = true)
     public List<HotelRoomDO> queryForPageItems(int begin, int pageSize);
 }

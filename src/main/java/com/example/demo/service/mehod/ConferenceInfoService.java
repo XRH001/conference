@@ -72,15 +72,10 @@ public class ConferenceInfoService {
         }
     }
 
-    public List<ConferenceInfo> queryConferenceInfosByConference(Conference conference){
-        list.clear();
-        conferenceInfoDOList=conferenceInfoDAO.queryConferenceInfoDOSByConferenceID(conference.getID());
-        if (conferenceInfoDOList.size()!=0){
-            for (ConferenceInfoDO c:conferenceInfoDOList){
-                list.add(toConferenceInfo(c));
-            }
-            return list;
-        }else {
+    public ConferenceInfo queryConferenceInfoByConference(Conference conference){
+        try {
+            return toConferenceInfo(conferenceInfoDAO.queryConferenceInfoDOByConferenceID(conference.getID()));
+        }catch (NoSuchElementException|NullPointerException e){
             return null;
         }
     }
