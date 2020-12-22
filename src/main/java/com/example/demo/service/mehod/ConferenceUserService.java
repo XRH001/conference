@@ -312,7 +312,7 @@ public class ConferenceUserService {
         conferenceUserDO.setID(conferenceUser.getID());
         conferenceUserDO.setUserID(conferenceUser.getUser().getID());
         conferenceUserDO.setConferenceID(conferenceUser.getConference().getID());
-        conferenceUserDO.setPosition(conferenceUser.getPosition().getPositionName());
+        conferenceUserDO.setPosition(conferenceUser.getPosition().getNum());
         conferenceUserDO.setInvitationStatus(conferenceUser.getInvitationStatus().getNum());
         conferenceUserDO.setOrderStatus(conferenceUser.getOrderStatus().getNum());
         conferenceUserDO.setInfo(conferenceUser.getInfo());

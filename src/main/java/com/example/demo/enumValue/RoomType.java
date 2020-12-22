@@ -1,5 +1,6 @@
 package com.example.demo.enumValue;
 
+
 public enum RoomType {
     Single("单人间",1),
     Double("双人间",2),
@@ -9,6 +10,17 @@ public enum RoomType {
         this.roomTypeInfo=roomTypeInfo;
         this.num=num;
     }
+
+    public static RoomType choose(int num){
+        switch (num){
+            case 0:return Single;
+            case 1:return Double;
+            case 2:return Triple;
+            case 3:return Business;
+        }
+        return null;
+    }
+
     public String getRoomTypeInfo(){
         return roomTypeInfo;
     }

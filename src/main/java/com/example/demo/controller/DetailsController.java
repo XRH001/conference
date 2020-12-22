@@ -39,7 +39,7 @@ public class DetailsController {
     @ResponseBody
     @RequestMapping("/Details")
     public String Details(HttpServletRequest request) throws JsonProcessingException {
-        int MeetingID = Integer.parseInt(request.getParameter("meetingId"));
+        int MeetingID = Integer.parseInt(request.getParameter("meetingId"));//这里有问题
         int UserID = Integer.parseInt(request.getParameter("userId"));
 
         Conference conference = conferenceService.queryConferenceByID(MeetingID);
@@ -88,7 +88,7 @@ public class DetailsController {
 
         Journey journey=new Journey();
         List<UserJourney> userJourney = userJourneyService.queryUserJourneysByUser(user);
-        for (UserJourney item : userJourney)
+        for (UserJourney item : userJourney)//这里有问题
             if (item.getConference().equals(conference))
                 journey=item.getJourney();
 

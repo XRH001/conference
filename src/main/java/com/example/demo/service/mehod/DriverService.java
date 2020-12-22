@@ -149,8 +149,8 @@ public class DriverService {
         }
     }
 
-    public List<Driver> queryDriverByNameContainingOrCarNumContaining(String key){
-        list=driverDAO.queryDriverByNameContainingOrCarNumContaining(key,key);
+    public List<Driver> queryDriversByNameContainingOrCarNumContainingOrPhoneContainingOrEmailContaining(String key){
+        list=driverDAO.queryDriversByNameContainingOrCarNumContainingOrPhoneContainingOrEmailContaining(key,key,key,key);
         if (list.size()!=0){
             return list;
         }else {

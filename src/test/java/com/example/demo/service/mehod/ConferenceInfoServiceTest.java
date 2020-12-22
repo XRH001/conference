@@ -52,7 +52,7 @@ public class ConferenceInfoServiceTest {
 
     @Test
     public void queryConferenceInfoByConference(){
-        Conference conference=conferenceService.queryConferenceByID(2);
+        Conference conference=conferenceService.queryConferenceByID(1);
         System.out.println(conferenceInfoService.queryConferenceInfoByConference(conference));
     }
 
