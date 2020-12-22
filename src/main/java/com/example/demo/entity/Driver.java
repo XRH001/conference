@@ -67,6 +67,7 @@ public class Driver {
     }
 
     public Driver(Driver driver){
+        this.ID=driver.getID();
         this.name = driver.getName();
         this.phone = driver.getPhone();
         this.type = driver.getType();
