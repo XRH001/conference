@@ -35,6 +35,12 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>备注</td>
+                    <td>
+                        <textarea :value="meetingInfo.remark" disabled autocomplete="off" class="area"></textarea>
+                    </td>
+                </tr>
+                <tr>
                     <td>会议状态</td>
                     <td>
                         <input disabled type="text" name="meetingStatus" required  lay-verify="required" :value="meetingInfo.orderStatus" autocomplete="off" class="layui-input">
@@ -127,7 +133,7 @@
             </div>
         </div>
         <RelateToMe :meeting-user="meetingUser" :meetingId="meetingInfo.id" @infoChange="infoChange"
-        v-if="identity"></RelateToMe>
+        v-if="identity" class="layui-col-lg4"></RelateToMe>
         </div>
         <div v-if="notFound" class="baseInfo">
             <p class="notFound layui-icon layui-icon-404" >未找到此会议信息，会议可能已被取消<router-link to="/index">-回到首页-</router-link></p>
@@ -154,6 +160,7 @@
                     beginTime:"2020-12-6 20:47",
                     endTime:"2020-12-6 20:47",
                     address:"信工楼b区303",
+                    remark:"本次会议，请务必参加",
                     orderStatus:"未开始",
                     createTime:"2020-12-6 20:48:00",
                     num:321,

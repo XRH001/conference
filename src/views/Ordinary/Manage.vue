@@ -32,7 +32,7 @@
                 <tr>
                     <td>备注</td>
                     <td>
-                        <textarea v-model.lazy="meetingInfo.address" autocomplete="off" class="area"></textarea>
+                        <textarea v-model.lazy="meetingInfo.remark" autocomplete="off" class="area"></textarea>
                     </td>
                 </tr>
                 <tr><td colspan="2" class="align-center"><div>
@@ -205,7 +205,7 @@
             <br>
             <ReserveHotel :meeting-id="meetingInfo.id"></ReserveHotel>
         </div>
-        <RelateToMe :meeting-user="meetingUser"></RelateToMe>
+        <RelateToMe :meeting-user="meetingUser" class="layui-col-lg4"></RelateToMe>
         </div>
         <div v-if="notFound" class="baseInfo">
             <p class="notFound layui-icon layui-icon-404" >未找到此会议信息，会议可能已被取消<router-link to="/index">-回到首页-</router-link></p>
@@ -236,6 +236,7 @@
                     beginTime:"2020-12-6 20:47:00",
                     endTime:"2020-12-6 20:47:00",
                     address:"信工楼b区303",
+                    remark:"本次会议，请务必参加",
                     orderStatus:"未开始",
                     createTime:"2020-12-6 20:48:00",
                     num:321,

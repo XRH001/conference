@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div v-if="show===0" class="personalContainer">
+    <div class="personalContainer">
+        <div v-if="show===0" >
             <table class="layui-table">
             <colgroup>
                 <col width="20%">

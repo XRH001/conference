@@ -70,7 +70,7 @@
             </el-pagination>
         </div>
         <br>
-        <table  class="layui-table">
+        <table v-if="meetingId" class="layui-table">
             <thead><tr><td colspan="7" class="align-center">已预约</td></tr>
             <tr>
                 <th>司机</th>
@@ -112,7 +112,7 @@
             return{
                 driverInput:"",
                 driverAll:[
-                    /*[
+                    [
                     {id:11322,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"},
                     {id:11323,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"},
                     {id:11324,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"}],
@@ -124,7 +124,7 @@
                         {id:11322,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"}],
                     [{id:1232,name:"黎师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"},
                         {id:1132,name:"黎师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"},
-                        {id:11322,name:"黎师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"}]*/
+                        {id:11322,name:"黎师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"}]
                     ],
                 driverList:[],
                 searchDriverList:[],
@@ -215,7 +215,8 @@
         },
         created() {
             this.getOnePage(1);
-            this.searchDriverByMeetingId();
+            if(this.meetingId)
+                this.searchDriverByMeetingId();
         }
     }
 </script>

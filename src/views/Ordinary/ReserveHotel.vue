@@ -66,7 +66,7 @@
             </el-pagination>
         </div>
         <br>
-        <table  class="layui-table">
+        <table v-if="meetingId" class="layui-table">
             <thead><tr><td colspan="6" class="align-center">已预约</td></tr>
             <tr>
                 <th>酒店名</th>
@@ -203,7 +203,8 @@
         },
         created() {
             this.getOnePage(1);
-            this.searchHotelByMeetingId();
+            if(this.meetingId)
+                this.searchHotelByMeetingId();
         }
 
     }

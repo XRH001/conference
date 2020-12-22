@@ -26,13 +26,13 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label ">邮箱/账号</label>
                     <div class="layui-input-block ">
-                        <input type="text" name="email" required v-model.lazy="email"  lay-verify="required" placeholder="请输入邮箱或账号" autocomplete="off" class="layui-input">
+                        <input type="text" name="email" required v-model.lazy="email"  lay-verify="required" placeholder="请输入邮箱或账号"  class="layui-input">
                     </div>
                 </div><br><br>
                 <div class="layui-form-item">
                     <label class="layui-form-label ">密码</label>
                     <div class="layui-input-block ">
-                        <input type="text" name="password" required v-model.lazy="password" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                        <input type="password" name="password" required v-model.lazy="password" lay-verify="required" placeholder="请输入密码"  class="layui-input">
                     </div>
                 </div><br>
                 <p class="warming" :class="{'displayNone':right}">{{warming}}</p>

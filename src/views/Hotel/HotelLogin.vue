@@ -13,7 +13,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label ">密码</label>
                 <div class="layui-input-block ">
-                    <input type="text" name="password" required v-model.lazy="password" lay-verify="required" placeholder="请输入密码"  class="layui-input">
+                    <input type="password" name="password" required v-model.lazy="password" lay-verify="required" placeholder="请输入密码"  class="layui-input">
                 </div>
             </div><br>
             <p class="warming" :class="{'displayNone':right}">{{warming}}</p>
@@ -58,7 +58,7 @@
                 }
                 if(this.email==="dsa"&&this.password==="123456"){//测试
                     this.$store.commit("setIdentity","hotel");
-                    this.$store.commit("setHotel",{name:"可以啦",email:this.email});
+                    //this.$store.commit("setHotel",{name:"可以啦",email:this.email});
                     this.$store.commit("setLogin");
                     this.$router.push("/index");
                     return;

@@ -58,7 +58,8 @@
                 find:3
             }
         },props:{
-            id:Number
+            id:Number,
+            personInfo:Object
         },methods:{
             notFindImg(){
                 this.$notFind(require("assets/defaultHead.png"));
@@ -81,6 +82,12 @@
                     });
                 }
                 else this.find=2;
+            }
+        },
+        created() {
+            if(this.personInfo){
+                this.person=this.personInfo;
+                this.find=1;
             }
         }
     }

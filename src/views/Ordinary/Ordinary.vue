@@ -62,13 +62,13 @@
                     <div :class="{'layui-show':managerDiv.show===3}" class="layui-tab-item ">
                         <div class="managerButtonBox">
                             <router-link to="/create" id="createMeetingButton" >
-                                <span class="iconfont icon-hexagon  buttonBack"></span>
-                                <div class="sixBorder layui-icon layui-icon-add-circle-fine">创建</div></router-link>
+                                <span class="iconfont icon-hexagon  iconBack"></span>
+                                <div class="smallTitle layui-icon layui-icon-add-circle-fine">创建</div></router-link>
                         </div>
                         <div class="managerButtonBox">
                             <a @click="restart()" id="restartMeetingButton">
-                                <span class="buttonBack layui-icon layui-icon-circle-dot"></span>
-                                <div class="sixBorder layui-icon layui-icon-add-circle-fine">重启</div></a>
+                                <span class="iconBack layui-icon layui-icon-circle-dot"></span>
+                                <div class="smallTitle layui-icon layui-icon-add-circle-fine">重启</div></a>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 <template>
-    <div class="relateMe layui-col-lg4"><p class="titleP">与我有关</p>
+    <div class="relateMe "><p class="titleP">与我有关</p>
         <table class="layui-table" v-if="meetingUser.ifJoin">
         <tbody>
         <tr>

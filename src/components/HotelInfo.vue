@@ -1,58 +1,69 @@
 <template>
-    <div class=" hotelMessage ">
-        <div class="hotelForm">
-            <div class="signUpper">在此修改您的店家信息</div><br>
-            <!--                    <hr class="layui-bg-cyan">-->
-            <form action="" method="get" class="layui-form ">
-                <div class="layui-form-item">
-                    <label class="layui-form-label ">店名</label>
-                    <div class="layui-input-block ">
-                        <input type="text" name="hotelName" required  lay-verify="required" placeholder="请输入贵店名称" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label ">地址</label>
-                    <div class="layui-input-block ">
-                        <input type="text" name="password" required  lay-verify="required" placeholder="请输入贵店地址" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label ">联系方式</label>
-                    <div class="layui-input-block ">
-                        <input type="text" name="password" required  lay-verify="required" placeholder="请输入邮箱或电话号码" autocomplete="off" class="layui-input">
-                    </div>
-                </div><br><br>
-                <div class="layui-form-item">
-                    <div class="layui-input-block layui-col-space30">
-                        <button class="layui-btn" lay-submit lay-filter="formDemo">确认修改</button>
-                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
+    <table class="layui-table">
+        <colgroup>
+            <col width="20%">
+            <col width="80%">
+        </colgroup>
+        <tbody>
+        <tr>
+            <td colspan="2"><div class="headDiv"><img class="headImg" :src="headPath" @error="notFindImg()"></div>
+
+            </td>
+        </tr>
+        <tr>
+            <td>酒店名</td><td>{{$store.state.hotel.hotel.name}}</td>
+        </tr>
+        <tr>
+            <td>邮箱</td><td>{{$store.state.hotel.hotel.email}}</td>
+        </tr>
+        <tr>
+            <td>联系电话</td><td>{{$store.state.hotel.hotel.phone}}</td>
+        </tr>
+        <tr>
+            <td>详细地址</td><td>{{$store.state.hotel.hotel.address}}</td>
+        </tr>
+        <tr>
+            <td>酒店编号</td><td>{{$store.state.hotel.hotel.id}}</td>
+        </tr>
+        <tr>
+            <td>用户名</td><td>{{$store.state.hotel.hotel.name}}</td>
+        </tr>
+        <!--<tr>
+            <td></td><td>{{$store.state.user.name}}</td>
+        </tr>-->
+
+        </tbody>
+    </table>
 </template>
 
 <script>
     export default {
-        name: "HotelInfo"
+        name: "HotelInfo",
+        methods:{
+            notFindImg(){
+                this.$notFind(require("assets/defaultHead.png"));
+            },
+        },
+        computed:{
+            headPath(){
+                return this.$url.baseURL+this.$store.state.hotel.hotel.imgPath;
+            }
+        }
     }
 </script>
 
 <style scoped>
-
-    .hotelMessage{
-        border: 2px solid #4E5465;
-        width: 80%;
+    .headDiv{
         margin: auto;
-    }
-    .signUpper{
+        width: 120px;
         text-align: center;
-        font-size: 25px;
-        color: #4E5465;
     }
-    .hotelForm{
-        width: 80%;
-        margin:30px auto;
+    .headImg{
+        border-radius: 50%;
+        border:2px solid #46d7ed;
+        padding: 3px;
+        width: 100px;
+        height: 100px;
+        margin: auto;
     }
 </style>

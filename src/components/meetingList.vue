@@ -35,7 +35,8 @@
             routerTo:{
                 type:String,
                 default:"/detail"
-            }
+            },
+            showAll:{type:Boolean,default: false}
         },
         data(){
             return {
@@ -46,10 +47,10 @@
             {
                 let length = this.meetings.length;
                 /*if(length===0){this.ifCreate=false;return;}*/
+                let pushValue=this.showAll;
                 for(let inx=0; inx< length; inx++){
-                                this.show.push(false);
-                                /*js的Date实在是太难用啦//this.meetings[inx].beginTime=new Date(this.meetings[inx].beginTime).format("yyyy年MM月dd日 hh:mm:ss");*/
-                            }
+                    this.show.push(pushValue);
+                }
 
             }
         }
