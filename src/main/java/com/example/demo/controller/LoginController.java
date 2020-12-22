@@ -45,7 +45,7 @@ public class LoginController {
             return "not user";                              //判断有无该用户
 
         User user1=userService.queryUserByEmail(email);
-        String user=user1.toString();
+        //String user=user1.toString();
         try {
             if (userService.queryUserByEmail(email) != null)
                 if (!password.equals(user1.getPassword()))
@@ -140,7 +140,7 @@ public class LoginController {
         meeting.put("manage",manage);
 
         HashMap<String,Object> information=new HashMap<>(2);
-        information.put("user",user);
+        information.put("user",user1);
         information.put("meetings",meeting);
         information.put("creator",createMeeting);
         //进行各级数据打包操作

@@ -5,6 +5,7 @@ import com.example.demo.dao.DriverPickUpDAO;
 import com.example.demo.entity.DO.DriverPickUpDO;
 import com.example.demo.entity.DTO.DriverPickUp;
 import com.example.demo.entity.DTO.UserJourney;
+import com.example.demo.entity.Driver;
 import com.example.demo.enumValue.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -73,7 +74,26 @@ public class DriverPickUpService {
         }
     }
 
+    public DriverPickUp queryDriverPickUpByUserJourney(UserJourney userJourney){
+        try {
+            return toDriverPickUp(driverPickUpDAO.queryDriverPickUpDOByUserJourneyID(userJourney.getID()));
+        }catch (NoSuchElementException|NullPointerException e){
+            return null;
+        }
+    }
 
+    public List<DriverPickUp> queryDriverPickUpSByDriver(Driver driver){
+        list.clear();
+        driverPickUpDOList=driverPickUpDAO.queryDriverPickUpDOSByDriverID(driver.getID());
+        if (driverPickUpDOList.size()!=0){
+            for(DriverPickUpDO d:driverPickUpDOList){
+                list.add(toDriverPickUp(d));
+            }
+            return list;
+        }else {
+            return null;
+        }
+    }
 
     /**
      * 查询所有的driverPickUp记录

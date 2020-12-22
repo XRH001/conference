@@ -1,6 +1,7 @@
 package com.example.demo.service.mehod;
 
 import com.example.demo.entity.DTO.HotelRoom;
+import com.example.demo.enumValue.RoomType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class HotelRoomServiceTest {
 
     @Test
     public void saveHotelRoom() {
-        HotelRoom hotelRoom=new HotelRoom(3,"双人间","803",hotelService.queryHotelByID(1),200.00,true,2);
+        HotelRoom hotelRoom=new HotelRoom(3, RoomType.Double,"803",hotelService.queryHotelByID(1),200.00,true,2);
         hotelRoomService.saveHotelRoom(hotelRoom);
     }
 

@@ -26,7 +26,7 @@ public class ConferenceUserDO {
     private Integer ID;
     private Integer userID;
     private Integer conferenceID;
-    private String position;
+    private int position;
     private Integer invitationStatus;
     private Integer orderStatus;
     private String info;
@@ -34,7 +34,7 @@ public class ConferenceUserDO {
     public ConferenceUserDO() {
     }
 
-    public ConferenceUserDO(Integer userID, Integer conferenceID, String position, Integer invitationStatus, Integer orderStatus, String info) {
+    public ConferenceUserDO(Integer userID, Integer conferenceID, int position, Integer invitationStatus, Integer orderStatus, String info) {
         this.userID = userID;
         this.conferenceID = conferenceID;
         this.position = position;
@@ -43,7 +43,7 @@ public class ConferenceUserDO {
         this.info = info;
     }
 
-    public ConferenceUserDO(int ID, int userID, int conferenceID, String position, int invitationStatus, int orderStatus, String info) {
+    public ConferenceUserDO(int ID, int userID, int conferenceID, int position, int invitationStatus, int orderStatus, String info) {
         this.ID = ID;
         this.userID = userID;
         this.conferenceID = conferenceID;
@@ -87,11 +87,11 @@ public class ConferenceUserDO {
         this.conferenceID = conferenceID;
     }
 
-    public String getPosition() {
+    public int getPosition() {
         return position;
     }
 
-    public void setPosition(String position) {
+    public void setPosition(int position) {
         this.position = position;
     }
 

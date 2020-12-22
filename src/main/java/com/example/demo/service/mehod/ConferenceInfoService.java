@@ -72,6 +72,14 @@ public class ConferenceInfoService {
         }
     }
 
+    public ConferenceInfo queryConferenceInfoByConference(Conference conference){
+        try {
+            return toConferenceInfo(conferenceInfoDAO.queryConferenceInfoDOByConferenceID(conference.getID()));
+        }catch (NoSuchElementException|NullPointerException e){
+            return null;
+        }
+    }
+
     /**
      * 查询所有的conferenceInfo
      * @return null表示失败,否则表示查询结果
