@@ -91,7 +91,7 @@ public class DriverController {
             String origin=request.getParameter("origin");
             String target=request.getParameter("target");
             String timeStr =request.getParameter("time");
-            //System.err.println(origin);
+
             String[] s1=timeStr.split(" ");
             String[] s2=s1[0].split("-");
             String[] s3=s1[1].split(":");
@@ -110,9 +110,9 @@ public class DriverController {
                     return msg;
                 }
             }
-            if (journeyService.queryJourneyDOByOriginAndTargetAndTime(origin,target,time).equals(journey)){
-                journey.setID(journeyService.queryJourneyDOByOriginAndTargetAndTime(origin,target,time).getID());
-            }
+//            if (journeyService.queryJourneyDOByOriginAndTargetAndTime(origin,target,time).equals(journey)){
+//                journey.setID(journeyService.queryJourneyDOByOriginAndTargetAndTime(origin,target,time).getID());
+//            }
             journeyService.saveJourney(journey);
             UserJourney userJourney=userJourneyService.saveUserJourney(new UserJourney(userService.queryUserByID(userId),journey,conferenceService.queryConferenceByID(meetingId)));
             driverPickUpService.saveDriverPickUp(new DriverPickUp(driverService.queryDriverByID(driverId),userJourney, OrderStatus.Checking));
@@ -121,6 +121,7 @@ public class DriverController {
 
 
         }catch (NullPointerException|NumberFormatException e){
+            e.printStackTrace();
             msg.put("msg","fail");
             return msg;
         }
