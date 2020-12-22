@@ -2,6 +2,7 @@ package com.example.demo.service.mehod;
 
 import com.example.demo.dao.HotelAccommodationDAO;
 import com.example.demo.entity.DO.HotelAccommodationDO;
+import com.example.demo.entity.DTO.ConferenceUser;
 import com.example.demo.entity.DTO.HotelAccommodation;
 import com.example.demo.entity.DTO.HotelOrder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +80,14 @@ public class HotelAccommodationService {
             list.add(toHotelAccommodation(h));
         }
         return list;
+    }
+
+    public HotelAccommodation queryHotelAccommodationByConferenceUser(ConferenceUser conferenceUser){
+        try {
+            return toHotelAccommodation(hotelAccommodationDAO.queryHotelAccommodationDOByConferenceUserID(conferenceUser.getID()));
+        }catch (NoSuchElementException|NullPointerException e){
+            return null;
+        }
     }
 
     /**
