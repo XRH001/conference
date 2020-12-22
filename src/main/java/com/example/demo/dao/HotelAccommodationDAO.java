@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface HotelAccommodationDAO extends JpaRepository<HotelAccommodationDO,Integer> {
     public List<HotelAccommodationDO> queryHotelAccommodationDOSByHotelOrderID(int hotelOrderID);
+
+    public HotelAccommodationDO queryHotelAccommodationDOByConferenceUserID(int conferenceUserID);
 }
