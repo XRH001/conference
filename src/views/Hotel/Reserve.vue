@@ -8,7 +8,8 @@
                 会议地点：你家酒店附近<br>
                 会议人数：200<br>-->
                 <div class="customer">预约人：{{meetingItem.customer}}<br>
-                    联系方式：{{meetingItem.contact}}<br></div>
+                    联系方式：{{meetingItem.contact}}<br>
+                    <RouterLink :to="{path:'detail',query:{meetingId:meetingItem.id}}" class="routerLink el-icon-view">会议详情</RouterLink></div>
                 <hr class="layui-bg-orange">
                 <Collapse>
                     <span slot="title">预定房间</span>
@@ -25,14 +26,15 @@
                         </tbody>
                     </table>
                 </Collapse>
-                <span slot=""></span>
+
                 <hr class="layui-bg-orange">
                 <div class="btnDiv layui-row">
                     <div class="layui-col-lg2 layui-col-lg-offset4">
                         <button class="layui-btn layui-bg-orange">接受预约</button>
                     </div>
                     <div class="layui-col-lg3 ">
-                        <RouterLink :to="{path:'detail',query:{meetingId:meetingItem.id}}" class="layui-btn ">会议详情</RouterLink></div>
+                        <button class="layui-btn layui-btn-danger">拒绝预约</button>
+                    </div>
                 </div>
             </div>
         </fieldset>
@@ -45,7 +47,29 @@
     import Collapse from "../../components/Collapse";
     export default {
         name: "Reserve",
-        components: {Collapse}
+        components: {Collapse},
+        methods:{
+            acceptClick(order){
+                this.$request(this.$url.hotelAcceptOrder,{
+                    params:{
+                        meetingId:order.id,
+                        hotelId:this.$store.state.hotel.hotel.id
+                    }
+                }).then(res =>{
+                    let data = res.data;
+                    if(data.msg==="success") {
+                        this.$store.commit("hotelAccepted", order);
+                        this.$message("接受成功，请在已接受订单中查看");
+                    }
+                    else {
+                        this.$message("接受失败，对方可能已取消")
+                    }
+                }).catch(err =>{
+                    console.log(err);
+                    this.$message("网络请求错误");
+                });
+            }
+        }
     }
 </script>
 
@@ -62,7 +86,14 @@
         margin: 20px;
         float: left;
     }
+    .routerLink{
+        color: #01aaed;
+        font-size: 19px;
+    }
+    .routerLink:hover{
+        color: #46d7ed;
 
+    }
     @media screen and (max-width: 1200px) {
         .eachReserve{
             width: 40% !important;

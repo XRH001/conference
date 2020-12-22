@@ -11,7 +11,7 @@ module.exports = {
     devServer: {
         proxy:{
             '/api':{
-                target:"http://10.101.20.62:8080",
+                target:"http://10.101.25.146:8080",
                 changeOrigin:true,
                 ws:true,
                 pathRewrite:{"^/api":""}
@@ -29,7 +29,7 @@ module.exports = {
                 pathRewrite:{"^/upLoad":""}
             }
         },
-        port: 8087
+        port: 8088
     }
 };
 /*

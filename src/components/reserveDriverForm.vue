@@ -8,7 +8,7 @@
             <tbody>
             <tr><td>始发地</td><td><input type="text" v-model.lazy="origin" class="layui-input"></td></tr>
             <tr><td>终点</td><td><input type="text" v-model.lazy="target" class="layui-input"></td></tr>
-            <tr><td>出发时间</td><td><el-date-picker v-model.lazy="time" type="datetime"></el-date-picker></td></tr>
+            <tr><td>出发时间</td><td><el-date-picker v-model.lazy="time" :value-format="'yyyy-MM-dd HH:mm:ss'" type="datetime"></el-date-picker></td></tr>
             <tr v-if="action===1"><td colspan="2" class="align-center"><el-button size="small" @click="reserveDriverClick">确认预约</el-button> </td></tr>
             <tr v-if="action===3"><td colspan="2" class="align-center">
                 <el-button size="small" @click="reserveDriverClick">修改</el-button>
@@ -44,6 +44,7 @@
                 // console.log("预约司机")
                 this.$request(this.$url.reserveDriver,{
                     params:{
+                        userId:this.$store.state.user.id,
                         meetingId:this.meetingId,
                         driverId:this.driverId,
                         origin:this.origin,

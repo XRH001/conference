@@ -98,6 +98,7 @@
             </tr>
             <tr v-show="getting===1"><td colspan="6"><p class="warnMessage">正在查询...</p></td></tr>
             <tr v-show="getting===2"><td colspan="6"><p class="warnMessage">已无更多。</p></td></tr>
+            <tr><td class="align-center"><el-button @click="searchDriverByMeetingId" size="small">查找</el-button></td></tr>
             </tbody>
         </table>
     </div>
@@ -200,8 +201,10 @@
                     params:{meetingId:this.meetingId}
                 }).then(res =>{
                     let data=res.data;
+                    //console.log(data);
                     if(data.msg==="success"){
                         this.haveDriverList=data.driverList;
+                        console.log(data);
                         this.$emit("haveReservedDriver",data.driverList);
                     }
                     else {

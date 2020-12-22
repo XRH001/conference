@@ -97,6 +97,8 @@
                 if(!reg.test(this.forget.newPassword)){this.$message("新密码格式不正确(6-18位字母数字或特殊符号)");return;}
                 if(this.forget.newPassword!==this.forget.newConfirm){this.$message("两次输入不同");return;}
                 let codeRight;
+                console.log(this.codeInput);
+                console.log(this.$decrypt(this.forget.emailCode));
                 if(this.forget.codeInput!==""){
                     codeRight=this.forget.codeInput.toLowerCase()===this.$decrypt(this.forget.emailCode).toLowerCase();}
                 else {this.$message("请输入验证码");return;}

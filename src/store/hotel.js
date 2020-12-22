@@ -50,6 +50,20 @@ export const hotel={
     mutations:{
         setHotel(state,hotel){
             state.hotel=hotel;
+        },
+        setHotelMeetings(state,meetings){
+            state.meetings=meetings;
+        },
+        hotelAccepted(state,order){
+            let key="id";
+            let value=order.id;
+            for(let inx in state.meetings.reserve){
+                if(state.meetings.reserve[inx][key]===value){
+                    state.meetings.reserve.splice(inx,1);
+                    break;
+                }
+            }
+            state.meetings.accepted.push(order);
         }
     },
     actions:{},

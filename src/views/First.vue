@@ -50,7 +50,7 @@
         </el-popover></div>
         <div class="powerContent">
             <div v-show="show===0">
-                <meeting-list :meetings="meetings" :show-all="true"></meeting-list>
+                <meeting-list :meetings="meetings" :router-to="'/Register'" :show-all="true"></meeting-list>
             </div>
             <div v-show="show===1">
                 <div>

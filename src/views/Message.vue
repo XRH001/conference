@@ -29,12 +29,12 @@
         },
         methods:{
             acceptClick(meetingId){
-                this.$http("mainServlet?ac=need&apiName=acceptInvite2"
-                /*this.$request(this.$url.acceptInvite*/,{
-                    params:{
+                // this.$http("mainServlet?ac=need&apiName=acceptInvite2"
+                console.log(meetingId);
+                console.log(this.$store.state.user.id);
+                this.$post(this.$url.acceptInvite,{
                         meetingId,
                         memberId:this.$store.state.user.id
-                    }
                 }).then(res => {
                     let data=res.data;
                     //console.log(data);
@@ -44,6 +44,7 @@
                     }
                     if(data.msg==="success"){
                         //将会议添加到主页
+                        console.log(data);
                         this.$store.commit("addNewMeeting",{meeting:data.newMeeting,ifManager:data.ifManager});
                         this.$message("同意成功，已加入会议");
                         this.$emit("removeMsg",meetingId);

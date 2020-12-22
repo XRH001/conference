@@ -7,7 +7,9 @@
                 会议地点：你家酒店附近<br>
                 会议人数：200<br>-->
                 <div class="customer">预约人：{{meetingItem.customer}}<br>
-                    联系方式：{{meetingItem.contact}}<br></div>
+                    联系方式：{{meetingItem.contact}}<br>
+                    <RouterLink :to="{path:'detail',query:{meetingId:meetingItem.id}}" class="routerLink el-icon-view">会议详情</RouterLink>
+                </div>
                 <hr class="layui-bg-orange">
                 <Collapse>
                     <span slot="title">预定房间</span>
@@ -24,15 +26,16 @@
                         </tbody>
                     </table>
                 </Collapse>
-                    <span slot=""></span>
+
                 <hr class="layui-bg-orange">
                 <div class="btnDiv layui-row">
                     <div class="layui-col-lg2 layui-col-lg-offset4">
-                        <button class="layui-btn layui-bg-orange">取消订单</button>
+                        <button class="layui-btn layui-bg-orange">完成订单</button>
                     </div>
                     <div class="layui-col-lg3 ">
-                        <RouterLink :to="{path:'detail',query:{meetingId:meetingItem.id}}" class="layui-btn ">会议详情</RouterLink></div>
+                        <button class="layui-btn layui-btn-danger">取消订单</button>
                 </div>
+            </div>
             </div>
         </fieldset>
         <div style="clear: both"></div>
@@ -65,7 +68,14 @@
         margin: 20px;
         float: left;
     }
+    .routerLink{
+        color: #01aaed;
+        font-size: 19px;
+    }
+    .routerLink:hover{
+        color: #46d7ed;
 
+    }
     @media screen and (max-width: 1200px) {
         .eachReserve{
             width: 40% !important;

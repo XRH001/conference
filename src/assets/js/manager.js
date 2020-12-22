@@ -52,14 +52,16 @@ export const methods={
         });
     },
     searchManagerClick(){
-        let searchManagerInput = this.searchMemberInput;
+        let searchManagerInput = this.searchManagerInput;
         if(searchManagerInput===""){this.$message("搜索值不能为空");return;}
+        console.log(this.meetingInfo.id);
         this.$request(this.$url.searchManager,{
             params:{
                 search:searchManagerInput,
                 meetingId:this.meetingInfo.id
             }
         }).then( res =>{
+            console.log(res.data);
             if(res.data==="fail"){this.$message("搜索失败，请不要输入奇怪字符");return;}
             this.searchManager=res.data;
         }).catch(err =>{

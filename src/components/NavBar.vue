@@ -50,10 +50,10 @@
                 thisActive:'underLine',
                 headError:require('assets/defaultHead.png'),
                 messageShow:false,
-                messageList:[{id:231,name:"可真难受",message:"邀请你成为管理员"},{id:2231,name:"可真难受",message:"邀请你加入会议"},
-                    {id:23231,name:"可真难受",message:"邀请你成为管理员"},{id:245231,name:"可真难受",message:"邀请你加入会议"},
-                    {id:2391,name:"可真难受",message:"邀请你成为管理员"},{id:223671,name:"可真难受",message:"邀请你加入会议"},
-                    {id:236531,name:"可真难受",message:"邀请你成为管理员"},{id:227831,name:"可真难受",message:"邀请你加入会议"}]
+                messageList:[/*{id:21,name:"可真难受",message:"邀请你成为管理员"},{id:1,name:"可真难受",message:"邀请你加入会议"},
+                    {id:1,name:"可真难受",message:"邀请你成为管理员"},{id:245231,name:"可真难受",message:"邀请你加入会议"},
+                    {id:2,name:"可真难受",message:"邀请你成为管理员"},{id:223671,name:"可真难受",message:"邀请你加入会议"},
+                    {id:32,name:"可真难受",message:"邀请你成为管理员"},{id:227831,name:"可真难受",message:"邀请你加入会议"}*/]
             }
         },
         methods:{
@@ -67,12 +67,11 @@
                     meetingIdList.push(meetingMsg.id)
                 }
                 /*this.$http( "mainServlet?ac=need&apiName=searchMsg3123",*/
-                this.$request(this.$url.searchMsg,{
-                    params:{
+                this.$post(this.$url.searchMsg,{
                         userId:this.$store.state.user.id,
                         meetingIdList
                     }
-                }).then(res => {
+                ).then(res => {
                     let data=res.data;
                     if(data.msg==="success"){
                         let newMsg = data.newMsg;
@@ -112,7 +111,7 @@
                 if(this.$store.state.haveLogin && this.$store.state.identity.toLowerCase()==="common"){
                     this.searchMsg();
                 }
-            },200000);
+            },10000);
         }
     }
 </script>

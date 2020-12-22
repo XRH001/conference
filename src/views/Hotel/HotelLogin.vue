@@ -69,18 +69,20 @@
                         password:this.password
                     }
                 }).then(res => {
-                    if(res.data.toString()==="password error")this.right=false;
-                    else if(res.data.toString()==="error"){this.$refs.popup1.showMsg("发生错误");}
-                    else{
+                    let data = res.data;
+                    if(data.msg==="error")this.right=false;
+                    else if(data.msg==="empty"){this.$message("改账户不存在");}
+                    else if(data){
                         //console.log(res.data);
-                        let loginJSON =res.data;//JSON.parse(res.data);//eval('(' +res.data+')'); //
-                        if(loginJSON.hotel){
-                            this.$store.commit("setHotel",loginJSON.hotel);
+                        let successData =data;//JSON.parse(res.data);//eval('(' +res.data+')'); //
+                        if(successData.hotel){
+                            this.$store.commit("setHotel",successData.hotel);
                         }else {
                             this.$refs.popup1.showMsg("获取异常");return;
                         }
                         this.$store.commit("setIdentity","hotel");
                         this.$store.commit("setLogin");
+                        this.$store.commit("setHotelMeetings",successData.meetings);
 
                         //  vuex中的数据发生改变时触发localStorage的存储操作
                         localStorage.setItem('state', JSON.stringify(this.$store.state));
@@ -88,7 +90,7 @@
                         this.$router.push({
                             path:"/index",
                             query:{
-                                /*meetings:loginJSON.meetings*/
+                                /*meetings:successData.meetings*/
                             }
                         });
                     }

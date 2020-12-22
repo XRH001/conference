@@ -57,6 +57,17 @@ export function notFind(url){
     img.onerror=null; //控制不要一直触发错误
 }
 
+export function getByKey(list,key,value){
+    for(let obj of list){
+        if(obj[key]===value)return obj;
+    }
+    return null;
+}
+export function removeByKey(list,key,value){
+    for(let inx in list){
+        if(list[inx][key]===value)list.splice(inx,1);
+    }
+}
 /*
 export function test(add) {
 console.log("导入了"+add);

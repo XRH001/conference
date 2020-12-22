@@ -66,9 +66,9 @@
                 <col width="70%">
             </colgroup>
             <tbody>
-            <tr><td>原密码</td><td><input type="password" class="layui-input" placeholder="找回密码的位置在登录界面"></td></tr>
-            <tr><td>新密码</td><td><input type="password" class="layui-input" placeholder="请输入8-16位字母数字或特殊符号"></td></tr>
-            <tr><td>确认新密码</td><td><input type="password" class="layui-input" placeholder=""></td></tr>
+            <tr><td>原密码</td><td><input v-model.lazy="password.formerInput" type="password" class="layui-input" placeholder="找回密码的位置在登录界面"></td></tr>
+            <tr><td>新密码</td><td><input v-model.lazy="password.newPassword" type="password" class="layui-input" placeholder="请输入8-16位字母数字或特殊符号"></td></tr>
+            <tr><td>确认新密码</td><td><input v-model.lazy="password.newConfirm" type="password" class="layui-input" placeholder=""></td></tr>
             <tr><td colspan="2"><div class="buttonDiv">
                 <button  class="layui-btn layui-btn-checked" @click="changePasswordClick()">确认修改</button>
                 <button class="layui-btn layui-btn-primary" @click="passwordChangeNone=!passwordChangeNone">取消</button>
@@ -119,11 +119,10 @@
             alterInfoClick(){
                 if(!this.nameCheck()){this.$message("用户名不可为空，且长度需小于25");return;}
                 /*this.$http("mainServlet?ac=need&apiName=returnSuccess"*/
-                this.$request(this.$url.alterInfo,{
-                    params:{
+                this.$post(this.$url.alterInfo,{
                         userId:this.$store.state.user.id,
                         alter:this.alterSend
-                    }
+
                 }).then(res => {
                     if(res.data==="success"){
                         this.$store.commit("updateUser",this.alterSend);this.$message("修改成功");
@@ -137,12 +136,15 @@
                 });
             },
             changePasswordClick(){
-                let reg=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z\\W]{6,18}$/;
-                if(!reg.test(this.password.newPassword)){this.message("新密码格式不正确(6-18位字母数字或特殊符号)");return;}
-                if(this.password.newPassword!==this.password.newConfirm){this.message("两次输入不同");return;}
+                /*let reg=/^[0-9A-Za-z\\W]{6,18}$/;
+                if(!reg.test(this.password.newPassword)){this.$message("新密码格式不正确(6-18位字母数字或特殊符号)");return;}*/
+                if(this.password.newPassword!==this.password.newConfirm){this.$message("两次输入不同");return;}
+                //console.log(this.$store.state.user.id);
+                console.log(this.password.formerInput);
+                console.log(this.password.newPassword);
                 this.$request(this.$url.changePassword,{
                     params:{
-                        uerId:this.$store.state.user.id,
+                        userId:this.$store.state.user.id,
                         formerPassword:this.password.formerInput,
                         newPassword: this.password.newPassword
                     }
@@ -183,13 +185,14 @@
                 this.show=0;
                     this.alterSend.name=this.$store.state.user.name;
                     this.alterSend.phone=this.$store.state.user.phone;
-                    this.alterSend.sex=this.$store.state.user.sex;
+                    this.alterSend.sex=this.$store.state.user.sex.toLowerCase();
                     this.alterSend.username=this.$store.state.user.username;
                     this.alterSend.birthday=this.$store.state.user.birth;
             }
             else if(this.$store.state.identity.toLowerCase() ==='driver')this.show=1;
             else if(this.$store.state.identity.toLowerCase() ==='hotel')this.show=2;
             else this.show=3;
+            console.log(this.alterSend);
         }
     }
 </script>
@@ -226,6 +229,7 @@
     }
     .cover{
         position: fixed;
+        left: 0;
         width: 100%;
         height: 100%;
         opacity: 30%;

@@ -88,6 +88,7 @@
                         this.buttonSet();
                     }
                 }).catch(err =>{
+                    console.log(err);
                     this.$message({
                         message:"网络请求异常\n"+err,
                         type:"warning"
