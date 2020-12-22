@@ -46,7 +46,7 @@ public class InviteAdminController {
         List<ConferenceUser> conferenceUsers = conferenceUserService.queryConferenceUsersByConference(conference);
         // 遍历conferenceUsers
         for(int i=0;i<conferenceUsers.size();i++){
-            if(conferenceUsers.get(i).getConference().getID()==Integer.valueOf(userAddConfence.getMemberId())){ // 该用户已经存在在该会议中
+            if(conferenceUsers.get(i).getUser().getID()==Integer.valueOf(userAddConfence.getMemberId())){ // 该用户已经存在在该会议中
                 if(conferenceUsers.get(i).getPosition()==Position.ordinary){// 普通成员
                     conferenceUsers.get(i).setPosition(Position.administrator);
                     if(conferenceUserService.saveConferenceUser(conferenceUsers.get(i))==null){

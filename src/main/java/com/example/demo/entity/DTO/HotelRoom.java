@@ -2,6 +2,7 @@ package com.example.demo.entity.DTO;
 
 import com.example.demo.entity.Hotel;
 import com.example.demo.enumValue.OrderStatus;
+import com.example.demo.enumValue.RoomType;
 
 import java.util.Objects;
 
@@ -19,32 +20,32 @@ public class HotelRoom {
      * @param maxNum 房间最大人数限制
      */
     private int ID;
-    private String type;
+    private RoomType type;
     private String roomID;
     private Hotel hotel;
     private double price;
-    private boolean isUsed;
+    private boolean status;
     private int maxNum;
 
     public HotelRoom() {
     }
 
-    public HotelRoom(int ID, String type, String roomID, Hotel hotel, double price, boolean isUsed, int maxNum) {
+    public HotelRoom(int ID, RoomType type, String roomID, Hotel hotel, double price, boolean status, int maxNum) {
         this.ID = ID;
         this.type = type;
         this.roomID = roomID;
         this.hotel = hotel;
         this.price = price;
-        this.isUsed = isUsed;
+        this.status = status;
         this.maxNum = maxNum;
     }
 
-    public HotelRoom(String type, String roomID, Hotel hotel, double price, boolean isUsed, int maxNum) {
+    public HotelRoom(RoomType type, String roomID, Hotel hotel, double price, boolean status, int maxNum) {
         this.type = type;
         this.roomID = roomID;
         this.hotel = hotel;
         this.price = price;
-        this.isUsed = isUsed;
+        this.status = status;
         this.maxNum = maxNum;
     }
 
@@ -56,11 +57,11 @@ public class HotelRoom {
         this.ID = ID;
     }
 
-    public String getType() {
+    public RoomType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(RoomType type) {
         this.type = type;
     }
 
@@ -88,12 +89,12 @@ public class HotelRoom {
         this.price = price;
     }
 
-    public boolean getIsUsed() {
-        return isUsed;
+    public boolean getStatus() {
+        return status;
     }
 
-    public void setIsUsed(boolean isUsed) {
-        this.isUsed = isUsed;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public int getMaxNum() {
@@ -115,12 +116,12 @@ public class HotelRoom {
                 Objects.equals(type, hotelRoom.type) &&
                 Objects.equals(roomID, hotelRoom.roomID) &&
                 Objects.equals(hotel, hotelRoom.hotel) &&
-                isUsed == hotelRoom.isUsed;
+                status == hotelRoom.status;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ID, type, roomID, hotel, price, isUsed, maxNum);
+        return Objects.hash(ID, type, roomID, hotel, price, status, maxNum);
     }
 
     @Override
@@ -131,7 +132,7 @@ public class HotelRoom {
                 ", roomID='" + roomID + '\'' +
                 ", hotel=" + hotel +
                 ", price=" + price +
-                ", isUsed=" + isUsed +
+                ", status=" + status +
                 ", maxNum=" + maxNum +
                 '}';
     }

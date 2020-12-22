@@ -22,7 +22,7 @@ public class ConferenceUserServiceTest {
     ConferenceService conferenceService;
     @Autowired
     UserService userService;
-    ConferenceUserDO conferenceUserDO=new ConferenceUserDO(4,1,2,"普通用户",2,4,"这是一个无情的备注");
+    ConferenceUserDO conferenceUserDO=new ConferenceUserDO(4,1,2,3,2,4,"这是一个无情的备注");
 
 
     @Test
@@ -33,12 +33,12 @@ public class ConferenceUserServiceTest {
 
     @Test
     public void deleteConferenceUser() {
-        conferenceUserService.deleteConferenceUser(3);
+        conferenceUserService.deleteConferenceUser(1);
     }
 
     @Test
     public void queryConferenceUserByID() {
-        System.out.println(conferenceUserService.queryConferenceUserByID(3));
+        System.out.println(conferenceUserService.queryConferenceUserByID(21));
     }
 
     @Test
@@ -58,7 +58,7 @@ public class ConferenceUserServiceTest {
 
     @Test
     public void queryConferenceUsersByUserAndPosition() {
-        System.out.println(conferenceUserService.queryConferenceUsersByUserAndPosition(userService.queryUserByID(1), Position.choose("创建者")));
+        System.out.println(conferenceUserService.queryConferenceUsersByUserAndPosition(userService.queryUserByID(1), Position.choose(0)));
     }
 
     @Test

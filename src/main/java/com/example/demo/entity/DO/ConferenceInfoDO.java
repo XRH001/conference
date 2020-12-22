@@ -15,7 +15,7 @@ import java.util.Objects;
  * 基本DO类:会议信息 对应数据库中的会议信息表
  */
 @DynamicInsert
-@Entity(name = "conferenceinfo")
+@Entity(name = "conferenceInfo")
 public class ConferenceInfoDO {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO,generator = "generator")

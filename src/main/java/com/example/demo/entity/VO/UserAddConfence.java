@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserAddConfence {
     private ArrayList<Integer> meetingIdList;
 
+
     public ArrayList<Integer> getMeetingIdList() {
         return meetingIdList;
     }

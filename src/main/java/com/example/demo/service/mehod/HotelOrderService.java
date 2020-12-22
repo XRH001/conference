@@ -3,6 +3,7 @@ package com.example.demo.service.mehod;
 import com.example.demo.dao.HotelOrderDAO;
 import com.example.demo.entity.DO.HotelOrderDO;
 import com.example.demo.entity.DTO.HotelOrder;
+import com.example.demo.entity.DTO.HotelRoom;
 import com.example.demo.enumValue.OrderStatus;
 import com.example.demo.utils.TimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +68,19 @@ public class HotelOrderService {
         try {
             return toHotelOrder(hotelOrderDAO.findById(hotelOrderID).get());
         }catch (NoSuchElementException|NullPointerException e){
+            return null;
+        }
+    }
+
+    public List<HotelOrder> queryHotelOrderSByHotelRoom(HotelRoom hotelRoom){
+        list.clear();
+        hotelOrderDOList=hotelOrderDAO.queryHotelOrderDOSByHotelRoomID(hotelRoom.getID());
+        if (hotelOrderDOList.size() != 0) {
+            for(HotelOrderDO h:hotelOrderDOList){
+                list.add(toHotelOrder(h));
+            }
+            return list;
+        }else {
             return null;
         }
     }
