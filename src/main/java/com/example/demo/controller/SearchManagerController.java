@@ -39,20 +39,20 @@ public class SearchManagerController {
         Conference conference=conferenceService.queryConferenceByID(meetingID);
         List<ConferenceUser> conferenceUsers=conferenceUserService.queryConferenceUsersByConference(conference);
         ObjectMapper mapper = new ObjectMapper();
+        List<User_SearchManage> information=new ArrayList<>();
+        User_SearchManage user_searchManage = null;
 
         try {
             int search = Integer.parseInt(request.getParameter("search"));
-            if(userService.queryUserByID(search)==null)
+            if(userService.queryUserByID(search) == null)
                 return "error";
             User user = userService.queryUserByID(search);
-            List<User_SearchManage> information=new ArrayList<>();
-            User_SearchManage user_searchManage = null;
-            for(ConferenceUser item:conferenceUsers)
-                if(item.getPosition().equals(administrator)){
+            for(ConferenceUser item:conferenceUsers){
+                if(item.getUser().equals(user)&&item.getPosition().equals(administrator)){
                     user_searchManage=new User_SearchManage(item.getUser());
                     user_searchManage.setIfManager(true);
                     information.add(user_searchManage);
-                }
+                }}
             if(information.size()==0) {
                 user_searchManage = new User_SearchManage(user);
                 user_searchManage.setIfManager(false);
@@ -65,10 +65,8 @@ public class SearchManagerController {
             if(userService.queryUserByEmail(search) == null)
                 return "error";
             User user = userService.queryUserByEmail(search);
-            List<User_SearchManage> information=new ArrayList<>();
-            User_SearchManage user_searchManage = null;
             for(ConferenceUser item:conferenceUsers)
-                if(item.getPosition().equals(administrator)){
+                if(item.getUser().equals(user)&&item.getPosition().equals(administrator)){
                     user_searchManage=new User_SearchManage(item.getUser());
                     user_searchManage.setIfManager(true);
                     information.add(user_searchManage);
