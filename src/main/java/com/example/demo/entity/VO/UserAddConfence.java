@@ -1,10 +1,37 @@
 package com.example.demo.entity.VO;
 
+import java.util.ArrayList;
+import com.example.demo.entity.VO.Alter;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
 public class UserAddConfence {
+    private ArrayList<Integer> meetingIdList;
+
+
+
+    public ArrayList<Integer> getMeetingIdList() {
+        return meetingIdList;
+    }
+
+    public void setMeetingIdList(ArrayList<Integer> meetingIdList) {
+        this.meetingIdList = meetingIdList;
+    }
+
     private String userId;
     private String meetingId;
+
     private String remark;
     private String memberId;
+    private Alter alter;
+
+    public Alter getAlter() {
+        return alter;
+    }
+
+    public void setAlter(Alter alter) {
+        this.alter = alter;
+    }
 
     public String getMemberId() {
         return memberId;
@@ -16,16 +43,6 @@ public class UserAddConfence {
 
     public String getRemark() {
         return remark;
-    }
-
-    @Override
-    public String toString() {
-        return "UserAddConfence{" +
-                "userId='" + userId + '\'' +
-                ", meetingId='" + meetingId + '\'' +
-                ", remark='" + remark + '\'' +
-                ", memberId='" + memberId + '\'' +
-                '}';
     }
 
     public void setRemark(String remark) {
@@ -46,5 +63,17 @@ public class UserAddConfence {
 
     public void setMeetingId(String meetingId) {
         this.meetingId = meetingId;
+    }
+
+    @Override
+    public String toString() {
+        return "UserAddConfence{" +
+                "meetingIdList=" + meetingIdList +
+                ", userId='" + userId + '\'' +
+                ", meetingId='" + meetingId + '\'' +
+                ", remark='" + remark + '\'' +
+                ", memberId='" + memberId + '\'' +
+                ", alter=" + alter +
+                '}';
     }
 }

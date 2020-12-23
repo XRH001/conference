@@ -4,6 +4,7 @@ import com.example.demo.dao.HotelRoomDAO;
 import com.example.demo.entity.DO.HotelRoomDO;
 import com.example.demo.entity.DTO.HotelRoom;
 import com.example.demo.entity.Hotel;
+import com.example.demo.enumValue.RoomType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -69,6 +70,19 @@ public class HotelRoomService {
         }
     }
 
+    public List<HotelRoom> queryHotelRoomSByHotel(Hotel hotel){
+        list.clear();
+        hotelRoomDOList=hotelRoomDAO.queryHotelRoomDOSByHotelID(hotel.getID());
+        if (hotelRoomDOList.size()!=0){
+            for(HotelRoomDO h:hotelRoomDOList){
+                list.add(toHotelRoom(h));
+            }
+            return list;
+        }else {
+            return null;
+        }
+    }
+
     /**
      * 查询所有的hotelRoom
      * @return
@@ -124,11 +138,11 @@ public class HotelRoomService {
 
         hotelRoom.setID(hotelRoomDO.getID());
         hotelRoom.setHotel(hotelService.queryHotelByID(hotelRoomDO.getHotelID()));
-        hotelRoom.setIsUsed(hotelRoomDO.getIsUsed()==0?true:false);
+        hotelRoom.setStatus(hotelRoomDO.getStatus()==0?true:false);
         hotelRoom.setMaxNum(hotelRoomDO.getMaxNum());
         hotelRoom.setPrice(hotelRoomDO.getPrice());
         hotelRoom.setRoomID(hotelRoomDO.getRoomID());
-        hotelRoom.setType(hotelRoomDO.getType());
+        hotelRoom.setType(RoomType.choose(hotelRoomDO.getType()));
 
         return hotelRoom;
     }
@@ -144,11 +158,11 @@ public class HotelRoomService {
 
         hotelRoomDO.setID(hotelRoom.getID());
         hotelRoomDO.setHotelID(hotelRoom.getHotel().getID());
-        hotelRoomDO.setIsUsed(hotelRoom.getIsUsed()==true?0:1);
+        hotelRoomDO.setStatus(hotelRoom.getStatus()==true?0:1);
         hotelRoomDO.setMaxNum(hotelRoom.getMaxNum());
         hotelRoomDO.setPrice(hotelRoom.getPrice());
         hotelRoomDO.setRoomID(hotelRoom.getRoomID());
-        hotelRoomDO.setType(hotelRoom.getType());
+        hotelRoomDO.setType(hotelRoom.getType().getNum());
 
         return hotelRoomDO;
     }

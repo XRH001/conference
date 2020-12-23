@@ -28,23 +28,23 @@ public class HotelRoomDO {
     @GeneratedValue(strategy = GenerationType.AUTO,generator = "generator")
     @GenericGenerator(name = "generator",strategy = "com.example.demo.utils.GeneratedInsertGenerator")
     private int ID;
-    private String type;
+    private int type;
     private String roomID;
     private int hotelID;
     private double price;
-    private int isUsed;
+    private int status;
     private int maxNum;
 
     public HotelRoomDO() {
     }
 
-    public HotelRoomDO(int ID, String type, String roomID, int hotelID, double price, int isUsed, int maxNum) {
+    public HotelRoomDO(int ID, int type, String roomID, int hotelID, double price, int status, int maxNum) {
         this.ID = ID;
         this.type = type;
         this.roomID = roomID;
         this.hotelID = hotelID;
         this.price = price;
-        this.isUsed = isUsed;
+        this.status = status;
         this.maxNum = maxNum;
     }
 
@@ -56,11 +56,11 @@ public class HotelRoomDO {
         this.ID = ID;
     }
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
     }
 
@@ -88,12 +88,12 @@ public class HotelRoomDO {
         this.price = price;
     }
 
-    public int getIsUsed() {
-        return isUsed;
+    public int getStatus() {
+        return status;
     }
 
-    public void setIsUsed(int isUsed) {
-        this.isUsed = isUsed;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public int getMaxNum() {
@@ -113,14 +113,14 @@ public class HotelRoomDO {
                 roomID == that.roomID &&
                 hotelID == that.hotelID &&
                 Double.compare(that.price, price) == 0 &&
-                isUsed == that.isUsed &&
+                status == that.status &&
                 maxNum == that.maxNum &&
                 Objects.equals(type, that.type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ID, type, roomID, hotelID, price, isUsed, maxNum);
+        return Objects.hash(ID, type, roomID, hotelID, price, status, maxNum);
     }
 
     @Override
@@ -131,7 +131,7 @@ public class HotelRoomDO {
                 ", roomID=" + roomID +
                 ", hotelID=" + hotelID +
                 ", price=" + price +
-                ", status=" + isUsed +
+                ", status=" + status +
                 ", maxNum=" + maxNum +
                 '}';
     }

@@ -66,6 +66,19 @@ public class Driver {
         this.imgPath = imgPath;
     }
 
+    public Driver(Driver driver){
+        this.ID=driver.getID();
+        this.name = driver.getName();
+        this.phone = driver.getPhone();
+        this.type = driver.getType();
+        this.maxNum = driver.getMaxNum();
+        this.carNum = driver.getCarNum();
+        this.username = driver.getUsername();
+        this.password = driver.getPassword();
+        this.email = driver.getEmail();
+        this.imgPath = driver.getImgPath();
+    }
+
     public int getID() {
         return ID;
     }

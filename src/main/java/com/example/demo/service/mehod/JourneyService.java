@@ -175,6 +175,14 @@ public class JourneyService {
         }
     }
 
+    public Journey queryJourneyDOByOriginAndTargetAndTime(String origin,String target,LocalDateTime time){
+        try {
+            return toJourney(journeyDAO.queryJourneyDOByOriginAndTargetAndTime(origin,target,TimeUtils.converseTrans(time)));
+        }catch (NoSuchElementException|NullPointerException e){
+            return null;
+        }
+    }
+
     /**
      * 查询journey记录的总数量
      * @return

@@ -181,13 +181,21 @@ public class UserJourneyService {
      */
     public UserJourneyDO toUserJourneyDO(UserJourney userJourney){
           UserJourneyDO userJourneyDO=new UserJourneyDO();
+          try {
+              userJourneyDO.setID(userJourney.getID());
+              userJourneyDO.setJourneyID(userJourney.getJourney().getID());
+              userJourneyDO.setUserID(userJourney.getUser().getID());
+              userJourneyDO.setConferenceID(userJourney.getConference().getID());
 
-          userJourneyDO.setID(userJourney.getID());
-          userJourneyDO.setJourneyID(userJourney.getJourney().getID());
-          userJourneyDO.setUserID(userJourney.getUser().getID());
-          userJourneyDO.setConferenceID(userJourney.getConference().getID());
+              return userJourneyDO;
+          }catch (NullPointerException e){
+              userJourneyDO.setID(userJourney.getID());
+              userJourneyDO.setJourneyID(userJourney.getJourney().getID());
+              userJourneyDO.setConferenceID(userJourney.getConference().getID());
 
-          return userJourneyDO;
+              return userJourneyDO;
+          }
+
       }
 
 }

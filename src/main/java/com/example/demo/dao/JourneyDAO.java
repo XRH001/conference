@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import com.example.demo.entity.DO.JourneyDO;
+import com.example.demo.entity.DTO.Journey;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -18,6 +19,8 @@ public interface JourneyDAO extends JpaRepository<JourneyDO,Integer> {
     public List<JourneyDO> queryJourneyDOSByTarget(String target);
 
     public List<JourneyDO> queryJourneyDOSByOriginAndTarget(String origin,String target);
+
+    public JourneyDO queryJourneyDOByOriginAndTargetAndTime(String origin,String target,Date time);
 
     @Query(value = "select * from journey limit ?1,?2",nativeQuery = true)
     public List<JourneyDO> queryForPageItems(int begin, int pageSize);
