@@ -66,7 +66,7 @@ public class SearchManagerController {
                 return "error";
             User user = userService.queryUserByEmail(search);
             for(ConferenceUser item:conferenceUsers)
-                if(item.getUser().equals(user)&&item.getPosition()==administrator){
+                if(item.getUser().equals(user)&&item.getPosition().equals(administrator)){
                     user_searchManage=new User_SearchManage(item.getUser());
                     user_searchManage.setIfManager(true);
                     information.add(user_searchManage);
