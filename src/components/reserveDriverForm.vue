@@ -14,6 +14,7 @@
                 <el-button size="small" @click="reserveDriverClick">修改</el-button>
                 <el-button size="small" @click="cancelReserveClick" type="danger">取消预约</el-button>
             </td></tr>
+            <tr><td colspan="2"><el-button @click="findDriverJourney" size="small">查询</el-button></td></tr>
             </tbody>
         </table>
     </div>
@@ -53,9 +54,10 @@
                     }
                 }).then(res =>{
                     let data=res.data;
+                    console.log(data);
                     if(data.msg==="success"){
                         if(this.action===1) this.$message("预约成功");
-                        else if(this.action===2) this.$message("修改成功");
+                        else  this.$message("修改成功");
                     }
                     else this.$message("预约失败");
                 })
@@ -68,6 +70,7 @@
                     }
                 }).then(res =>{
                     let data=res.data;
+                    console.log(data);
                     if(data.msg==="success"){
                         this.origin=data.origin;
                         this.target=data.target;

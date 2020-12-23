@@ -10,11 +10,18 @@
             <router-link to="/login" slot="reference" class="centerP">浑元形意 会务管理</router-link>
             </el-popover>
         </div>
-
+        <div class="align-center bigTile">
+            <el-popover
+                    placement="top-start"
+                    title="点击进入注册页面"
+                    width="200"
+                    trigger="hover">
+                <el-button slot="reference" class="centerButton" @click="toRegister">立即体验</el-button>
+            </el-popover></div>
         <div class="iconTitle">界面简洁</div>
         <div class="iconTitle">功能齐全</div>
         <div class="iconTitle">平台司机</div>
-        <div class="iconTitle">预约酒店</div>
+        <div class="iconTitle">加盟酒店</div>
         <div class="iconContent">
             <div class="ButtonBox">
 
@@ -40,19 +47,16 @@
                     </a>
             </div>
         </div>
-        <div class="align-center">
-        <el-popover
-                placement="top-start"
-                title="点击进入注册页面"
-                width="200"
-                trigger="hover">
-        <el-button class="centerButton" @click="toRegister">立即体验</el-button>
-        </el-popover></div>
+
+
         <div class="powerContent">
+
             <div v-show="show===0">
+                <p class="centerTitle">会议列表界面展示</p>
                 <meeting-list :meetings="meetings" :router-to="'/Register'" :show-all="true"></meeting-list>
             </div>
             <div v-show="show===1">
+                <p class="centerTitle">小功能界面展示</p>
                 <div>
                     <div class="smallInfo"><RelateToMe :meeting-user="meetingUser"></RelateToMe></div>
                     <div class="smallInfo"><SmallInfo  :person-info="personInfo"></SmallInfo></div>
@@ -62,9 +66,11 @@
                 </div>
             </div>
             <div v-show="show===2">
+                <p class="centerTitle">预约司机界面展示</p>
                 <ReserveDriver></ReserveDriver>
             </div>
             <div v-show="show===3">
+                <p class="centerTitle">预约酒店界面展示</p>
                 <ReserveHotel></ReserveHotel>
             </div>
         </div>
@@ -223,5 +229,10 @@
         border-radius: 2px;
         margin: 10px;
         padding: 10px;
+    }
+    .centerTitle{
+        font-size: 22px;
+        text-align: center;
+        color: #007ddb;
     }
 </style>

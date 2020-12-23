@@ -30,7 +30,7 @@
                 <hr class="layui-bg-orange">
                 <div class="btnDiv layui-row">
                     <div class="layui-col-lg2 layui-col-lg-offset4">
-                        <button class="layui-btn layui-bg-orange">完成订单</button>
+                        <button class="layui-btn layui-bg-orange" @click="finishClick(meetingItem)">完成订单</button>
                     </div>
                     <div class="layui-col-lg3 ">
                         <button class="layui-btn layui-btn-danger">取消订单</button>
@@ -48,6 +48,31 @@
         name: "Accept",
         components:{
             Collapse
+        },
+        methods:{
+            finishClick(order){
+                this.$request(this.$url.hotelCancel,{
+                        params:{
+                            meetingId:order.id,
+                            hotelId:this.$store.state.hotel.hotel.id
+                        }
+                    }).then(res =>{
+                        let data = res.data;
+                        if(data.msg==="success") {
+                            this.$store.commit("hotelAccepted", order);
+                            this.$message("接受成功，请在已接受订单中查看");
+                        }
+                        else {
+                            this.$message("接受失败，对方可能已取消")
+                        }
+                    }).catch(err =>{
+                        console.log(err);
+                        this.$message("网络请求错误");
+                    });},
+
+            cancelClick(){
+                console.log("取消订单");
+            }
         },
         created() {
             //console.log(this.$store.state.hotel.meetings.accepted);

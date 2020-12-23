@@ -113,8 +113,8 @@
             return{
                 driverInput:"",
                 driverAll:[
-                    [
-                    {id:11322,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"},
+
+                    /*{id:11322,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"},
                     {id:11323,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"},
                     {id:11324,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"}],
                     [{id:1232,name:"洪师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"},
@@ -125,13 +125,13 @@
                         {id:11322,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"}],
                     [{id:1232,name:"黎师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"},
                         {id:1132,name:"黎师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"},
-                        {id:11322,name:"黎师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"}]
+                        {id:11322,name:"黎师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231"}*/
                     ],
                 driverList:[],
                 searchDriverList:[],
-                haveDriverList:[{id:11322,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231",state:"已接受"},
+                haveDriverList:[/*{id:11322,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231",state:"已接受"},
                     {id:11323,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231",state:"未接受"},
-                    {id:11324,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231",state:"被拒绝"}],
+                    {id:11324,name:"马师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"231231",state:"被拒绝"}*/],
                 pageTotal:70,
                 finding:0,
                 searching:0,

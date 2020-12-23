@@ -30,10 +30,12 @@
                 <hr class="layui-bg-orange">
                 <div class="btnDiv layui-row">
                     <div class="layui-col-lg2 layui-col-lg-offset4">
-                        <button class="layui-btn layui-bg-orange">接受预约</button>
+                        <button class="layui-btn layui-bg-orange" @click="acceptClick(meetingItem)">接受预约</button>
                     </div>
                     <div class="layui-col-lg3 ">
-                        <button class="layui-btn layui-btn-danger">拒绝预约</button>
+                        <el-popconfirm title="是否确定拒绝预约？" @confirm="rejectClick(meetingItem)">
+                            <button slot="reference" class="layui-btn layui-btn-danger" >拒绝预约</button>
+                        </el-popconfirm>
                     </div>
                 </div>
             </div>
@@ -64,6 +66,27 @@
                     else {
                         this.$message("接受失败，对方可能已取消")
                     }
+                }).catch(err =>{
+                    console.log(err);
+                    this.$message("网络请求错误");
+                });
+            },
+            rejectClick(orderId){
+                this.$request(this.$url.hotelReject,{
+                    params:{
+                        meetingId:orderId,
+                        hotelId:this.$store.state.hotel.hotel.id
+                    }
+                }).then(res =>{
+                let data = res.data;
+                if(data.msg==="success") {
+                    this.$store.commit("hotelReject", orderId);
+                    this.$message("已拒绝");
+                }
+                else {
+                    this.$store.commit("hotelReject", orderId);
+                    this.$message("出现错误,已为您本地删除");
+                }
                 }).catch(err =>{
                     console.log(err);
                     this.$message("网络请求错误");

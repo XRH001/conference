@@ -231,7 +231,7 @@
                 meetingId:"",
                 notFound:false,
                 meetingInfo:{//这里是会议的全部信息
-                    name:"123",
+                    /*name:"123",
                     id:1,
                     beginTime:"2020-12-6 20:47:00",
                     endTime:"2020-12-6 20:47:00",
@@ -239,7 +239,7 @@
                     remark:"本次会议，请务必参加",
                     orderStatus:"未开始",
                     createTime:"2020-12-6 20:48:00",
-                    num:321,
+                    num:321,*/
                 },
                 managerInfo:[{id:124,username:"嘿嘿", email:"123@qq.com",invitationStatus:"已接受"},
                     {id:123,username:"嘿嘿", email:"123@qq.com",invitationStatus:"已接受"}],

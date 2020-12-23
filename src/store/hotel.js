@@ -64,6 +64,15 @@ export const hotel={
                 }
             }
             state.meetings.accepted.push(order);
+        },
+        hotelReject(state,orderId){
+            for(let orderInx in state.meetings.reserve){
+                if(state.meetings.reserve[orderInx].id===orderId){
+                    state.meetings.reserve.splice(orderInx,1);
+                    return;
+                }
+            }
+            console.log("ds");
         }
     },
     actions:{},

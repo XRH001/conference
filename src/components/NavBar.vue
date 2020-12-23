@@ -10,7 +10,7 @@
             <span v-if="$store.state.haveLogin">
         <li class="layui-nav-item floatRight">
             <a href="javascript:void(0)" :active-class="thisActive"  @click="messageShow=true" >
-                我的消息<el-badge :value="messageNum" class="item"></el-badge></a></li>
+                我的消息<el-badge :value="messageNum" v-show="messageNum!==0" class="item"></el-badge></a></li>
         <li class="layui-nav-item floatRight">
           <router-link to="/personalInfo" :active-class="thisActive">
             <img :src="$store.getters.headPath" class="smallHead" @error="notFindImg()"><!--$store.getters.headPath-->
@@ -111,7 +111,7 @@
                 if(this.$store.state.haveLogin && this.$store.state.identity.toLowerCase()==="common"){
                     this.searchMsg();
                 }
-            },10000);
+            },60000);
         }
     }
 </script>
