@@ -9,6 +9,7 @@ public class UserAddConfence {
     private ArrayList<Integer> meetingIdList;
 
 
+
     public ArrayList<Integer> getMeetingIdList() {
         return meetingIdList;
     }
@@ -19,18 +20,6 @@ public class UserAddConfence {
 
     private String userId;
     private String meetingId;
-
-    @Override
-    public String toString() {
-        return "UserAddConfence{" +
-                "meetingIdList=" + meetingIdList +
-                ", userId='" + userId + '\'' +
-                ", meetingId='" + meetingId + '\'' +
-                ", remark='" + remark + '\'' +
-                ", memberId='" + memberId + '\'' +
-                ", alter=" + alter +
-                '}';
-    }
 
     private String remark;
     private String memberId;
@@ -74,5 +63,17 @@ public class UserAddConfence {
 
     public void setMeetingId(String meetingId) {
         this.meetingId = meetingId;
+    }
+
+    @Override
+    public String toString() {
+        return "UserAddConfence{" +
+                "meetingIdList=" + meetingIdList +
+                ", userId='" + userId + '\'' +
+                ", meetingId='" + meetingId + '\'' +
+                ", remark='" + remark + '\'' +
+                ", memberId='" + memberId + '\'' +
+                ", alter=" + alter +
+                '}';
     }
 }

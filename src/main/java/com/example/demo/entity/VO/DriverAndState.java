@@ -45,4 +45,11 @@ public class DriverAndState extends Driver {
         return Objects.hash(super.hashCode(), orderStatus);
     }
 
+    @Override
+    public String toString() {
+        return "DriverAndState{" +
+                super.toString()+
+                "orderStatus=" + orderStatus +
+                '}';
+    }
 }

@@ -5,7 +5,9 @@ package com.example.demo.entity.DTO;
 import com.example.demo.enumValue.Identity;
 import com.example.demo.enumValue.Sex;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
@@ -38,6 +40,9 @@ public class User {
     private String username;
     private String password;
     private Sex sex;
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonFormat(pattern = "yyyy/MM/dd")
     private LocalDate birth;
     private String email;
     private String imgPath;

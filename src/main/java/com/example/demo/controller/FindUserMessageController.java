@@ -26,7 +26,8 @@ public class FindUserMessageController {
     @Autowired
     ConferenceUserService conferenceUserService;
     @RequestMapping("/findUserMessage")
-    public String FindUserMessageSelvet(UserAddConfence userAddConfence){
+    public String FindUserMessageSelvet(@RequestBody UserAddConfence userAddConfence){
+        System.out.println(userAddConfence.getMeetingIdList().size());
         if(userService.queryUserByID(Integer.valueOf(userAddConfence.getUserId()))==null){
             return "{\"msg\":\"fail\"}";
         }
@@ -34,7 +35,7 @@ public class FindUserMessageController {
         if(conferenceUserService.queryConferenceUsersByUser(user)==null){
             return "{\"msg\":\"fail\"}";
         }
-        if(userAddConfence.getMeetingIdList()==null){
+        if(userAddConfence.getMeetingIdList().size()==0){
             List<ConferenceUser> conferenceUsers = conferenceUserService.queryConferenceUsersByUser(user);
             // 遍历用户ID
             String firstStr = "{\"msg\":\"success\",\"newMsg\":[";
@@ -67,7 +68,7 @@ public class FindUserMessageController {
             for(int i=0;i<conferenceUsers.size();i++){
                 boolean isTrue = true;
                 // 判断是否不在前端传的会议中
-                for(int j=0;i<userAddConfence.getMeetingIdList().size();j++){
+                for(int j=0;j<userAddConfence.getMeetingIdList().size();j++){
                     if(conferenceUsers.get(i).getConference().getID() == userAddConfence.getMeetingIdList().get(j)){
                         isTrue = false;
                         break;

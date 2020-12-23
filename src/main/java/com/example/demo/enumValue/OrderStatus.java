@@ -12,7 +12,7 @@ public enum OrderStatus {
     Block("被拒绝",-2),
     Suspend("需要改正",-1),
     Checking("审核中",0),
-    Ready("审核通过但还未开始",1),
+    Ready("审核通过",1),
     Running("进行中",2),
     Finished("已完成",3),
     NoStatus("无状态",4);

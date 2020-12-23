@@ -32,4 +32,9 @@ public class AdminDAOTest {
         System.out.println(LocalDateTime.now());
     }
 
+    @Test
+    public void test3(){
+        System.out.println(LocalDateTime.of(2020,12,23,1,1,0));
+    }
+
 }
