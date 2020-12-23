@@ -1,9 +1,168 @@
 export const driver={
     state:{
-        driver:{},
-        wait:[],
-        already:[],
-        need:[]
+        driver:{
+
+        },
+        meetings:{
+            wait:[
+                {
+                    id:12,
+                    name:"会议测试",
+                    address:"会议地点",
+                    beginTime:"会议开始时间",
+                    journey:{
+                        origin:"始发地",
+                        target:"终点",
+                        time:"出发时间"
+                    },
+                    passenger:[//乘客：参会人员的接送需求
+                        {username:"参会人员信息",userId:321,contact:"参会人员联系方式"},
+                        {username:"参会人员信息",userId:331,contact:"参会人员联系方式"},
+                        {username:"参会人员信息",userId:3321,contact:"参会人员联系方式"},
+                    ],
+
+                },
+                {
+                    id:122,
+                    name:"会议测试",
+                    address:"会议地点",
+                    beginTime:"会议开始时间",
+                    journey:{
+                        origin:"始发地",
+                        target:"终点",
+                        time:"出发时间"
+                    },
+                    passenger:[//乘客：参会人员的接送需求
+                        {username:"参会人员信息",userId:321,contact:"参会人员联系方式"},
+                        {username:"参会人员信息",userId:331,contact:"参会人员联系方式"},
+                        {username:"参会人员信息",userId:3321,contact:"参会人员联系方式"},
+                    ],
+
+                },
+                {
+                    id:132,
+                    name:"会议测试",
+                    address:"会议地点",
+                    beginTime:"会议开始时间",
+                    journey:{
+                        origin:"始发地",
+                        target:"终点",
+                        time:"出发时间"
+                    },
+                    passenger:[//乘客：参会人员的接送需求
+                        {username:"参会人员信息",userId:321,contact:"参会人员联系方式"},
+                        {username:"参会人员信息",userId:331,contact:"参会人员联系方式"},
+                        {username:"参会人员信息",userId:3321,contact:"参会人员联系方式"},
+                    ],
+
+                },
+                ],
+            already:[
+                {
+                    id:1223,
+                    name:"会议测试",
+                    address:"会议地点",
+                    beginTime:"会议开始时间",
+                    journey:{
+                        origin:"始发地",
+                        target:"终点",
+                        time:"出发时间"
+                    },
+                    passenger:[//乘客：参会人员的接送需求
+                        {username:"参会人员信息",userId:321,contact:"参会人员联系方式"},
+                        {username:"参会人员信息",userId:331,contact:"参会人员联系方式"},
+                        {username:"参会人员信息",userId:3321,contact:"参会人员联系方式"},
+                    ],
+
+                },
+                {
+                    id:15122,
+                    name:"会议测试",
+                    address:"会议地点",
+                    beginTime:"会议开始时间",
+                    journey:{
+                        origin:"始发地",
+                        target:"终点",
+                        time:"出发时间"
+                    },
+                    passenger:[//乘客：参会人员的接送需求
+                        {username:"参会人员信息",userId:321,contact:"参会人员联系方式"},
+                        {username:"参会人员信息",userId:331,contact:"参会人员联系方式"},
+                        {username:"参会人员信息",userId:3321,contact:"参会人员联系方式"},
+                    ],
+
+                },
+                {
+                    id:13622,
+                    name:"会议测试",
+                    address:"会议地点",
+                    beginTime:"会议开始时间",
+                    journey:{
+                        origin:"始发地",
+                        target:"终点",
+                        time:"出发时间"
+                    },
+                    passenger:[//乘客：参会人员的接送需求
+                        {username:"参会人员信息",userId:321,contact:"参会人员联系方式"},
+                        {username:"参会人员信息",userId:331,contact:"参会人员联系方式"},
+                        {username:"参会人员信息",userId:3321,contact:"参会人员联系方式"},
+                    ],
+
+                },
+            ],
+            need:[{
+                id:1862,
+                name:"会议测试",
+                address:"会议地点",
+                beginTime:"会议开始时间",
+                journey:{
+                    origin:"始发地",
+                    target:"终点",
+                    time:"出发时间"
+                },
+                passenger:[//乘客：参会人员的接送需求
+                    {username:"参会人员信息",userId:321,contact:"参会人员联系方式"},
+                    {username:"参会人员信息",userId:331,contact:"参会人员联系方式"},
+                    {username:"参会人员信息",userId:3321,contact:"参会人员联系方式"},
+                ],
+
+            },
+                {
+                    id:19622,
+                    name:"会议测试",
+                    address:"会议地点",
+                    beginTime:"会议开始时间",
+                    journey:{
+                        origin:"始发地",
+                        target:"终点",
+                        time:"出发时间"
+                    },
+                    passenger:[//乘客：参会人员的接送需求
+                        {username:"参会人员信息",userId:321,contact:"参会人员联系方式"},
+                        {username:"参会人员信息",userId:331,contact:"参会人员联系方式"},
+                        {username:"参会人员信息",userId:3321,contact:"参会人员联系方式"},
+                    ],
+
+                },
+                {
+                    id:126732,
+                    name:"会议测试",
+                    address:"会议地点",
+                    beginTime:"会议开始时间",
+                    journey:{
+                        origin:"始发地",
+                        target:"终点",
+                        time:"出发时间"
+                    },
+                    passenger:[//乘客：参会人员的接送需求
+                        {username:"参会人员信息",userId:321,contact:"参会人员联系方式"},
+                        {username:"参会人员信息",userId:331,contact:"参会人员联系方式"},
+                        {username:"参会人员信息",userId:3321,contact:"参会人员联系方式"},
+                    ],
+
+                },]
+        }
+
     },
     mutations:{
         setDriver(state,driver){
