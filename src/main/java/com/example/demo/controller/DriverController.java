@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Controller
@@ -34,7 +35,7 @@ public class DriverController {
     public Map load(HttpServletRequest request){
         Map<String,Object> msg=new HashMap<>(3);
         try {
-            int pageNum=Integer.valueOf(request.getParameter("pageNum"));
+            int pageNum=Integer.valueOf(request.getParameter("pageNum"))-1;
             int lineNum=Integer.valueOf(request.getParameter("lineNum"));
             List<Driver> list=driverService.queryForPageItems(pageNum*lineNum,lineNum);
             msg.put("msg","success");
@@ -66,12 +67,15 @@ public class DriverController {
         Map<String,Object> msg=new HashMap<>(2);
         try {
             int meetingId=Integer.valueOf(request.getParameter("meetingId"));
+            //System.err.println("meetingId:"+meetingId);
             List<UserJourney> userJourneyList=userJourneyService.queryUserJourneysByConference(conferenceService.queryConferenceByID(meetingId));
-            //System.err.println(userJourneyList);
+            //System.err.println("userJourneyList:"+userJourneyList);
             List<DriverAndState> list=new ArrayList<>();
             for(UserJourney userJourney:userJourneyList){
                 DriverPickUp driverPickUp=driverPickUpService.queryDriverPickUpByUserJourney(userJourney);
-                list.add(new DriverAndState(driverPickUp.getDriver(),driverPickUp.getOrderStatus()));
+                if (driverPickUp!=null){
+                    list.add(new DriverAndState(driverPickUp.getDriver(),driverPickUp.getOrderStatus()));
+                }
             }
             msg.put("msg","success");
             msg.put("driverList",list);
@@ -104,18 +108,19 @@ public class DriverController {
             LocalDateTime time=LocalDateTime.of(Integer.valueOf(s2[0]),Integer.valueOf(s2[1]),Integer.valueOf(s2[2]),Integer.valueOf(s3[0]),Integer.valueOf(s3[1]),Integer.valueOf(s3[2]));
 
             Journey journey=new Journey(driverId,time,origin,target);
-            System.err.println(journey);
+            //System.err.println(journey);
             List<UserJourney> userJourneyList=userJourneyService.queryUserJourneysByConference(conferenceService.queryConferenceByID(meetingId));
             for (UserJourney userJourney:userJourneyList){
                 DriverPickUp driverPickUp=driverPickUpService.queryDriverPickUpByUserJourney(userJourney);
-                if (driverPickUp.getDriver().getID()==driverId){
+                if (driverPickUp!=null&&driverPickUp.getDriver().getID()==driverId){
                     journey.setID(driverPickUp.getUserJourney().getJourney().getID());
                     journeyService.saveJourney(journey);
                     msg.put("msg","success");
                     return msg;
                 }
             }
-            if (journeyService.queryJourneyDOByOriginAndTargetAndTime(origin,target,time).equals(journey)){
+            Journey queryJourney=journeyService.queryJourneyDOByOriginAndTargetAndTime(origin,target,time);
+            if (queryJourney!=null&&queryJourney.equals(journey)){
                 journey.setID(journeyService.queryJourneyDOByOriginAndTargetAndTime(origin,target,time).getID());
             }
             journeyService.saveJourney(journey);
@@ -135,22 +140,26 @@ public class DriverController {
     @RequestMapping("/queryJourney")
     public Map queryJourney(HttpServletRequest request){
         Map<String,Object> msg=new HashMap<>(4);
+        DateTimeFormatter dtf= DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         try {
             int meetingId=Integer.valueOf(request.getParameter("meetingId"));
             int driverId=Integer.valueOf(request.getParameter("driverId"));
-            System.err.println(meetingId);
-            System.err.println(driverId);
+            //System.err.println(meetingId);
+            //System.err.println(driverId);
             Journey journey=new Journey();
             List<DriverPickUp> driverPickUpList=driverPickUpService.queryDriverPickUpSByDriver(driverService.queryDriverByID(driverId));
             for (DriverPickUp driverPickUp:driverPickUpList){
                 if(driverPickUp.getUserJourney().getConference().getID()==meetingId){
                     journey=driverPickUp.getUserJourney().getJourney();
+                   // LocalDateTime time=journey.getTime();
+                   // journey.setTime(LocalDateTime.of(time.getYear(),time.getMonthValue(),time.getDayOfMonth(),time.getHour(),time.getMinute(),1));
                 }
             }
             msg.put("msg","success");
             msg.put("origin",journey.getorigin());
             msg.put("target",journey.getTarget());
-            msg.put("time",journey.getTime());
+            msg.put("time",journey.getTime().format(dtf).replace("T"," "));
+            //System.err.println(journey.getTime());
 
         }catch (NullPointerException|NumberFormatException e){
             e.printStackTrace();
