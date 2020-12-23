@@ -27,10 +27,8 @@ public class AgreeConfenceInviteController {
     ConferenceService conferenceService;
     @Autowired
     ConferenceUserService conferenceUserService;
-    @RequestMapping("/agreeConfenceInvite")
+    @RequestMapping("/agreeConferenceInvite")
     public String AcceptOrdinarySelvet(@RequestBody UserAddConfence userAddConfence){
-        System.out.println(userAddConfence.getMemberId());
-        System.out.println(userAddConfence.getMeetingId());
         // 根据用户ID查询
         if(userService.queryUserByID(Integer.valueOf(userAddConfence.getMemberId()))==null){
             return "{\"msg\":\"fail\"}";

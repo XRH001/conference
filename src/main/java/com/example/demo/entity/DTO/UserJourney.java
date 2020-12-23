@@ -31,6 +31,11 @@ public class UserJourney {
         this.conference = conference;
     }
 
+    public UserJourney(Journey journey, Conference conference) {
+        this.journey = journey;
+        this.conference = conference;
+    }
+
     public int getID() {
         return ID;
     }
