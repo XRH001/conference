@@ -1,7 +1,7 @@
 
 <template>
     <div>
-        <fieldset v-for="meetingItem in $store.state.hotel.meetings.accepted" :key="meetingItem.id" class="layui-elem-field eachReserve">
+        <fieldset v-for="meetingItem in $store.state.hotel.meetings.completed" :key="meetingItem.id" class="layui-elem-field eachReserve">
         <legend>会议名：{{meetingItem.name}}</legend>
         <div class="layui-field-box">
             <!--会议时间：2020年11月23日11:26-2020年11月23日11:26<br>

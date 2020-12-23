@@ -2,17 +2,17 @@
 export const hotel={
     state:{
         hotel:{
-            id:0,
+            id:23,
             name:"我是酒店名",
             phone:"",
             address:"",
             username:"",
             email:"",
-            imgPath:""
+            imgPath:"wad"
         },
         meetings:{
             accepted:[
-                {   id:2,
+                {   id:42,
                     name:"会议名称",
                     customer:"顾客名字/创建者",
                     contact:"联系电话",
@@ -22,7 +22,7 @@ export const hotel={
                         {type:"仨人间",num:12,beginTime:"2020/12/22",endTime:"2020/13/12"},
                     ]
                 },
-                {   id:3,
+                {   id:33,
                     name:"Hunyuan",
                     customer:"liYeXuan",
                     contact:"153124132131",
@@ -34,7 +34,19 @@ export const hotel={
                 }
             ],
             reserve:[
-                {   id:5,
+                {   id:51,
+                    name:"Hun",
+                    customer:"liYan",
+                    contact:"1531232131",
+                    rooms:[
+                        {type:"单人间",num:12,beginTime:"2020/12/22",endTime:"2020/13/12"},
+                        {type:"双人间",num:12,beginTime:"2020/12/22",endTime:"2020/13/12"},
+                        {type:"仨人间",num:12,beginTime:"2020/12/22",endTime:"2020/13/12"},
+                    ]
+                }
+            ],
+            completed:[
+                {   id:24,
                     name:"Hun",
                     customer:"liYan",
                     contact:"1531232131",
@@ -73,6 +85,18 @@ export const hotel={
                 }
             }
             console.log("ds");
+        },
+        hotelFinished(state,order){
+            let value=order.id;
+            console.log(value);
+            console.log(state.meetings.accepted[0]);
+            for(let inx in state.meetings.accepted){
+                if(state.meetings.accepted[inx].id===value){
+                    state.meetings.accepted.splice(inx,1);
+                    break;
+                }
+            }
+            state.meetings.completed.push(order);
         }
     },
     actions:{},

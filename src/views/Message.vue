@@ -29,9 +29,7 @@
         },
         methods:{
             acceptClick(meetingId){
-                // this.$http("mainServlet?ac=need&apiName=acceptInvite2"
-                console.log(meetingId);
-                console.log(this.$store.state.user.id);
+                /*this.$http("mainServlet?ac=need&apiName=acceptInvite2"*/
                 this.$post(this.$url.acceptInvite,{
                         meetingId,
                         memberId:this.$store.state.user.id
@@ -64,7 +62,7 @@
                     }
             }).then(res => {
                     if(res.data==="success"){this.$emit("removeMsg",meetingId);this.$message("已拒绝");}
-                    else if(res.data==="fail")this.$message("拒绝失败，对方可能已取消邀请")
+                    else if(res.data==="fail")this.$message("拒绝失败，对方可能已取消邀请");
                     else this.$message("服务器错误");
                 }).catch(err =>{
                     console.log(err);

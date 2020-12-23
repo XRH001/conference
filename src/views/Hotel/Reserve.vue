@@ -33,7 +33,7 @@
                         <button class="layui-btn layui-bg-orange" @click="acceptClick(meetingItem)">接受预约</button>
                     </div>
                     <div class="layui-col-lg3 ">
-                        <el-popconfirm title="是否确定拒绝预约？" @confirm="rejectClick(meetingItem)">
+                        <el-popconfirm title="是否确定拒绝预约？" @confirm="rejectClick(meetingItem.id)">
                             <button slot="reference" class="layui-btn layui-btn-danger" >拒绝预约</button>
                         </el-popconfirm>
                     </div>
@@ -52,6 +52,7 @@
         components: {Collapse},
         methods:{
             acceptClick(order){
+                /*this.$http("mainServlet?ac=need&apiName=MsgSuccess"*/
                 this.$request(this.$url.hotelAcceptOrder,{
                     params:{
                         meetingId:order.id,
@@ -72,6 +73,7 @@
                 });
             },
             rejectClick(orderId){
+                /*this.$http("mainServlet?ac=need&apiName=MsgSuccess"*/
                 this.$request(this.$url.hotelReject,{
                     params:{
                         meetingId:orderId,

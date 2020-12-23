@@ -48,7 +48,7 @@
                 </div>
             </div>
         </div>
-        <el-dialog title="忘记密码" :visible.sync="forget.dialog" class="forgetDialog" :modal-append-to-body='false'>
+        <el-dialog title="忘记密码" :visible.sync="forget.dialog" class="forgetDialog" :close-on-click-modal="false" :modal-append-to-body='false'>
             <label>邮箱</label><input type="text" class="layui-input" v-model.lazy="email" autocomplete="off">
             <label>新密码</label><input type="text" class="layui-input" v-model.lazy="forget.newPassword" autocomplete="off">
             <label>确认密码</label><input type="text" class="layui-input" v-model="forget.newConfirm" autocomplete="off">

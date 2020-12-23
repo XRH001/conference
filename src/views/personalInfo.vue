@@ -136,12 +136,10 @@
                 });
             },
             changePasswordClick(){
-                /*let reg=/^[0-9A-Za-z\\W]{6,18}$/;
-                if(!reg.test(this.password.newPassword)){this.$message("新密码格式不正确(6-18位字母数字或特殊符号)");return;}*/
+                let reg=/^[0-9A-Za-z\\W]{6,18}$/;
+                if(!reg.test(this.password.newPassword)){this.$message("新密码格式不正确(6-18位字母数字或特殊符号)");return;}
                 if(this.password.newPassword!==this.password.newConfirm){this.$message("两次输入不同");return;}
-                //console.log(this.$store.state.user.id);
-                console.log(this.password.formerInput);
-                console.log(this.password.newPassword);
+
                 this.$request(this.$url.changePassword,{
                     params:{
                         userId:this.$store.state.user.id,
