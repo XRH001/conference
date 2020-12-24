@@ -44,13 +44,3 @@ public class AlterMeeting {
         }
     }
 }
-
-/*
-meetingBase:{
-        id:2
-        name:芜湖会议
-        beginTime:2020-12-21 13:09:10
-        endTime:2020-12-22 13:09:10
-        address:芜湖飞机场
-        remark:肉蛋葱鸡
-        }*/

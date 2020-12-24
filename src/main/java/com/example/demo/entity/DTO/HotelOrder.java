@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class HotelOrder {
+public class       HotelOrder {
     /**
      * @author 李嘉旭
      * 基本类:酒店订单信息
