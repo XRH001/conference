@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.DTO.*;
 import com.example.demo.entity.Driver;
-import com.example.demo.entity.VO.DriverAndState;
+import com.example.demo.entity.VO.*;
 import com.example.demo.enumValue.OrderStatus;
 import com.example.demo.service.mehod.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -166,6 +166,179 @@ public class DriverController {
             msg.put("msg","fail");
         }
         return msg;
+    }
+    @ResponseBody
+    @RequestMapping("/driverLogin")
+    public Map driverLogin(HttpServletRequest request){
+        Map<String,Object> msg=new HashMap<>(4);
+
+        try {
+            String email=request.getParameter("email");
+            String password=request.getParameter("password");
+
+            Driver driver=driverService.queryDriverByEmail(email);
+            if (driver==null){
+                msg.put("msg","empty");
+            }else {
+                msg.put("driver",driver);
+                List<DriverPickUp> driverPickUpList=driverPickUpService.queryDriverPickUpSByDriver(driver);
+
+                List<UserJourney> acceptedUserJourney=new ArrayList<>();
+                List<UserJourney> alreadyUserJourney=new ArrayList<>();
+                List<UserJourney> needUserJourney=new ArrayList<>();
+
+                for (DriverPickUp driverPickUp:driverPickUpList){
+                    switch (driverPickUp.getOrderStatus()){
+                        case Ready:acceptedUserJourney.add(driverPickUp.getUserJourney());break;//1
+                        case Finished:alreadyUserJourney.add(driverPickUp.getUserJourney());break;//3
+                        case Checking:needUserJourney.add(driverPickUp.getUserJourney());break;//0
+                        default:
+                            msg.put("msg","fail");
+                            return msg;
+                    }
+                }
+                //List<UserJourney> userJourneyList=new ArrayList<>();
+                List<MeetingBasedJourney> accepted=generateMeetingBasedJourneyList(acceptedUserJourney);
+                List<MeetingBasedJourney> already=generateMeetingBasedJourneyList(alreadyUserJourney);
+                List<MeetingBasedJourney> need=generateMeetingBasedJourneyList(needUserJourney);
+
+                Map<String,List> meetings=new HashMap<>();
+                meetings.put("accepted",accepted);
+                meetings.put("already",already);
+                meetings.put("need",need);
+
+                msg.put("meetings",meetings);
+                return msg;
+            }
+
+        }catch (NullPointerException|NumberFormatException e){
+            e.printStackTrace();
+            msg.put("msg","fail");
+        }
+        return msg;
+
+    }
+
+    @ResponseBody
+    @RequestMapping("/acceptInvitation")
+    public Map acceptInvitation(HttpServletRequest request){
+        Map<String,Object> msg=new HashMap<>(2);
+        try {
+            int meetingId=Integer.valueOf(request.getParameter("meetingId"));
+            int driverId=Integer.valueOf(request.getParameter("driverId"));
+            msg.put("msg","fail");
+
+            List<DriverPickUp> driverPickUpList=driverPickUpService.queryDriverPickUpSByDriver(driverService.queryDriverByID(driverId));
+            for (DriverPickUp driverPickUp:driverPickUpList){
+                if (driverPickUp.getUserJourney().getConference().getID()==meetingId&&driverPickUp.getOrderStatus()==OrderStatus.Checking){
+                    driverPickUp.setOrderStatus(OrderStatus.Ready);
+                    driverPickUpService.saveDriverPickUp(driverPickUp);
+                    msg.put("msg","success");
+                    break;
+                }
+            }
+
+        }catch (NullPointerException e){
+            msg.put("msg","fail");
+        }
+        return msg;
+    }
+
+    @ResponseBody
+    @RequestMapping("/refuseInvitation")
+    public Map refuseInvitation(HttpServletRequest request){
+        Map<String,Object> msg=new HashMap<>(2);
+        try {
+            int meetingId=Integer.valueOf(request.getParameter("meetingId"));
+            int driverId=Integer.valueOf(request.getParameter("driverId"));
+            msg.put("msg","fail");
+
+            List<DriverPickUp> driverPickUpList=driverPickUpService.queryDriverPickUpSByDriver(driverService.queryDriverByID(driverId));
+            for (DriverPickUp driverPickUp:driverPickUpList){
+                if (driverPickUp.getUserJourney().getConference().getID()==meetingId&&driverPickUp.getOrderStatus()==OrderStatus.Ready){
+                    driverPickUp.setOrderStatus(OrderStatus.Checking);
+                    driverPickUpService.saveDriverPickUp(driverPickUp);
+                    msg.put("msg","success");
+                    break;
+                }
+            }
+
+        }catch (NullPointerException e){
+            msg.put("msg","fail");
+        }
+        return msg;
+    }
+
+    @ResponseBody
+    @RequestMapping("/finishInvitation")
+    public Map finishInvitation(HttpServletRequest request){
+        Map<String,Object> msg=new HashMap<>(2);
+        try {
+            int meetingId=Integer.valueOf(request.getParameter("meetingId"));
+            int driverId=Integer.valueOf(request.getParameter("driverId"));
+            msg.put("msg","fail");
+
+            List<DriverPickUp> driverPickUpList=driverPickUpService.queryDriverPickUpSByDriver(driverService.queryDriverByID(driverId));
+            for (DriverPickUp driverPickUp:driverPickUpList){
+                if (driverPickUp.getUserJourney().getConference().getID()==meetingId&&driverPickUp.getOrderStatus()==OrderStatus.Ready){
+                    driverPickUp.setOrderStatus(OrderStatus.Finished);
+                    driverPickUpService.saveDriverPickUp(driverPickUp);
+                    msg.put("msg","success");
+                    break;
+                }
+            }
+
+        }catch (NullPointerException e){
+            msg.put("msg","fail");
+        }
+        return msg;
+    }
+
+    public List<MeetingBasedJourney> generateMeetingBasedJourneyList(List<UserJourney> userJourneyList){
+        List<ConferenceJourney> conferenceJourneyList=new ArrayList<>();
+        List<ConferenceJourneyAndUserList> conferenceJourneyAndUserList=new ArrayList<>();
+
+        for (UserJourney userJourney:userJourneyList){
+            ConferenceJourney conferenceJourney=new ConferenceJourney(userJourney.getConference(),userJourney.getJourney());
+            if (!conferenceJourneyList.contains(conferenceJourney)) {
+                conferenceJourneyList.add(conferenceJourney);
+            }
+        }
+
+        for (ConferenceJourney conferenceJourney:conferenceJourneyList){
+            conferenceJourneyAndUserList.add(new ConferenceJourneyAndUserList(conferenceJourney.getConference(),conferenceJourney.getJourney()));
+        }
+
+        for (UserJourney userJourney:userJourneyList){
+            ConferenceJourney conferenceJourney=new ConferenceJourney(userJourney.getConference(),userJourney.getJourney());
+            int index=conferenceJourneyList.indexOf(conferenceJourney);
+            conferenceJourneyAndUserList.get(index).getUserList().add(userJourney.getUser());
+        }
+
+        List<MeetingBasedJourney> list=new ArrayList<>();
+
+        for (ConferenceJourneyAndUserList conferenceJourneyAndUserList1:conferenceJourneyAndUserList){
+            list.add(toMeetingBasedJourney(conferenceJourneyAndUserList1.getUserList(),conferenceJourneyAndUserList1.getConference(),conferenceJourneyAndUserList1.getJourney()));
+        }
+
+        return list;
+    }
+
+    public MeetingBasedJourney toMeetingBasedJourney(List<User> userList,Conference conference,Journey journey){
+        MeetingBasedJourney meetingBasedJourney=new MeetingBasedJourney();
+        Passenger passenger;
+
+        meetingBasedJourney.setJourney(journey);
+        meetingBasedJourney.setConferenceName(conference.getName());
+        meetingBasedJourney.setBeginTime(conference.getBeginTime());
+        meetingBasedJourney.setAddress(conference.getAddress());
+        meetingBasedJourney.setConferenceID(conference.getID());
+        for (User user:userList){
+            passenger=new Passenger(user.getUsername(),user.getID(),user.getPhone());
+            meetingBasedJourney.getPassenger().add(passenger);
+        }
+
+        return meetingBasedJourney;
     }
 
 

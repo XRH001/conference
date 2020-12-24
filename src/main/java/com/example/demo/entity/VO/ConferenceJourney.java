@@ -1,4 +1,7 @@
-package com.example.demo.entity.DTO;
+package com.example.demo.entity.VO;
+
+import com.example.demo.entity.DTO.Conference;
+import com.example.demo.entity.DTO.Journey;
 
 import java.util.Objects;
 

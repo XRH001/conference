@@ -3,7 +3,7 @@ package com.example.demo.service.mehod;
 import com.example.demo.dao.ConferenceJourneyDAO;
 import com.example.demo.entity.DO.ConferenceJourneyDO;
 import com.example.demo.entity.DTO.Conference;
-import com.example.demo.entity.DTO.ConferenceJourney;
+import com.example.demo.entity.VO.ConferenceJourney;
 import com.example.demo.entity.DTO.Journey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
