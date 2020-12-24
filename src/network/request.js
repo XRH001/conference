@@ -80,5 +80,10 @@ const url={
     hotelReject:"/hotelReject",//酒店拒绝预约
     hotelFinish:"/hotelFinish",//酒店完成订单
     hotelCancel:"/hotelCancel",//酒店完成订单
+
+    driverAccept:"/driverAccept",// 司机接受预约
+    driverFinish:"/driverFinish",//司机完成接送
+    driverReject:"/driverReject",//司机拒绝预约
+    driverCancel:"/driverCancel",//司机取消接送
 };
 export {url}

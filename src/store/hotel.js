@@ -84,7 +84,7 @@ export const hotel={
                     return;
                 }
             }
-            console.log("ds");
+
         },
         hotelFinished(state,order){
             let value=order.id;

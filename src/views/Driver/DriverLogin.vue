@@ -61,7 +61,14 @@
                     if(this.email==="dsa"&&this.password==="123456"){//测试
                         this.$store.commit("setIdentity","driver");
                         console.log(this.$store.state.identity);
-                        this.$store.commit("setDriver",{name:"可以啦",email:this.email});
+                        this.$store.commit("setDriver",{ id:12,
+                            name :"姓名",
+                            phone: "电话",
+                            type: "车的类型",
+                            maxNum: "车承载的最大人数",
+                            carNum:" 车牌号",
+                            username:" 用户名",
+                            imgPath: "/asd",email:this.email});
                         this.$store.commit("setLogin");
                         this.$router.push("/index");
                         return;
@@ -72,19 +79,19 @@
                             password:this.password
                         }
                     }).then(res => {
-                        if(res.data.toString()==="password error")this.right=false;
-                        else if(res.data.toString()==="error"){this.$refs.popup1.showMsg("发生错误");}
+                        if(res.data.msg==="error")this.right=false;
+                        else if(res.data.msg==="empty"){this.$refs.popup1.showMsg("不存在此司机邮箱或账号");}
                         else{
                             //console.log(res.data);
                             let loginJSON =res.data;//JSON.parse(res.data);//eval('(' +res.data+')'); //
                             if(loginJSON.driver){
                                 this.$store.commit("setDriver",loginJSON.driver);
+                                this.$store.commit("setMeetings",loginJSON.meetings);
                             }else {
                                 this.$refs.popup1.showMsg("获取异常");return;
                             }
                             this.$store.commit("setIdentity","driver");
                             this.$store.commit("setLogin");
-
                             //  vuex中的数据发生改变时触发localStorage的存储操作
                             localStorage.setItem('state', JSON.stringify(this.$store.state));
                             //登录状态改为true

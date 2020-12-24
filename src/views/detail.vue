@@ -171,17 +171,27 @@
                     {id:1221,name:"赵日天", email:"12323@qq.com",invitationStatus:"已接受"},
                     {id:123211,name:"赵2313", email:"12323@qq.com",invitationStatus:"申请中"}],
                 meetingUser:{
-                    ifJoin:false,
-                    ifApplied:true,
+                    ifJoin:true,
+                    ifApplied:false,
                     info:"",
-                    journey:{
-                        time:"2020年12月17日19:11",
-                        origin:"床上",
-                        target:"凳子上"
-                    },
-                    room:{
 
-                    }
+                    driver:{//司机信息
+                        name:"黎烨玄",
+                        id:12,
+                        carNum:"皖·H 141223",
+                        phone:"56451313",
+                        journey:{
+                            time:"2020年12月17日19:11",
+                            origin:"床上",
+                            target:"凳子上"
+                        }
+                        },
+                    hotel:{//酒店信息
+
+                        room:{
+                        }
+                    },
+
                 }
             }
         },

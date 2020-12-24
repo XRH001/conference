@@ -1,6 +1,6 @@
 <template>
     <div>
-        <EachJourney :meeting-journey="$store.state.driver.meetings.wait"></EachJourney>
+        <EachJourney :meeting-journey="$store.state.driver.meetings.already" :action="1"></EachJourney>
     </div>
 </template>
 

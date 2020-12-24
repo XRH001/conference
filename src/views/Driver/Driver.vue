@@ -1,9 +1,9 @@
 <template>
     <div class="layui-tab layui-tab-card">
         <ul class="layui-tab-title layui-row">
-            <li class=" layui-col-lg4" :class="{'layui-this':layShow===0}" @click="layShow=0">待接送</li>
-            <li class="layui-col-lg4" :class="{'layui-this':layShow===1}" @click="layShow=1">已接送</li>
-            <li class="layui-col-lg4" :class="{'layui-this':layShow===2}" @click="layShow=2">有需求的会议</li>
+            <li class=" layui-col-lg4 layui-col-md4" :class="{'layui-this':layShow===0}" @click="layShow=0">待接送</li>
+            <li class="layui-col-lg4 layui-col-md4" :class="{'layui-this':layShow===1}" @click="layShow=1">预约消息</li>
+            <li class="layui-col-lg4 layui-col-md4" :class="{'layui-this':layShow===2}" @click="layShow=2">已接送</li>
 <!--            <li class="layui-col-lg3" :class="{'layui-this':layShow===3}" @click="layShow=3">司机信息</li>-->
         </ul>
         <div class="layui-tab-content" >
@@ -12,11 +12,10 @@
             </div>
 
             <div :class="{'layui-show':layShow===1}" class="layui-tab-item">
-                <Already></Already>
-
+                <Need></Need>
             </div>
             <div :class="{'layui-show':layShow===2}" class="layui-tab-item">
-                <Need></Need>
+                <Already></Already>
             </div>
 
         </div>

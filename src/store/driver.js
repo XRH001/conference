@@ -4,10 +4,10 @@ export const driver={
 
         },
         meetings:{
-            wait:[
+            accepted:[
                 {
                     id:12,
-                    name:"会议测试",
+                    name:"待接送1",
                     address:"会议地点",
                     beginTime:"会议开始时间",
                     journey:{
@@ -24,7 +24,7 @@ export const driver={
                 },
                 {
                     id:122,
-                    name:"会议测试",
+                    name:"待接送2",
                     address:"会议地点",
                     beginTime:"会议开始时间",
                     journey:{
@@ -41,7 +41,7 @@ export const driver={
                 },
                 {
                     id:132,
-                    name:"会议测试",
+                    name:"待接送3",
                     address:"会议地点",
                     beginTime:"会议开始时间",
                     journey:{
@@ -77,7 +77,7 @@ export const driver={
                 },
                 {
                     id:15122,
-                    name:"会议测试",
+                    name:"已接送1",
                     address:"会议地点",
                     beginTime:"会议开始时间",
                     journey:{
@@ -112,7 +112,7 @@ export const driver={
             ],
             need:[{
                 id:1862,
-                name:"会议测试",
+                name:"预约2",
                 address:"会议地点",
                 beginTime:"会议开始时间",
                 journey:{
@@ -129,7 +129,7 @@ export const driver={
             },
                 {
                     id:19622,
-                    name:"会议测试",
+                    name:"预约2",
                     address:"会议地点",
                     beginTime:"会议开始时间",
                     journey:{
@@ -167,7 +167,35 @@ export const driver={
     mutations:{
         setDriver(state,driver){
             state.driver=driver;
-            console.log(state.driver);
+        },
+        setMeetings(state,meetings){
+            state.meetings=meetings
+        },
+        driverAccept(state,order){
+            for(let pick in state.meetings.need){
+                if(state.meetings.need[pick].id===order.id) {
+                    state.meetings.need.splice(pick, 1);
+                    break;
+                }
+            }
+            state.meetings.accepted.push(order);
+        },
+        driverFinish(state,order){
+            for(let pick in state.meetings.accepted){
+                if(state.meetings.accepted[pick].id===order.id) {
+                    state.meetings.accepted.splice(pick, 1);
+                    break;
+                }
+            }
+            state.meetings.already.push(order);
+        },
+        driverReject(state,meetingId){
+            for(let pick in state.meetings.need){
+                if(state.meetings.need[pick].id===meetingId) {
+                    state.meetings.need.splice(pick, 1);
+                    break;
+                }
+            }
         }
     },
     actions:{},

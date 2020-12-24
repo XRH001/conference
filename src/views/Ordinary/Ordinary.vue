@@ -70,6 +70,19 @@
                                 <span class="iconBack layui-icon layui-icon-circle-dot"></span>
                                 <div class="smallTitle layui-icon layui-icon-add-circle-fine">重启</div></a>
                         </div>
+                        <el-dialog title="请挑选一个会议进行重启" :visible.sync="restartDialog" class="restartDialog" :close-on-click-modal="false" :modal-append-to-body='false'>
+                            <table class="layui-table">
+                                <thead><th>会议名</th><th>会议id</th><th>会议时间</th><th>确认重启</th></thead>
+                                <tbody>
+                                <tr v-for="meetingItem in managerDiv.overMeetings" :key="meetingItem.id">
+                                    <td>{{meetingItem.name}}</td>
+                                    <td>{{meetingItem.id}}</td>
+                                    <td>{{meetingItem.beginTime}}</td>
+                                    <td><el-button size="small" @click="confirmRestart(meetingItem.id)" type="primary">确认重启</el-button></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </el-dialog>
                     </div>
                 </div>
             </div>
@@ -109,13 +122,17 @@
                     overMeetings:[],
                     creator:[],
                     show:1
-                }
+                },
+                restartDialog:false
             }
         },
         methods:{
             restart(){
-                alert("这个时候可以选择曾经创建的会议填充到下个页面");
-                this.$router.push("/create");
+                this.restartDialog=true;
+            },
+            confirmRestart(id){
+                this.$message("这个功能还没写");
+                console.log(id);
             },
             setJoinMeetings(){
                 let join=this.$store.state.meetings.join;

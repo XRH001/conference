@@ -16,11 +16,37 @@
             <td colspan="3">
                 <Collapse >
                     <span slot="title">我的行程</span>
-                    <div slot="content">
-                        出发时间:{{meetingUser.journey.time}}<br>
-                        出发地点:{{meetingUser.journey.origin}}<br>
-                        目的地:{{meetingUser.journey.target}}
-                    </div>
+                    <el-card class="box-card" slot="content">
+                        <div slot="header" >
+                            <span>司机:{{meetingUser.driver.name}} </span>
+                            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+                        </div>
+                        <div>
+                            <div>
+                                车牌号:{{meetingUser.driver.carNum}}<br>
+                                联系方式:{{meetingUser.driver.phone}}<br>
+                                出发时间:{{meetingUser.driver.journey.time}}<br>
+                                出发地点:{{meetingUser.driver.journey.origin}}<br>
+                                目的地:{{meetingUser.driver.journey.target}}
+                            </div>
+                        </div>
+                    </el-card>
+                </Collapse>
+                <Collapse >
+                    <span slot="title">入住安排</span>
+                    <el-card class="box-card" slot="content">
+                        <div slot="header" >
+                            <span>酒店:{{meetingUser.driver.name}} </span>
+                            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+                        </div>
+                        <div>
+                            <div>
+                                酒店地址:{{meetingUser.driver.carNum}}<br>
+                                酒店联系电话:{{meetingUser.driver.phone}}<br>
+                                房间类型:{{meetingUser.driver.journey.time}}<br>
+                            </div>
+                        </div>
+                    </el-card>
                 </Collapse>
             </td>
         </tr>

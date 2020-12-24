@@ -32,7 +32,8 @@ const store= new Vuex.Store({
             },
             manage:{
                 newMeetings:[],
-                overMeetings:[]
+                overMeetings:[{id:"21",name:'样例会议',orderStatus:"5小时后开始",beginTime:"2020年12月6日12:36",address:"信工楼b区"},
+                    {id:"32",name:'样例会议',orderStatus:"5小时后开始",beginTime:"2020年12月6日12:36",address:"信工楼b区"}]
             },
             creator:[]
         },

@@ -32,7 +32,7 @@
             <td>司机编号</td><td>{{$store.state.driver.driver.id}}</td>
         </tr>
         <tr>
-            <td>用户名</td><td>{{$store.state.driver.driver.name}}</td>
+            <td>用户名</td><td>{{$store.state.driver.driver.username}}</td>
         </tr>
         <!--<tr>
             <td></td><td>{{$store.state.user.name}}</td>
