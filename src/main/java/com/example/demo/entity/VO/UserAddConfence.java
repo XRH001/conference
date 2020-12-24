@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserAddConfence {
     private ArrayList<Integer> meetingIdList;
     private String hotelId;
-    private ArrayList<RoomInfo> bookRoom;
 
 
 
@@ -20,13 +19,7 @@ public class UserAddConfence {
         this.hotelId = hotelId;
     }
 
-    public ArrayList<RoomInfo> getBookRoom() {
-        return bookRoom;
-    }
 
-    public void setBookRoom(ArrayList<RoomInfo> bookRoom) {
-        this.bookRoom = bookRoom;
-    }
 
     public ArrayList<Integer> getMeetingIdList() {
         return meetingIdList;
@@ -89,7 +82,6 @@ public class UserAddConfence {
         return "UserAddConfence{" +
                 "meetingIdList=" + meetingIdList +
                 ", hotelId='" + hotelId + '\'' +
-                ", bookRoom=" + bookRoom +
                 ", userId='" + userId + '\'' +
                 ", meetingId='" + meetingId + '\'' +
                 ", remark='" + remark + '\'' +
