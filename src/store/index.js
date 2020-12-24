@@ -47,8 +47,39 @@ const store= new Vuex.Store({
         //退出登录
         exitCount(state){
             state.user={};
-            state.hotel={};
-            state.driver={};
+            state.meetings={
+                join:{
+                    newMeetings:[],
+                    overMeetings:[],
+                    applyMeetings:[]
+                },
+                manage:{
+                    newMeetings:[],
+                    overMeetings:[]
+                },
+                creator:[]
+            };
+            state.hotel={
+                hotel:{id:23,
+                    name:"我是酒店名",
+                    phone:"",
+                    address:"",
+                    username:"",
+                    email:"",
+                    imgPath:"wad"
+                    }   ,
+                meetings:{
+                    accepted:[],
+                    reserve:[],
+                    completed:[]
+                }};
+            state.driver={
+                driver:{},
+                meetings:{
+                    accepted:[],
+                    already:[],
+                    need:[]
+                }};
             state.haveLogin=false;
         },
         //刚刚登录

@@ -34,7 +34,9 @@
                     <div class="layui-input-block ">
                         <input type="password" name="password" required v-model.lazy="password" lay-verify="required" placeholder="请输入密码"  class="layui-input">
                     </div>
-                </div><br>
+                </div>
+                <el-checkbox v-model="remember" class="rememberCheckBox">记住我</el-checkbox>
+                <br>
                 <p class="warming" :class="{'displayNone':right}">{{warming}}</p>
                 <br><br>
                 <div class="layui-form-item">
@@ -88,7 +90,8 @@
                     newConfirm:"",
                     emailCode:"",
                     codeInput:""
-                }
+                },
+                remember:false
             }
         },
         methods:{
@@ -141,6 +144,11 @@
                         id:2});
                     this.$store.commit("setIdentity","common");
                     this.$router.push("/index");
+                    console.log(this.remember);
+                    if(this.remember){
+                        this.setCookie("email",this.email,1);
+                        this.setCookie("password",this.password,1);
+                    }
                     return;
                 }
                 this.$request(this.$url.login,{
@@ -155,8 +163,11 @@
                     else{
                         //console.log(res.data);
                         let loginJSON =res.data;//JSON.parse(res.data);//eval('(' +res.data+')'); //
-                        //console.log(loginJSON.user);
-                        //console.log(loginJSON.meetings);
+                        if(this.remember){
+                            this.setCookie("email",this.email,1);
+                            this.setCookie("password",this.password,1);
+                        }
+
                         this.$store.commit("setUser",loginJSON.user);
                         this.$store.commit("setIdentity","common");
                         if(loginJSON.meetings)
@@ -192,10 +203,35 @@
             //子组件的input值获取
             getChildCode(codeInput){
                 this.forget.codeInput=codeInput;
+            },
+            getCookie(name) {
+                let arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+                if (arr === document.cookie.match(reg))
+                    return (arr[2]);
+                else
+                    return null;
+            },
+            setCookie (c_name, value, expireDays) {
+                let exDate = new Date();
+                exDate.setDate(exDate.getDate() + expireDays);
+                document.cookie = c_name + "=" + escape(value) + ((expireDays == null) ? "" : ";expires=" + exDate.toGMTString());
             }
-        },
+    },
         created() {
-            this.email=this.$route.query.email;
+            if(this.email)
+                this.email=this.$route.query.email;
+            let emailCookie = this.getCookie("email");
+            if(emailCookie)
+            {this.email=emailCookie;
+                let passwordCookie = this.getCookie("password");
+                if(passwordCookie)
+                {this.password=passwordCookie;
+                    this.loginClick();
+                }
+            }
+            /*if(){
+
+            }*/
         }
     }
 </script>
@@ -262,6 +298,10 @@
     .menuButton{
         display: none;
         margin-left: 9%;
+    }
+    .rememberCheckBox{
+        margin-left: 120px;
+        color: white;
     }
     @media screen and (max-width: 1200px) {
         .leftCard{

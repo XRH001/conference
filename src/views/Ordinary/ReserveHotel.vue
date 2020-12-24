@@ -1,7 +1,7 @@
 <template>
     <div class="hotelManage layui-row">
         <p class="smallTitleP">预约酒店房间</p>
-        <el-input v-model="hotelInput" placeholder="输入id、邮箱或名称进行查找">
+        <el-input v-model="hotelInput" placeholder="输入地址或名称进行查找">
             <el-button slot="append" icon="el-icon-search" @click="searchHotelClick"></el-button>
         </el-input>
         <br>

@@ -101,17 +101,24 @@
                     {id:"235",name:'没事别点',orderStatus:"5小时后开始",beginTime:"2020年12月6日12:36",address:"信工楼b区"}
                 ],
                 meetingUser:{
-
                     ifJoin:true,
+                    ifApplied:false,
                     info:"",
-                    journey:{
-                        time:"2020年12月17日19:11",
-                        origin:"床上",
-                        target:"凳子上"
+                    driver:{//司机信息
+                        name:"黎烨玄",
+                        id:12,
+                        carNum:"皖·H 141223",
+                        phone:"56451313",
+                        journey:{
+                            time:"2020年12月17日19:11",
+                            origin:"床上",
+                            target:"凳子上"
+                        }
                     },
-                    room:{
-                    }
-                },
+                    hotel:{//酒店信息
+                        room:{
+                        }
+                    }},
                 personInfo:{
                     headPath:"../assets/defaultHead.png",
                     username:"杨莉",
