@@ -18,6 +18,6 @@ class UserJourneyDAOTest {
 
     @Test
     void insertConferenceAndJourney() {
-        System.out.println(userJourneyDAO.insertConferenceAndJourney(21,1));
+        //System.out.println(userJourneyDAO.insertConferenceAndJourney(21,1));
     }
 }

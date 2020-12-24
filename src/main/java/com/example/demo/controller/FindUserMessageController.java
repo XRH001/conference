@@ -27,7 +27,7 @@ public class FindUserMessageController {
     ConferenceUserService conferenceUserService;
     @RequestMapping("/findUserMessage")
     public String FindUserMessageSelvet(@RequestBody UserAddConfence userAddConfence){
-        System.out.println(userAddConfence.getMeetingIdList().size());
+        //System.out.println(userAddConfence.getMeetingIdList().size());
         if(userService.queryUserByID(Integer.valueOf(userAddConfence.getUserId()))==null){
             return "{\"msg\":\"fail\"}";
         }

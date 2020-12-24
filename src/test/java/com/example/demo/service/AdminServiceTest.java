@@ -17,7 +17,7 @@ public class AdminServiceTest {
 
     @Test
     public void saveAdmin() {
-        System.out.println(adminService.saveAdmin(null));
+        //System.out.println(adminService.saveAdmin(null));
     }
 
     @Test

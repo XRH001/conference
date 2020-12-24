@@ -1,12 +1,11 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.DTO.*;
+import com.example.demo.entity.Driver;
+import com.example.demo.entity.VO.DriverBasedJourney;
 import com.example.demo.entity.VO.Meeting;
 import com.example.demo.entity.VO.MeetingJoiner;
-import com.example.demo.service.mehod.ConferenceService;
-import com.example.demo.service.mehod.ConferenceUserService;
-import com.example.demo.service.mehod.UserJourneyService;
-import com.example.demo.service.mehod.UserService;
+import com.example.demo.service.mehod.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.example.demo.enumValue.Position.ordinary;
 
@@ -35,6 +35,8 @@ public class DetailsController {
 
     @Autowired
     UserJourneyService userJourneyService;
+    @Autowired
+    DriverPickUpService driverPickUpService;
 
     @ResponseBody
     @RequestMapping("/Details")
@@ -106,5 +108,82 @@ public class DetailsController {
             String userJson = mapper.writeValueAsString(information);
             return userJson;
         }
+    }
+
+    @ResponseBody
+    @RequestMapping("/remarks")
+    public Map remarks(HttpServletRequest request){
+        Map<Object,Object> msg=new HashMap<>();
+        try {
+            int userId=Integer.valueOf(request.getParameter("userId"));
+            int meetingId=Integer.valueOf(request.getParameter("meetingId"));
+            String info=request.getParameter("remark");
+            Conference conference=conferenceService.queryConferenceByID(meetingId);
+            msg.put("msg","fail");
+            if (conference!=null){
+                List<ConferenceUser> conferenceUserList=conferenceUserService.queryConferenceUsersByConference(conference);
+                for (ConferenceUser conferenceUser:conferenceUserList){
+                    if (conferenceUser.getUser().getID()==userId){
+                        msg.put("msg","success");
+                        conferenceUser.setInfo(info);
+                        conferenceUserService.saveConferenceUser(conferenceUser);
+                        break;
+                    }
+                }
+            }
+        }catch (NumberFormatException|NullPointerException e){
+            msg.put("msg","fail");
+        }
+            return msg;
+    }
+
+    @ResponseBody
+    @RequestMapping("/getRelateToMe")
+    public Map getRelateToMe(HttpServletRequest request){
+        Map<Object,Object> msg=new HashMap<>(2);
+        try {
+            int userId=Integer.valueOf(request.getParameter("userId"));
+            int meetingId=Integer.valueOf(request.getParameter("meetingId"));
+            UserJourney userJourney=null;
+            Conference conference=conferenceService.queryConferenceByID(meetingId);
+            User user=userService.queryUserByID(userId);
+            List<UserJourney> userJourneyList=userJourneyService.queryUserJourneysByUser(user);
+
+            msg.put("msg","fail");
+            msg.put("driver",null);
+            msg.put("info",null);
+            if (userJourneyList!=null) {
+                for (UserJourney u : userJourneyList) {
+                    if (u.getConference().getID() == meetingId) {
+                        userJourney = u;
+                        break;
+                    }
+                }
+                DriverPickUp driverPickUp = driverPickUpService.queryDriverPickUpByUserJourney(userJourney);
+                if (driverPickUp != null) {
+                    Driver driver = driverPickUp.getDriver();
+                    Journey journey = userJourney.getJourney();
+                    DriverBasedJourney driverBasedJourney = new DriverBasedJourney(driver.getName(), driver.getID(), driver.getCarNum(), driver.getPhone(), journey);
+                    msg.put("driver", driverBasedJourney);
+                }
+            }
+            if (conference!=null){
+                List<ConferenceUser> conferenceUserList=conferenceUserService.queryConferenceUsersByConference(conference);
+
+                for (ConferenceUser conferenceUser:conferenceUserList){
+                    if (conferenceUser.getUser().getID()==userId){
+
+                        msg.put("msg","success");
+                        String info=conferenceUser.getInfo();
+                        msg.put("info",info);
+                        break;
+                    }
+                }
+            }
+        }catch (NumberFormatException|NullPointerException e){
+            e.printStackTrace();
+            msg.put("msg","fail");
+        }
+        return msg;
     }
 }

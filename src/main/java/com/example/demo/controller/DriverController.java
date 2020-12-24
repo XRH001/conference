@@ -220,7 +220,7 @@ public class DriverController {
     }
 
     @ResponseBody
-    @RequestMapping("/acceptInvitation")
+    @RequestMapping("/driverAccept")
     public Map acceptInvitation(HttpServletRequest request){
         Map<String,Object> msg=new HashMap<>(2);
         try {
@@ -245,7 +245,7 @@ public class DriverController {
     }
 
     @ResponseBody
-    @RequestMapping("/refuseInvitation")
+    @RequestMapping("/driverReject")
     public Map refuseInvitation(HttpServletRequest request){
         Map<String,Object> msg=new HashMap<>(2);
         try {
@@ -270,7 +270,7 @@ public class DriverController {
     }
 
     @ResponseBody
-    @RequestMapping("/finishInvitation")
+    @RequestMapping("/driverFinish")
     public Map finishInvitation(HttpServletRequest request){
         Map<String,Object> msg=new HashMap<>(2);
         try {
@@ -287,7 +287,6 @@ public class DriverController {
                     break;
                 }
             }
-
         }catch (NullPointerException e){
             msg.put("msg","fail");
         }

@@ -22,7 +22,7 @@ public class CreateMeetingController {
     UserService userService;
     @RequestMapping("/createMeeting")
     public String CreateMeetingServlet(CenterMeeting centerMeeting){
-        System.out.println(centerMeeting);
+        //System.out.println(centerMeeting);
         // 先查询该用户是否存在
         if((userService.queryUserByEmail(centerMeeting.getEmail()))==null){
             // 不存在直接return

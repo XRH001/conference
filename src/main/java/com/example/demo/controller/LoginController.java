@@ -61,14 +61,17 @@ public class LoginController {
         //构建三个会议类组
 
         List<ConferenceUser> conferenceUser1=conferenceUserService.queryConferenceUsersByUser(user1);
-        for(ConferenceUser item:conferenceUser1) {
-            if (item.getPosition() == administrator)
-                manageAll.add(item.getConference());        //归类进入管理者
-            else if(item.getPosition() == creator)createAll.add(item.getConference());  //归类进入创建者
-            else joinAll.add(item.getConference());         //归类进入参加者
+        try {
+            for (ConferenceUser item : conferenceUser1) {
+                if (item.getPosition() == administrator)
+                    manageAll.add(item.getConference());        //归类进入管理者
+                else if (item.getPosition() == creator) createAll.add(item.getConference());  //归类进入创建者
+                else joinAll.add(item.getConference());         //归类进入参加者
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
-
-        ArrayList<Conference> joinNewMeetings=new ArrayList<>();
+           ArrayList<Conference> joinNewMeetings=new ArrayList<>();
         ArrayList<Conference> joinOverMeetings=new ArrayList<>();
         ArrayList<Conference> joinApplyMeetings=new ArrayList<>();
         //构建参会人的三种会议状态组

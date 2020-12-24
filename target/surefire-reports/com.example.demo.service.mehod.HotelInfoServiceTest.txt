@@ -1,0 +1,12 @@
+-------------------------------------------------------------------------------
+Test set: com.example.demo.service.mehod.HotelInfoServiceTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 1.127 s <<< FAILURE! - in com.example.demo.service.mehod.HotelInfoServiceTest
+saveHotelInfo  Time elapsed: 0.31 s  <<< ERROR!
+org.springframework.dao.DataIntegrityViolationException: could not execute statement; SQL [n/a]; constraint [null]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement
+	at com.example.demo.service.mehod.HotelInfoServiceTest.saveHotelInfo(HotelInfoServiceTest.java:23)
+Caused by: org.hibernate.exception.ConstraintViolationException: could not execute statement
+	at com.example.demo.service.mehod.HotelInfoServiceTest.saveHotelInfo(HotelInfoServiceTest.java:23)
+Caused by: java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '1' for key 'hotelInfo.hotelID'
+	at com.example.demo.service.mehod.HotelInfoServiceTest.saveHotelInfo(HotelInfoServiceTest.java:23)
+
