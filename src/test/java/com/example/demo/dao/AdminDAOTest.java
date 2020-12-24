@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @RunWith(SpringRunner.class)
@@ -35,6 +37,16 @@ public class AdminDAOTest {
     @Test
     public void test3(){
         System.out.println(LocalDateTime.of(2020,12,23,1,1,0));
+    }
+
+    @Test
+    public void test4(){
+        List<Integer> list1=new ArrayList<>();
+        list1.add(1);
+        List<Integer> list2=new ArrayList<>();
+        list1.add(2);
+        list1.addAll(list2);
+        System.out.println(list1);
     }
 
 }
