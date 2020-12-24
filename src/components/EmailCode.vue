@@ -3,7 +3,7 @@
         <label class="layui-form-label">邮箱验证码</label>
         <div class="layui-input-inline">
             <slot name="codeInput">
-                <input type="text" lay-filter="formDemo" placeholder="不区分大小写" v-model.lazy="codeInput"
+                <input type="text" lay-filter="formDemo" placeholder="不区分大小写" v-model="codeInput"
                        @change="$emit('getCodeInput',codeInput)" required  class="layui-input checkCodeInput">
             </slot>
         </div>

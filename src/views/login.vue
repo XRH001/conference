@@ -11,10 +11,10 @@
                     *暂时只支持使用邮箱登录<br>
                     *密码必须超过6位<br>
                     *界面使用了layui样式但layui组件的功能是由vue辅助完成的(主要是因为Vue里面最好不要引入jquery)<br>
-                    <div class="layui-col-lg2 layui-col-md2 setFixed">
+                    <!--<div class="layui-col-lg2 layui-col-md2 setFixed">
                         <p>扫码使用小程序</p>
                         <img  src="../assets/miniapp.png">
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>
@@ -133,7 +133,7 @@
                     this.$refs.popup1.showMsg("请输入密码");
                     return;
                 }
-                if(this.password==="123456"&&this.email==="dsa"){//测试
+                /*if(this.password==="123456"&&this.email==="dsa"){//测试
                     this.$store.commit("setUser",{name:"测试",
                         username:"cece",
                         sex:"male",
@@ -150,7 +150,7 @@
                         this.setCookie("password",this.password,1);
                     }
                     return;
-                }
+                }*/
                 this.$request(this.$url.login,{
                     params:{
                         email:this.email,
@@ -170,10 +170,14 @@
 
                         this.$store.commit("setUser",loginJSON.user);
                         this.$store.commit("setIdentity","common");
-                        if(loginJSON.meetings)
+                        //loginJSON.meetings["creator"]=loginJSON.creator;
+                        if(loginJSON.meetings){
                             this.$store.commit("setMeetings",loginJSON.meetings);
+                            this.$store.commit("setCreator",loginJSON.creator);
+                        }
                         //this.$store.state.user=loginJSON.user; 不建议使用
                         //  vuex中的数据发生改变时触发localStorage的存储操作
+
                         localStorage.setItem('state', JSON.stringify(this.$store.state));
                         //登录状态改为true
 
@@ -206,26 +210,32 @@
             },
             getCookie(name) {
                 let arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
-                if (arr === document.cookie.match(reg))
-                    return (arr[2]);
+                if (arr === document.cookie.match(reg)){
+                    console.log(unescape(arr[2])+"解码");
+                    return unescape(arr[2]);
+                }
+
                 else
                     return null;
             },
             setCookie (c_name, value, expireDays) {
                 let exDate = new Date();
                 exDate.setDate(exDate.getDate() + expireDays);
+                //console.log(exDate.toGMTString());
                 document.cookie = c_name + "=" + escape(value) + ((expireDays == null) ? "" : ";expires=" + exDate.toGMTString());
+
             }
     },
         created() {
             if(this.email)
                 this.email=this.$route.query.email;
             let emailCookie = this.getCookie("email");
+            console.log(emailCookie);
             if(emailCookie)
             {this.email=emailCookie;
                 let passwordCookie = this.getCookie("password");
                 if(passwordCookie)
-                {this.password=passwordCookie;
+                {   this.password=passwordCookie;
                     this.loginClick();
                 }
             }

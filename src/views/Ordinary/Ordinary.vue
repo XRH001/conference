@@ -23,7 +23,7 @@
                     </div>
                     <div :class="{'layui-show':joinDiv.show===3}" class="layui-tab-item layui-row">
                         <div class="searchInputDiv layui-col-lg11 layui-col-md11 layui-col-xs10">
-                            <input v-model.lazy="joinDiv.search" class="layui-input" type="text" placeholder="输入会议id或名称进行查找" value="废物">
+                            <input v-model="joinDiv.search" class="layui-input" type="text" placeholder="输入会议id或名称进行查找" value="废物">
                         </div>
                         <div class="searchButtonDiv layui-col-lg1 layui-col-md1 layui-col-xs2">
                             <button @click="searchClick" class="searchButton layui-btn layui-btn-primary"><span class="layui-icon layui-icon-search"></span></button>
@@ -143,9 +143,12 @@
             },
             setManageMeetings(){
                 let manage=this.$store.state.meetings.manage;
+                this.managerDiv.newMeetings=[];
                 this.managerDiv.newMeetings=manage.newMeetings;
+
                 // this.managerDiv.newMeetings=[ {id:"21",name:'样例会议',orderStatus:"5小时后开始",beginTime:"2020年12月6日12:36",address:"信工楼b区"}];
                 this.managerDiv.overMeetings=manage.overMeetings;
+
             },
             searchClick(){
                 /*this.$http("mainServlet?ac=need&apiName=searchMeetings")*/
@@ -176,6 +179,7 @@
                 if(this.$store.state.meetings.join.newMeetings.length===0)this.joinDiv.show=3;
                 if(this.$store.state.meetings.manage.newMeetings.length===0)this.managerDiv.show=3;
             }
+
             setInterval(()=>{
                 if(this.$store.state.meetings){
                     this.setJoinMeetings();

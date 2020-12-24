@@ -18,8 +18,10 @@
             finishPickUp(order){
                 /*this.$http("mainServlet?ac=need&apiName=MsgSuccess"*/
                 this.$request(this.$url.driverFinish,{
-                    meetingId:order.id,
-                    driverId:this.$store.state.driver.driver.id
+                    params: {
+                        meetingId: order.id,
+                        driverId: this.$store.state.driver.driver.id
+                    }
                 }).then(res =>{
                     let data = res.data;
                     if(data.msg==="success"){

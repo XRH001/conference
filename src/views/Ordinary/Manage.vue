@@ -83,7 +83,7 @@
                             <tr v-show="searchManager.length===0"><td><p class="align-center">暂无数据</p></td></tr>
                             <tr v-for="memberItem in searchManager" :key="memberItem.id">
                                 <td>{{memberItem.id}}</td>
-                                <td>{{memberItem.username}}</td>
+                                <td>{{memberItem.name}}</td>
                                 <td>{{memberItem.email}}</td>
                                 <td>
                                     <el-popover
@@ -104,7 +104,7 @@
                     <tr><th>用户名</th><th>联系方式</th><th>接受状态</th><td>详细信息</td><td>安排行程</td></tr></thead>
                     <tbody>
                     <tr v-for="item in managerInfo" :key="item.id">
-                        <td>{{item.username}}</td><td>{{item.email}}</td>
+                        <td>{{item.name}}</td><td>{{item.email}}</td>
                         <td>{{item.invitationStatus}}
                             <el-popconfirm v-if="meetingUser.ifCreator" title="确认解除该成员的管理员身份吗?" @confirm="removeManager(item.id)">
                                 <el-button  size="small" slot="reference" type="danger">解除</el-button>
@@ -145,7 +145,7 @@
                             <tbody>
                                 <tr v-for="memberItem in searchMember" :key="memberItem.id">
                                     <td>{{memberItem.id}}</td>
-                                    <td>{{memberItem.username}}</td>
+                                    <td>{{memberItem.name}}</td>
                                     <td>{{memberItem.email}}</td>
                                     <td>
                                     <el-popover
@@ -165,7 +165,7 @@
                         <thead><tr><td colspan="6" class="align-center">已添加</td>
                         </tr><tr><th>姓名</th><th>联系方式</th><th>接受状态</th><th>详细信息</th><th>安排行程</th><th>删除或拒绝</th></tr></thead>
                         <tbody>
-                        <tr v-for="item in memberInfo" :key="item.id"><td>{{item.username}}</td><td>{{item.email}}</td>
+                        <tr v-for="item in memberInfo" :key="item.id"><td>{{item.name}}</td><td>{{item.email}}</td>
                             <td>{{item.invitationStatus}}
                                 <el-button v-if="item.invitationStatus==='申请中'" @click="acceptMember(item.id)" size="small" type="primary" plain>同意</el-button>
                             </td>
@@ -241,38 +241,48 @@
                     createTime:"2020-12-6 20:48:00",
                     num:321,*/
                 },
-                managerInfo:[{id:124,username:"嘿嘿", email:"123@qq.com",invitationStatus:"已接受"},
-                    {id:123,username:"嘿嘿", email:"123@qq.com",invitationStatus:"已接受"}],
-                memberInfo:[{id:127,username:"赵日天", email:"12323@qq.com",invitationStatus:"已接受"},
+                managerInfo:[/*{id:124,username:"嘿嘿", email:"123@qq.com",invitationStatus:"已接受"},
+                    {id:123,username:"嘿嘿", email:"123@qq.com",invitationStatus:"已接受"}*/],
+                memberInfo:[/*{id:127,username:"赵日天", email:"12323@qq.com",invitationStatus:"已接受"},
                     {id:1221,username:"赵日天", email:"12323@qq.com",invitationStatus:"已接受"},
-                    {id:123211,username:"赵2313", email:"12323@qq.com",invitationStatus:"申请中"}],
+                    {id:123211,username:"赵2313", email:"12323@qq.com",invitationStatus:"申请中"}*/],
                 meetingUser:{
-                    ifCreator:true,
                     ifJoin:true,
+                    ifApplied:false,
                     info:"",
-                    journey:{
-                        time:"2020年12月17日19:11",
-                        origin:"床上",
-                        target:"凳子上"
+
+                    driver:{//司机信息
+                        name:"黎烨玄",
+                        id:12,
+                        carNum:"皖·H 141223",
+                        phone:"56451313",
+                        journey:{
+                            time:"2020年12月17日19:11",
+                            origin:"床上",
+                            target:"凳子上"
+                        }
                     },
-                    room:{
-                    }
-                },
+                    hotel:{//酒店信息
+                        room:{
+                        }
+                    }},
                 searchMemberInput:"",
                 searchManagerInput:"",
-                searchMember:[{id:11,username:"123",email:"wq321@qq.com",haveJoin:false},{id:21,username:"123",email:"wq321@qq.com",haveJoin:true}],
-                searchManager:[{id:5,username:"123",email:"wq321@qq.com",IfManager:false},{id:6,username:"123",email:"wq321@qq.com",IfManager:false}],
+                searchMember:[/*{id:11,username:"123",email:"wq321@qq.com",haveJoin:false},
+                    {id:21,username:"123",email:"wq321@qq.com",haveJoin:true}*/],
+                searchManager:[/*{id:5,username:"123",email:"wq321@qq.com",IfManager:false},
+                    {id:6,username:"123",email:"wq321@qq.com",IfManager:false}*/],
                 flag:{
                     changeBaseDisabled:false,
                     inviteMember:false,
                     inviteManager:false
                 },
-                haveDriverList:[{id:11322,name:"黎师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"赣·231231",state:"已接受"},
+                haveDriverList:[/*{id:11322,name:"黎师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"赣·231231",state:"已接受"},
                     {id:11323,name:"许师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"赣·241231",state:"未接受"},
-                    {id:11324,name:"李师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"赣·2e3231",state:"已拒绝"}],
-                haveHotelList:[{id:11322,name:"前湖迎宾馆",phone:"12438438132",address:"南昌大学对面",state:"已接受"},
+                    {id:11324,name:"李师傅",phone:"4384381@qq.com",type:"小型客车",maxNum:28,carNum:"赣·2e3231",state:"已拒绝"}*/],
+                haveHotelList:[/*{id:11322,name:"前湖迎宾馆",phone:"12438438132",address:"南昌大学对面",state:"已接受"},
                     {id:113122,name:"前湖迎滨馆",phone:"12438438132",address:"南昌大学对面",state:"未接受"},
-                    {id:1412322,name:"前湖迎殡馆",phone:"12438438132",address:"南昌大学对面",state: "被拒绝"}]
+                    {id:1412322,name:"前湖迎殡馆",phone:"12438438132",address:"南昌大学对面",state: "被拒绝"}*/]
             }
         },
         computed:{
@@ -294,12 +304,14 @@
                     userId:sendUserId
                 }
             }).then(res => {
+                console.log(res.data);
                 if(res.data==="error"){this.notFound=true;loading.close();this.$message("查询过程出现异常");return;}
                 this.meetingInfo=res.data.meeting;
-                this.managerInfo=res.data.meetingInfo;
+                this.managerInfo=res.data.managerInfo;
                 this.memberInfo=res.data.memberInfo;
+
                 if(this.identity)
-                    this.meetingUser=res.data.meetingUser;
+                    this.getRelateToMe();
                 loading.close();
             }).catch( err => {
                 console.log(err);

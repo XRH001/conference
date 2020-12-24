@@ -3,14 +3,14 @@ import axios from 'axios'
 export function request(url,config) {
 const instance=axios.create({
     baseURL:"/api",
-    timeout:10000
+    timeout:20000
 });
 return instance(url,config);
 }
 export function post(url,obj,config) {
 const instance=axios.create({
     baseURL:"/api",
-    timeout:5000
+    timeout:30000
     });
 return instance.post(url,obj,config);
 }
@@ -43,12 +43,13 @@ const url={
     manage:"/manage",
 
     driverLogin:"/driverLogin",
-    hotelLogin:"/hotelLogin",
-    remarks:"/remarks",//用户修改备注
+    hotelLogin:"/HotelLogin",//???
+    remarks:"/remarks",//用户修改备注//???
     applyJoin:"/applyJoin",//非参会人员申请加入请求
     personInfo:"/SearchUser",//查询用户基本信息
+    getRelateToMe:"/getRelateToMe",//查找会议有关我的信息
 
-    changeBaseInfo:"changeBaseInfo",//修改会议基本信息
+    changeBaseInfo:"/AlterMeeting",//修改会议基本信息
     searchMember:"/SearchJoiner",
     searchManager:"SearchManager",
     inviteMember:"/inviteNewMember",
@@ -57,13 +58,14 @@ const url={
     removeManager:"/removeManager",
     acceptMember:"/acceptMember",
 
-    changePassword:"/AlterPassword",//修改密码
+    changePassword:"/AlterPassword",//修改密码√
     forgetPassword:"/ForgetPassword",
     alterInfo:"/updatePersonInfo",//用户修改个人信息
     searchMsg:"/findUserMessage",//查找用户新消息
 
     acceptInvite:"/agreeConferenceInvite",//用户同意邀请
-    sendDriverPage:"/loadDrivers",//加载司机页
+
+    sendDriverPage:"/loadDrivers",//加载司机页√
     searchDriver:"/queryDrivers",
     searchDriverByMeetingId:"/queryDriversByConference",
     reserveDriver:"/orderDriver",//预约司机
@@ -81,7 +83,7 @@ const url={
     hotelFinish:"/hotelFinish",//酒店完成订单
     hotelCancel:"/hotelCancel",//酒店完成订单
 
-    driverAccept:"/driverAccept",// 司机接受预约
+    driverAccept:"/driverAccept",// 司机接受预约√
     driverFinish:"/driverFinish",//司机完成接送
     driverReject:"/driverReject",//司机拒绝预约
     driverCancel:"/driverCancel",//司机取消接送

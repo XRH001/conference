@@ -79,10 +79,10 @@
                     <div><p class="bottomMsg">请填写完整信息，头像可不上传。</p></div>
                 </div>
             </div>
-            <div class="layui-col-lg2 layui-col-md2 setFloat">
+            <!--<div class="layui-col-lg2 layui-col-md2 setFloat">
                 <p>扫码使用小程序</p>
                 <img  src="../assets/miniapp.png">
-            </div>
+            </div>-->
 
             <br><br>
         </div>
@@ -144,6 +144,7 @@
             },
             registerSend(){
                 //console.log(this.codeInput);
+                if(!this.codeInput)this.$message("请输入验证码");
                 this.codeWarming=this.codeInput.toLowerCase()===this.$decrypt(this.emailCode).toLowerCase();
                 //console.log(this.$decrypt(this.emailCode));
                 //解决日期format问题
@@ -195,21 +196,19 @@
                     return;
                 }
                 this.headSrc=URL.createObjectURL(file);//获取图片URL
-                this.headUpload();
+                this.headUpload(12);
             },
-            headUpload(){
+            headUpload(userId){
                 let file = document.getElementById("headFileInput").files[0];
                 let headData=new FormData();// 创建form对象
-                headData.append('headPic',file, file.name);
-                headData.append('userNumber',"123123");
+                headData.append('file',file, file.name);
+                headData.append('userId',userId);
                 let config = {
                     headers:{'Content-Type':'multipart/form-data'}
                 };
-                this.$post('/driver/changeHeadServlet',headData,
+                this.$post('file/images',headData,
                     config).then(res=>{
                     console.log(res.data);
-                    let newWin=window.open('',"_blank_",'');
-                    newWin.document.write(res.data);
                 }).catch(err =>{
                     console.log(err);
                 });

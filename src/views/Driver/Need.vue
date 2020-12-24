@@ -16,9 +16,12 @@
         methods:{
             acceptPickUp(order){
                 /*this.$http("mainServlet?ac=need&apiName=MsgSuccess"*/
+                console.log(order.id);
                 this.$request(this.$url.driverAccept,{
+                    params:{
                     meetingId:order.id,
                     driverId:this.$store.state.driver.driver.id
+                    }
                 }).then(res =>{
                     let data = res.data;
                     if(data.msg==="success"){
@@ -34,8 +37,10 @@
             rejectPickUp(meetingId){
                 /*this.$http("mainServlet?ac=need&apiName=MsgSuccess"*/
                 this.$request(this.$url.driverReject,{
-                    meetingId:meetingId,
-                    driverId:this.$store.state.driver.driver.id
+                    params: {
+                        meetingId: meetingId,
+                        driverId: this.$store.state.driver.driver.id
+                    }
                 }).then(res =>{
                     let data = res.data;
                     if(data.msg==="success"){

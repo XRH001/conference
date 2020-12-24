@@ -42,7 +42,8 @@ export const methods={
                 meetingId:this.meetingInfo.id
             }
         }).then( res => {
-            if (res.data === "fail") {
+            console.log(res.data);
+            if (res.data === "error"|| res.data === "fail") {
                 this.$message("搜索失败，请不要输入奇怪字符");return;
             }
             this.searchMember = res.data;
@@ -62,7 +63,7 @@ export const methods={
             }
         }).then( res =>{
             console.log(res.data);
-            if(res.data==="fail"){this.$message("搜索失败，请不要输入奇怪字符");return;}
+            if(res.data==="fail" ||res.data==="error"){this.$message("搜索失败，请不要输入奇怪字符");return;}
             this.searchManager=res.data;
         }).catch(err =>{
             console.log(err);
@@ -167,6 +168,24 @@ export const methods={
         }).catch(err => {
             console.log(err);
             this.$message("网络请求异常");
+        })
+    },
+    getRelateToMe(){
+        this.$request(this.$url.getRelateToMe, {
+            params: {
+                meetingId: this.meetingInfo.id,
+                userId: this.$store.state.user.id
+            }
+        }).then(res =>{
+            let data = res.data;
+            if(data.msg==="success"){
+                //this.meetingUser=data.meetingUser;
+                this.meetingUser.info=data.meetingUser.info;
+                this.meetingUser.driver=data.meetingUser.driver;
+            }
+            else console.log("个人有关会议信息加载失败");
+        }).catch(err =>{
+            console.log(err);
         })
     },
     acceptMember(memberId){

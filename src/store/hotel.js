@@ -11,7 +11,7 @@ export const hotel={
             imgPath:"wad"
         },
         meetings:{
-            accepted:[
+            accepted:[]/*[
                 {   id:42,
                     name:"会议名称",
                     customer:"顾客名字/创建者",
@@ -32,8 +32,8 @@ export const hotel={
                         {type:"仨人间",num:12,beginTime:"2020/12/22",endTime:"2020/13/12"},
                     ]
                 }
-            ],
-            reserve:[
+            ]*/,
+            reserve:[]/*[
                 {   id:51,
                     name:"Hun",
                     customer:"liYan",
@@ -44,8 +44,8 @@ export const hotel={
                         {type:"仨人间",num:12,beginTime:"2020/12/22",endTime:"2020/13/12"},
                     ]
                 }
-            ],
-            completed:[
+            ]*/,
+            completed:[]/*[
                 {   id:24,
                     name:"Hun",
                     customer:"liYan",
@@ -56,7 +56,7 @@ export const hotel={
                         {type:"仨人间",num:12,beginTime:"2020/12/22",endTime:"2020/13/12"},
                     ]
                 }
-            ]
+            ]*/
         }
     },
     mutations:{

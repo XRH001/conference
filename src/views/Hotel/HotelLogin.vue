@@ -63,7 +63,7 @@
                     this.$router.push("/index");
                     return;
                 }
-                this.$request(this.$url.login,{
+                this.$request(this.$url.hotelLogin,{
                     params:{
                         email:this.email,
                         password:this.password

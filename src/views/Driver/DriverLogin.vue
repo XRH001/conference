@@ -73,13 +73,15 @@
                         this.$router.push("/index");
                         return;
                     }
-                    this.$request(this.$url.login,{
+                    this.$request(this.$url.driverLogin,{
                         params:{
                             email:this.email,
                             password:this.password
                         }
                     }).then(res => {
+                        //console.log(res.data);
                         if(res.data.msg==="error")this.right=false;
+
                         else if(res.data.msg==="empty"){this.$refs.popup1.showMsg("不存在此司机邮箱或账号");}
                         else{
                             //console.log(res.data);
@@ -88,7 +90,7 @@
                                 this.$store.commit("setDriver",loginJSON.driver);
                                 this.$store.commit("setMeetings",loginJSON.meetings);
                             }else {
-                                this.$refs.popup1.showMsg("获取异常");return;
+                                this.$refs.popup1.showMsg("账号或密码不对劲");return;
                             }
                             this.$store.commit("setIdentity","driver");
                             this.$store.commit("setLogin");

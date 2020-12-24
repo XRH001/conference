@@ -11,7 +11,7 @@ module.exports = {
     devServer: {
         proxy:{
             '/api':{
-                target:"http://192.168.137.1:8080",
+                target:"http://192.168.137.1:9991",
                 changeOrigin:true,
                 ws:true,
                 pathRewrite:{"^/api":""}
@@ -22,14 +22,14 @@ module.exports = {
                 ws:true,
                 pathRewrite:{"^/test1":""}
             },
-            '/upload':{
+/*            '/upload':{
                 target:"http://119.3.235.179:8080/",
                 changeOrigin:true,
                 ws:true,
                 pathRewrite:{"^/upLoad":""}
-            }
+            }*/
         },
-        port: 8088
+        port: 8089
     }
 };
 /*

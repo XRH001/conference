@@ -32,8 +32,8 @@ const store= new Vuex.Store({
             },
             manage:{
                 newMeetings:[],
-                overMeetings:[{id:"21",name:'样例会议',orderStatus:"5小时后开始",beginTime:"2020年12月6日12:36",address:"信工楼b区"},
-                    {id:"32",name:'样例会议',orderStatus:"5小时后开始",beginTime:"2020年12月6日12:36",address:"信工楼b区"}]
+                overMeetings:[/*{id:"21",name:'样例会议',orderStatus:"5小时后开始",beginTime:"2020年12月6日12:36",address:"信工楼b区"},
+                    {id:"32",name:'样例会议',orderStatus:"5小时后开始",beginTime:"2020年12月6日12:36",address:"信工楼b区"}*/]
             },
             creator:[]
         },
@@ -92,6 +92,11 @@ const store= new Vuex.Store({
         },
         setMeetings(state,meetings){
             state.meetings=meetings;
+        },
+        setCreator(state,creator){
+            state.meetings.creator=creator;
+            for(let create of state.meetings.creator)
+                state.meetings.manage.newMeetings.push(create);
         },
         incOnTime(state){
             state.onTime++;
