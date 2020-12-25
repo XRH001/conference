@@ -3,7 +3,7 @@
         <ul class="layui-nav layui-row ">
         <span>
         <li class="layui-nav-item "><router-link to="/index" :active-class="thisActive" >首页</router-link></li>
-        <li class="layui-nav-item  "><router-link to="/search" :active-class="thisActive">查询{{$store.state.onTime}}</router-link></li><!--{{$store.state.user.userId}}-->
+<!--        <li class="layui-nav-item  "><router-link to="/search" :active-class="thisActive">查询{{$store.state.onTime}}</router-link></li>&lt;!&ndash;{{$store.state.user.userId}}&ndash;&gt;-->
         <li class="layui-nav-item floatRight"><router-link to="/About" :active-class="thisActive">关于</router-link></li>
           </span>
 

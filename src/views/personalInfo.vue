@@ -43,8 +43,8 @@
                 <col width="70%">
             </colgroup>
             <tbody>
-                <tr><td colspan="2"><div class="headDiv"><img class="headImg" :src="$store.getters.headPath" @error="notFindImg()">
-                    点击修改头像</div>
+                <tr><td colspan="2"><div class="headDiv"><img @click="fileClick" class="headImg" :src="headSrc" @error="notFindImg()">
+                    点击修改头像</div><input type="file" id="headFileInput" @change="headFileChange" v-show="false">
                     </td></tr>
                 <tr><td>用户名</td><td><input v-model.lazy="alterSend.username" class="layui-input" placeholder="请输入25位字符以下任意字符，不可为空"></td></tr>
                 <tr><td>手机号</td><td><input v-model.lazy="alterSend.phone" class="layui-input" placeholder="手机号将影响您的会议通信，请认真填写"></td></tr>
@@ -107,7 +107,8 @@
                     sex:"male",
                     username:"",
                     birthday:""
-                }
+                },
+                headSrc:""
             }
         },
         computed:{
@@ -176,6 +177,34 @@
                 let length = this.alterSend.username.length;
                 this.nameWarming =  length <= 25&& length>0;
                 return this.nameWarming;
+            },
+            fileClick(){
+                document.getElementById("headFileInput").click();
+            },
+            headFileChange(){
+                let file=document.getElementById("headFileInput").files[0];
+                if(!/image\/\w+/.test(file.type)){
+                    alert("请确保文件为图像类型");
+                    return;
+                }
+                this.headSrc=URL.createObjectURL(file);//获取图片URL
+                this.headUpload();
+            },
+            headUpload(){
+                let file = document.getElementById("headFileInput").files[0];
+                let headData=new FormData();// 创建form对象
+                headData.append('file',file, file.name);
+                headData.append('email',this.$store.state.user.email);
+                let config = {
+                    headers:{'Content-Type':'multipart/form-data'}//'text/plain;charset=UTF-8'
+                };
+                this.$post(this.$url.fileImages,headData,
+                    config).then(res=>{
+                        this.$message("头像上传成功");
+                    console.log(res.data);
+                }).catch(err =>{
+                    console.log(err);
+                });
             }
         },
         created() {
@@ -190,6 +219,7 @@
             else if(this.$store.state.identity.toLowerCase() ==='driver')this.show=1;
             else if(this.$store.state.identity.toLowerCase() ==='hotel')this.show=2;
             else this.show=3;
+            this.headSrc=this.$store.getters.headPath;
             console.log(this.alterSend);
         }
     }

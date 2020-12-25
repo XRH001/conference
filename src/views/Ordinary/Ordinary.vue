@@ -109,9 +109,9 @@
                     overMeetings:[
                     ],
                     searchMeetings:[
-                        {id:"233",name:'样例会议',orderStatus:"5小时后开始",beginTime:"2020年12月6日12:36",address:"信工楼b区"},
-                        {id:"234",name:'仅供参考',orderStatus:"5小时后开始",beginTime:"2020年12月6日12:36",address:"信工楼b区"},
-                        {id:"235",name:'没事别点',orderStatus:"5小时后开始",beginTime:"2020年12月6日12:36",address:"信工楼b区"}
+                        {id:"1",name:'第五次会议',orderStatus:"5小时后开始",beginTime:"2020年12月6日12:36",address:"主教楼"},
+                        {id:"2",name:'芜湖会议',orderStatus:"5小时后开始",beginTime:"2020年12月6日12:36",address:"芜湖飞机场"},
+                        {id:"15",name:'起飞会议',orderStatus:"5小时后开始",beginTime:"2020年12月6日12:36",address:"开冲飞机场"}
                     ],
                     applyMeetings:[
                     ],search:"",

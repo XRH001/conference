@@ -103,19 +103,20 @@
                         }).then(res =>{
                             console.log(res.data);
                             let resp=res.data;
+                            console.log(resp);
                             if(resp.msg==="success"){
                                 this.$refs.popup1.showMsg("创建成功，即将跳转到详情页");
                                 let newMeeting={
                                     name:this.meetingName,
                                     beginTime: this.beginTime,
                                     address:this.position,
-                                    id:resp.meetingID,
+                                    id:resp.meetingid,
                                     orderStatus:"已通过审核！"
                                 };
                                 //在这里把创建的会议存到creator里
                                 this.$store.commit("addCreateMeetings",newMeeting);
                                 setTimeout(() =>{
-                                    this.$router.push({path:"/Manage",query:{meetingId:resp.meetingID}})
+                                    this.$router.push({path:"/Manage",query:{meetingId:resp.meetingid}})
                                 },1500);
                             }else if(resp.msg==="fail"){
                                 this.$refs.popup1.showMsg("创建失败，请重试")

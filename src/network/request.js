@@ -32,7 +32,7 @@ export function http(url,config) {
 
 //配置所有地址
 const url={
-    baseURL:"http://localhost:8080/",
+    baseURL:"http://192.168.137.1:9991/",
     login:"/UserJudge",
     register:"/register",
     registerCode:"/registerYz",
@@ -87,5 +87,7 @@ const url={
     driverFinish:"/driverFinish",//司机完成接送
     driverReject:"/driverReject",//司机拒绝预约
     driverCancel:"/driverCancel",//司机取消接送
+
+    fileImages:"/file/images"
 };
 export {url}

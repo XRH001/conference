@@ -159,6 +159,7 @@
 
                         }).then( res => {
                             if(res.data==="success"){
+                            this.headUpload();
                             alert("注册成功，请登录");
                             this.$router.push({
                                 path:"/login",
@@ -196,17 +197,17 @@
                     return;
                 }
                 this.headSrc=URL.createObjectURL(file);//获取图片URL
-                this.headUpload(12);
+
             },
-            headUpload(userId){
+            headUpload(){
                 let file = document.getElementById("headFileInput").files[0];
                 let headData=new FormData();// 创建form对象
                 headData.append('file',file, file.name);
-                headData.append('userId',userId);
+                headData.append('email',this.sendData.email);
                 let config = {
-                    headers:{'Content-Type':'multipart/form-data'}
+                    headers:{'Content-Type':'multipart/form-data'}//'text/plain;charset=UTF-8'
                 };
-                this.$post('file/images',headData,
+                this.$post(this.$url.fileImages,headData,
                     config).then(res=>{
                     console.log(res.data);
                 }).catch(err =>{

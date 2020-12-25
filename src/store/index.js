@@ -13,7 +13,7 @@ Vue.use(Vuex);
 const store= new Vuex.Store({
     state:{
         haveLogin:false,
-        url:"",//在App中赋值
+        //在App中赋值
         identity:"common",
         user:{name:"",
             username:"",
@@ -143,7 +143,8 @@ const store= new Vuex.Store({
             let headPath;
             if(state.identity.toLowerCase()==="driver")headPath=state.url+state.driver.driver.imgPath;
             else if(state.identity.toLowerCase()==="hotel")headPath=state.url+state.hotel.hotel.imgPath;
-            else headPath=state.url+state.user.imgPath;
+            else headPath="http://192.168.137.1:9991/"+state.user.imgPath;
+            console.log(headPath);
             return headPath;
         },
         getName(state){

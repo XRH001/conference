@@ -8,7 +8,7 @@
             </colgroup>
             <tbody>
             <tr>
-                <td colspan="2"><div class="align-center"><img class="headImg" :src="person.headPath" @error="notFindImg()"></div>
+                <td colspan="2"><div class="align-center"><img class="headImg" :src="headPath" @error="notFindImg()"></div>
                 </td>
             </tr>
             <tr>
@@ -82,6 +82,11 @@
                     });
                 }
                 else this.find=2;
+            }
+        },
+        computed:{
+            headPath(){
+                return this.$url.baseURL+this.person.headPath
             }
         },
         created() {
