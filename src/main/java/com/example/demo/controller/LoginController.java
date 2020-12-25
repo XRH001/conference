@@ -45,7 +45,6 @@ public class LoginController {
             return "not user";                              //判断有无该用户
 
         User user1=userService.queryUserByEmail(email);
-        //String user=user1.toString();
         try {
             if (userService.queryUserByEmail(email) != null)
                 if (!password.equals(user1.getPassword()))

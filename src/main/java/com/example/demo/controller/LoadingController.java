@@ -43,6 +43,9 @@ public class LoadingController {
         int MeetingID = Integer.parseInt(request.getParameter("meetingId"));
         int UserID = Integer.parseInt(request.getParameter("userId"));
 
+        if (conferenceService.queryConferenceByID(MeetingID) == null)
+            return "error";
+
         Conference conference = conferenceService.queryConferenceByID(MeetingID);
         List<ConferenceUser> conferenceUser=conferenceUserService.queryConferenceUsersByConference(conference);
         List<ConferenceUser> manager=new ArrayList<>();
@@ -82,8 +85,6 @@ public class LoadingController {
             }
         }
 
-        if (conferenceService.queryConferenceByID(MeetingID) == null)
-            return "error";
         if (userService.queryUserByID(UserID) == null)
             return "error";
 

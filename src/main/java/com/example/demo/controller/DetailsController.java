@@ -39,15 +39,19 @@ public class DetailsController {
     @ResponseBody
     @RequestMapping("/Details")
     public String Details(HttpServletRequest request) throws JsonProcessingException {
-        int MeetingID = Integer.parseInt(request.getParameter("meetingId"));//这里有问题
+
+        int MeetingID = Integer.parseInt(request.getParameter("meetingId"));
         int UserID = Integer.parseInt(request.getParameter("userId"));
 
-        Conference conference = conferenceService.queryConferenceByID(MeetingID);
-        List<ConferenceUser> conferenceUser=conferenceUserService.queryConferenceUsersByConference(conference);
+        if (conferenceService.queryConferenceByID(MeetingID) == null)
+            return "error";
+
+        Conference conference = conferenceService.queryConferenceByID(MeetingID);//查询会议
+        List<ConferenceUser> conferenceUser=conferenceUserService.queryConferenceUsersByConference(conference);//查询参会人员
         List<ConferenceUser> manager=new ArrayList<>();
         List<ConferenceUser> member=new ArrayList<>();
 
-        for(ConferenceUser item:conferenceUser)
+        for(ConferenceUser item:conferenceUser)//按职位分类
             if(item.getPosition()==ordinary)
                 member.add(item);
             else manager.add(item);
@@ -81,16 +85,15 @@ public class DetailsController {
             }
         }
 
-        if (conferenceService.queryConferenceByID(MeetingID) == null)
-            return "error";
-        if (userService.queryUserByID(UserID) == null)
-            return "error";
-
         Journey journey=new Journey();
         List<UserJourney> userJourney = userJourneyService.queryUserJourneysByUser(user);
-        for (UserJourney item : userJourney)//这里有问题
-            if (item.getConference().equals(conference))
-                journey=item.getJourney();
+        try {
+            for (UserJourney item : userJourney)
+                if (item.getConference().equals(conference))
+                    journey = item.getJourney();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         if (conferenceUserService.queryConferenceUserByID(UserID) == null) {
             MeetingUser.put("ifJoin", "NO");
