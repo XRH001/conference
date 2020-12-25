@@ -15,7 +15,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Timestamp;
+import java.time.LocalDateTime;
 
+/**
+ * @author 李嘉旭
+ * 文件上传的controller
+ */
 @RestController
 @RequestMapping("/file")
 public class UploadFileController {
@@ -24,15 +30,15 @@ public class UploadFileController {
 
     @PostMapping("/images")
     public String singleFileUpload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
-        int userId=Integer.valueOf(request.getParameter("userId"));
+        String email=request.getParameter("email");
         if (file.isEmpty()) {
             return "请选择上传文件";
         }
         try {
             byte[] bytes = file.getBytes();
-            User user=userService.queryUserByID(userId);
-            Path path = Paths.get("src/main/java/com/example/demo/images/"+userId+".jpg");
-            user.setImgPath(userId+".jpg");
+            User user=userService.queryUserByEmail(email);
+            Path path = Paths.get("src/main/resources/static/"+user.getEmail() +".jpg");
+            user.setImgPath(user.getEmail() +".jpg");
             userService.saveUser(user);
             Files.write(path, bytes);
         } catch (IOException e) {
