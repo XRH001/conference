@@ -81,7 +81,7 @@
             </div>
             <!--<div class="layui-col-lg2 layui-col-md2 setFloat">
                 <p>扫码使用小程序</p>
-                <img  src="../assets/miniapp.png">
+
             </div>-->
 
             <br><br>
@@ -191,13 +191,21 @@
                 document.getElementById("headFileInput").click();
             },
             headFileChange(){
-                let file=document.getElementById("headFileInput").files[0];
+                let fileElement = document.getElementById("headFileInput");
+                let file=fileElement.files[0];
                 if(!/image\/\w+/.test(file.type)){
                     alert("请确保文件为图像类型");
                     return;
                 }
-                this.headSrc=URL.createObjectURL(file);//获取图片URL
 
+                let FileSize=file.size;
+                //console.log(FileSize);
+                if(FileSize>1024*1024){
+                    this.$message("图片大小需小于1M");
+                    fileElement.value="";
+                    return;
+                }
+                this.headSrc=URL.createObjectURL(file);//获取图片URL
             },
             headUpload(){
                 let file = document.getElementById("headFileInput").files[0];

@@ -182,9 +182,17 @@
                 document.getElementById("headFileInput").click();
             },
             headFileChange(){
-                let file=document.getElementById("headFileInput").files[0];
+                let fileElement = document.getElementById("headFileInput");
+                let file=fileElement.files[0];
                 if(!/image\/\w+/.test(file.type)){
                     alert("请确保文件为图像类型");
+                    return;
+                }
+                let FileSize=file.size;
+                console.log(FileSize);
+                if(FileSize>1024*1024){
+                    this.$message("图片大小需小于1M");
+                    fileElement.value="";
                     return;
                 }
                 this.headSrc=URL.createObjectURL(file);//获取图片URL
@@ -200,7 +208,7 @@
                 };
                 this.$post(this.$url.fileImages,headData,
                     config).then(res=>{
-                        this.$message("头像上传成功");
+                        this.$message("头像上传成功,重新登录后方可查看");
                     console.log(res.data);
                 }).catch(err =>{
                     console.log(err);

@@ -23,11 +23,12 @@
                     </div>
                     <div :class="{'layui-show':joinDiv.show===3}" class="layui-tab-item layui-row">
                         <div class="searchInputDiv layui-col-lg11 layui-col-md11 layui-col-xs10">
-                            <input v-model="joinDiv.search" class="layui-input" type="text" placeholder="输入会议id或名称进行查找" value="废物">
+                            <input v-model="joinDiv.search" class="layui-input" type="text" @keyup="enterListen" placeholder="输入会议id或名称进行查找" value="废物">
                         </div>
                         <div class="searchButtonDiv layui-col-lg1 layui-col-md1 layui-col-xs2">
                             <button @click="searchClick" class="searchButton layui-btn layui-btn-primary"><span class="layui-icon layui-icon-search"></span></button>
                         </div><br><br><br>
+                        <p class="emptyWarming" v-if="searching">搜索中，请稍等。。。</p>
                         <p class="emptyWarming" v-if="joinDiv.searchMeetings.length===0">未查找到。。。</p>
                         <meeting-list :meetings="joinDiv.searchMeetings"></meeting-list>
                     </div>
@@ -123,7 +124,8 @@
                     creator:[],
                     show:1
                 },
-                restartDialog:false
+                restartDialog:false,
+                searching:false
             }
         },
         methods:{
@@ -153,6 +155,7 @@
             searchClick(){
                 /*this.$http("mainServlet?ac=need&apiName=searchMeetings")*/
                 if(this.joinDiv.search==="")return;
+                this.searching=true;
                 this.$request(this.$url.searchMeetings,{
                         params:{
                             search:this.joinDiv.search
@@ -165,11 +168,19 @@
                             this.joinDiv.searchMeetings=resp.searchMeetings;
                         else if(resp.msg==="empty")this.joinDiv.searchMeetings=[];
                         else this.$refs.popup1.showMsg("查询失败");
+
+                        this.searching=false;
                     }
                 ).catch(err =>{
                     console.log(err);
-                    this.$refs.popup1.showMsg("查询异常");
+                    this.$refs.popup1.showMsg("网络连接错误");
+                    this.searching=false;
                 });
+            },
+            enterListen(){
+                if(event.keyCode===13){
+                    this.searchClick();
+                }
             }
         },
         created() {

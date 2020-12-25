@@ -3,14 +3,14 @@ import axios from 'axios'
 export function request(url,config) {
 const instance=axios.create({
     baseURL:"/api",
-    timeout:20000
+    timeout:10000
 });
 return instance(url,config);
 }
 export function post(url,obj,config) {
 const instance=axios.create({
     baseURL:"/api",
-    timeout:30000
+    timeout:20000
     });
 return instance.post(url,obj,config);
 }

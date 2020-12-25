@@ -6,14 +6,14 @@
             <div class="layui-card leftCard " :class="{'displayBlock':tipsShow}">
                 <div class="cardTitle">tips</div>
                 <div class="layui-card-body">
-                    *账号身份在登录后自动检测，并跳转到对应首页<br>
-                    *系统管理员登录入口不在此<br>
+                    *暂无系统管理员<br>
+                    *所有用户<br>
                     *暂时只支持使用邮箱登录<br>
                     *密码必须超过6位<br>
                     *界面使用了layui样式但layui组件的功能是由vue辅助完成的(主要是因为Vue里面最好不要引入jquery)<br>
                     <!--<div class="layui-col-lg2 layui-col-md2 setFixed">
                         <p>扫码使用小程序</p>
-                        <img  src="../assets/miniapp.png">
+
                     </div>-->
                 </div>
             </div>
@@ -32,7 +32,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label ">密码</label>
                     <div class="layui-input-block ">
-                        <input type="password" name="password" required v-model.lazy="password" lay-verify="required" placeholder="请输入密码"  class="layui-input">
+                        <input type="password" name="password" required v-model.lazy="password" @keyup="enterListen" lay-verify="required" placeholder="请输入密码"  class="layui-input">
                     </div>
                 </div>
                 <el-checkbox v-model="remember" class="rememberCheckBox">记住我</el-checkbox>
@@ -133,7 +133,7 @@
                     this.$refs.popup1.showMsg("请输入密码");
                     return;
                 }
-                /*if(this.password==="123456"&&this.email==="dsa"){//测试
+                if(this.password==="123456"&&this.email==="dsa"){//测试
                     this.$store.commit("setUser",{name:"测试",
                         username:"cece",
                         sex:"male",
@@ -150,7 +150,7 @@
                         this.setCookie("password",this.password,1);
                     }
                     return;
-                }*/
+                }
                 this.$request(this.$url.login,{
                     params:{
                         email:this.email,
@@ -195,6 +195,11 @@
                     console.log(err);
                 });
             },
+            enterListen(){
+                if(event.keyCode===13){
+                    this.loginClick();
+                }
+            },
             clearClick(){
                 this.email="";
                 this.password="";
@@ -221,7 +226,7 @@
             setCookie (c_name, value, expireDays) {
                 let exDate = new Date();
                 exDate.setDate(exDate.getDate() + expireDays);
-                //console.log(exDate.toGMTString());
+                console.log(exDate.toGMTString());
                 document.cookie = c_name + "=" + escape(value) + ((expireDays == null) ? "" : ";expires=" + exDate.toGMTString());
 
             }

@@ -40,7 +40,7 @@ const store= new Vuex.Store({
         onTime:0
         /*userId:"3213",
         username:"混元",
-        headImg:"assets/headImg.jpg",
+
         userEmail:"2569277820@qq.com"*/
     },
     mutations:{

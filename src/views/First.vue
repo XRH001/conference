@@ -19,7 +19,7 @@
                 <el-button slot="reference" class="centerButton" @click="toRegister">立即体验</el-button>
             </el-popover></div>
         <div class="iconTitle">界面简洁</div>
-        <div class="iconTitle">功能齐全</div>
+        <div class="iconTitle">功能齐仝</div>
         <div class="iconTitle">平台司机</div>
         <div class="iconTitle">加盟酒店</div>
         <div class="iconContent">

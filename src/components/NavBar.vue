@@ -111,7 +111,7 @@
                 if(this.$store.state.haveLogin && this.$store.state.identity.toLowerCase()==="common"){
                     this.searchMsg();
                 }
-            },60000);
+            },30000);
         }
     }
 </script>
