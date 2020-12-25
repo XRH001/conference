@@ -9,16 +9,16 @@ import java.util.List;
 import java.util.Objects;
 
 public class MeetingBasedJourney{
-    private int conferenceID;
-    private String conferenceName;
+    private int id;
+    private String name;
     private String address;
     private LocalDateTime beginTime;
     private Journey journey;
     private List<Passenger> passenger;
 
-    public MeetingBasedJourney(int conferenceID, String conferenceName, String address, LocalDateTime beginTime, Journey journey, List<Passenger> passenger) {
-        this.conferenceID = conferenceID;
-        this.conferenceName = conferenceName;
+    public MeetingBasedJourney(int id, String name, String address, LocalDateTime beginTime, Journey journey, List<Passenger> passenger) {
+        this.id = id;
+        this.name = name;
         this.address = address;
         this.beginTime = beginTime;
         this.journey = journey;
@@ -29,20 +29,20 @@ public class MeetingBasedJourney{
         this.passenger=new ArrayList<>();
     }
 
-    public int getConferenceID() {
-        return conferenceID;
+    public int getid() {
+        return id;
     }
 
-    public void setConferenceID(int conferenceID) {
-        this.conferenceID = conferenceID;
+    public void setid(int id) {
+        this.id = id;
     }
 
-    public String getConferenceName() {
-        return conferenceName;
+    public String getName() {
+        return name;
     }
 
-    public void setConferenceName(String conferenceName) {
-        this.conferenceName = conferenceName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getAddress() {
@@ -82,8 +82,8 @@ public class MeetingBasedJourney{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MeetingBasedJourney that = (MeetingBasedJourney) o;
-        return conferenceID == that.conferenceID &&
-                Objects.equals(conferenceName, that.conferenceName) &&
+        return id == that.id &&
+                Objects.equals(name, that.name) &&
                 Objects.equals(address, that.address) &&
                 Objects.equals(beginTime, that.beginTime) &&
                 Objects.equals(journey, that.journey) &&
@@ -92,14 +92,14 @@ public class MeetingBasedJourney{
 
     @Override
     public int hashCode() {
-        return Objects.hash(conferenceID, conferenceName, address, beginTime, journey, passenger);
+        return Objects.hash(id, name, address, beginTime, journey, passenger);
     }
 
     @Override
     public String toString() {
         return "MeetingBasedJourney{" +
-                "conferenceID=" + conferenceID +
-                ", conferenceName='" + conferenceName + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", beginTime=" + beginTime +
                 ", journey=" + journey +

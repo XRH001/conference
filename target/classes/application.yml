@@ -18,4 +18,4 @@ logging:
     com.example.demo: debug
 
 server:
-  port: 9991
+  port: 8080

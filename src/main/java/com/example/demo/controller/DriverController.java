@@ -181,6 +181,7 @@ public class DriverController {
                 msg.put("msg","empty");
             }else {
                 msg.put("driver",driver);
+                //System.err.println(driver);
                 List<DriverPickUp> driverPickUpList=driverPickUpService.queryDriverPickUpSByDriver(driver);
 
                 List<UserJourney> acceptedUserJourney=new ArrayList<>();
@@ -224,6 +225,7 @@ public class DriverController {
     public Map acceptInvitation(HttpServletRequest request){
         Map<String,Object> msg=new HashMap<>(2);
         try {
+            //System.err.println(request.getParameter("meetingId"));
             int meetingId=Integer.valueOf(request.getParameter("meetingId"));
             int driverId=Integer.valueOf(request.getParameter("driverId"));
             msg.put("msg","fail");
@@ -238,7 +240,8 @@ public class DriverController {
                 }
             }
 
-        }catch (NullPointerException e){
+        }catch (NullPointerException|NumberFormatException e){
+            e.printStackTrace();
             msg.put("msg","fail");
         }
         return msg;
@@ -255,7 +258,7 @@ public class DriverController {
 
             List<DriverPickUp> driverPickUpList=driverPickUpService.queryDriverPickUpSByDriver(driverService.queryDriverByID(driverId));
             for (DriverPickUp driverPickUp:driverPickUpList){
-                if (driverPickUp.getUserJourney().getConference().getID()==meetingId&&driverPickUp.getOrderStatus()==OrderStatus.Ready){
+                if (driverPickUp.getUserJourney().getConference().getID()==meetingId){
                     driverPickUp.setOrderStatus(OrderStatus.Checking);
                     driverPickUpService.saveDriverPickUp(driverPickUp);
                     msg.put("msg","success");
@@ -264,6 +267,7 @@ public class DriverController {
             }
 
         }catch (NullPointerException e){
+            e.printStackTrace();
             msg.put("msg","fail");
         }
         return msg;
@@ -328,10 +332,10 @@ public class DriverController {
         Passenger passenger;
 
         meetingBasedJourney.setJourney(journey);
-        meetingBasedJourney.setConferenceName(conference.getName());
+        meetingBasedJourney.setName(conference.getName());
         meetingBasedJourney.setBeginTime(conference.getBeginTime());
         meetingBasedJourney.setAddress(conference.getAddress());
-        meetingBasedJourney.setConferenceID(conference.getID());
+        meetingBasedJourney.setid(conference.getID());
         for (User user:userList){
             passenger=new Passenger(user.getUsername(),user.getID(),user.getPhone());
             meetingBasedJourney.getPassenger().add(passenger);

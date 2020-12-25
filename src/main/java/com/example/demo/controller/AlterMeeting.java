@@ -40,6 +40,7 @@ public class AlterMeeting {
             conferenceInfoService.saveConferenceInfo(conferenceInfo);
             return "success";
         }catch(Exception e){
+            e.printStackTrace();
             return "fail";
         }
     }
